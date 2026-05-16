@@ -45,9 +45,6 @@ Me convence más este pattrón porque es fácil de entender y tiene una gran com
 
 **✅ Lo que gano:**
 
-Menciona al menos:
-- Una consecuencia **técnica** — qué se vuelve más fácil de construir, mantener o escalar en tu sistema
-- Una consecuencia sobre el **proceso o el equipo** — cómo afecta la forma en que vas a trabajar
 - Al separarlo en responsabilidades se vuelve más fácil de escalar y permite que se agreguen más funcionalidades. Cada componente se puede desarrollar, mantener y probar por separado. 
 - Como es un proyecto individual, debo conocer muy bien cuales clases corresponden a cada capa lo que resulta en mucha responsabilidad.
 
@@ -55,9 +52,6 @@ Menciona al menos:
 
 **⚠️ Lo que sacrifico o asumo:**
 
-Menciona al menos:
-- Una **limitación técnica** — qué no podrás hacer fácilmente con esta decisión
-- Una **deuda o riesgo** — qué podrías tener que resolver más adelante si el proyecto crece
 - Introduce complejidad: la aplicación requiere más archivos y carpetas lo que puede ocasionar que sea más difícil de entender y seguir. 
 - Puede no adaptarse a todos los escenarios porque algunas aplicaciones pueden tener requisitos diferentes o específicos que no encajan bien con este patrón. 
 
@@ -66,4 +60,4 @@ Menciona al menos:
 
 Un boceto de cómo se estructura tu sistema (draw.io, Mermaid o a mano escaneado)
 
-![Diagrama del sistema]( ./ruta/diagrama-nivel-1.png )
+![Diagrama del sistema]( docs/diagrama-nivel-1.png )
