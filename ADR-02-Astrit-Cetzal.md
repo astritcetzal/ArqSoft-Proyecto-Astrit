@@ -1,4 +1,4 @@
-# ADR-02: Magic library - Patrón MVC
+# ADR-02: Magic library - Definición de Vistas Arquitectónicas bajo el Patrón MVC
 
 | Campo  | Valor |
 |--------|-------|
@@ -76,6 +76,31 @@ Me convence más este patrón porque es fácil de entender y tiene una gran comu
 - Introduce complejidad: la aplicación requiere más archivos y carpetas lo que puede ocasionar que sea más difícil de entender y seguir. 
 - Si el proyecto escala en el futuro y se quiere una aplicación movil nativa, se tendria que contruir una API REST separada, debido a que actualmente la interfaz estaria fuertemente ligada al servidor. 
 
+## Decisión de los diagramas de vistas arquitectónicas
+
+### *Vista lógica*
+Se decidió posicionar "Gestor de libros" como el módulo central del sistema, ailando las "mets" y las "Recomendaciones IA" como modulos satélites que consumen inforamción del nécleo. Lo deseñé asi pqra que si el dia de mañana quiero cambiar la forma en que la UA hace las recomendaciones, el ssitema principal de mi libros no se vea afectado para nada.
+
+### *Vista física / desarrollo*
+Para organizar el código me apegué a la estructura de carpetas que imide el patrón MVC. Además, sgregué las carpteas de insfrsatructura y Dominio (para las interfaces) porque quiero usar inyeccción de dependencias. Tomé esta decision porque hace que el código sea mucho mpas ordenado y me facilita encontrar los errores rápido cuando estoy programando.
+
+### *Vista de procesos*
+En el flujo de las metas y los recordatorios, tompe la decisión de usar un flujo mixto. Cuando el usuario registra lo que leyó, eso se guarda de forma sincrónica. Sin embargo, el envio del correo de cotificación funciona de forma asíncrona. Esto es clave porque asi evito que la pantalla del usuario se quede congelada o cargando mientras se envía el correo, lo que mejora la experiencia del usuario.
+
+### *Vista de despliegue*
+Para esta vista decidí documentar 2 escenarios para mostrar como va a evolucionar el proyecto:
+
+Fase 1 (actual): es como lo tengo ahora. El sistema corre en local y los datos se guardan en un archivo JSON. Esto lo decidí peara poder desarrollar la lógica más rápido sin complicarme con servidores todvia.
+
+Fase 2 (Futuro): es mi plan para subir el proyecto a producción con AWS. La idea es poner la aplicación web en un servidos EC2 y cambiar el archivo JSON por una base de datos MySQL en RDS. Todo esto viviria dentro de una red privada (VPC) para que sea seguro y pueda aguantar si el proyecto crece. 
+
+
+
+
+
+## Diagrama 
+
+![diagrama ]( docs/diagrama-nivel-1.png )
 
 ## Diagrama  - vistas arquitectónicas
 
@@ -100,7 +125,11 @@ Me convence más este patrón porque es fácil de entender y tiene una gran comu
 #### La segunda imagen se adapta a como planeo implementar a futuro sustituyendo JSON por la base de datos relacional MySQL. 
 ![Vista de desplieguev2]( docs/ArqV4-2.png )
 
+
+
+
+
+
+
 ## Declaración de uso de IA
-
-Declaro que utilicé inteligencia artificial (gemini), para los diagramas solo utilicé para revisar que los diagramas estuvieran correctos y para sugerirme mejoras, ya que no me encontraba convencida y le pedía sugerencias. Con respecto a la redacción de este ADR, utilicé la IA para revisar la redacción y la ortografía del contexto, la IA de visual me proporcionaba opciones de autocompletado para las frases y si me convencían las usaba, si no, las modificaba.
-
+Declaro que utilicé inteligencia artificial (gemini), para los diagramas solo utilicé para revisar que los diagramas estuvieran correctos, ya que no me encontraba convencida. Con respecto a la redacción de este ADR, utilicé la IA para revisar la redacción y la ortografía del contexto, la IA de visual me proporcionaba opciones de autocompletado para las frases y si me convencían las usaba, si no, las modificaba.
