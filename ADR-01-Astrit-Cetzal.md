@@ -4,7 +4,7 @@
 |--------|-------|
 | Autor  | Astrit Cetzal |
 | Fecha  | 15/05/2026 |
-| Estado | Propuesto |
+| Estado | 'Propuesto' |
 
 ---
 
@@ -31,7 +31,7 @@ Me convence más este pattrón porque es fácil de entender y tiene una gran com
 
 ### Alternativas consideradas
 
-*(Mínimo 3 filas)*
+
 
 | Alternativa | Por qué la descarté |
 |-------------|---------------------|
