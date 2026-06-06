@@ -76,6 +76,19 @@ Me convence más este patrón porque es fácil de entender y tiene una gran comu
 - Introduce complejidad: la aplicación requiere más archivos y carpetas lo que puede ocasionar que sea más difícil de entender y seguir. 
 - Acoplamiento web: Si el proyecto escala en el futuro y se quiere una aplicación movil nativa, se tendria que contruir una API REST separada, debido a que actualmente la interfaz estaria fuertemente ligada al servidor. 
 
+
+## Trade-offs arquitectonicos de Magic library:
+
+| Decesión | Atributo que prioriza | Atributo que prioriza |
+|-------------|---------------------|---------------------|
+| MVC en lugar de API + frontend separado         | Simplicidad de desarrollo                  | Flexibilidad para una Aapp móvil futura.                  |
+| Datos en memoria vs base de datos         | Velocidad de prototipado ahora                 | Persistencia real                  |
+| Un solo EC2 vs un balanceador de carga         | Costo mensual bajo                  | Disponibilidad si el servidos falla                  |
+| Envío de notificaciones síncrono         | Confirmación inmediata al usuario                  | El sistema se bloquea si el servicio de email falla.                  |
+
+
+
+
 ## Decisión de los diagramas de vistas arquitectónicas
 
 ### *Vista lógica*
