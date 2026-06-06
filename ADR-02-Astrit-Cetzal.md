@@ -6,27 +6,24 @@
 | Fecha  | 05/06/2026 |
 | Estado | 'Aceptado' |
 
- Reemplazado por ADR-02
+ Remplazado por ADR-02
 
 ---
 
 ## Contexto
 
-Estoy en proceso de construcción de un sistema que administre los libros leídos, libros en proceso y metas diarias de lectura. La idea de este sistema surge porque muchos lectores (en especial aquellos que solo leen en línea) o estudiantes llegan a olvidad que libros han leído, cuales estás leyendo o cuales dejaron pendientes. 
-Principalmente tenía en mente un sistema que administre el dinero que gasto diario, semanal y mensual (y más etc.) sin embargo me convenció más el proyecto de los libros, entonces opté por Magic Library el cual lo considero adecuado para poder realizarlo en este cuatrimestre. 
-Para este proyecto usaré visual estudio, trabajaré con el Framework de .net y usaré el patrón MVC y claro el lenguaje principal para mi app es C#.
-
 ### Descripción del sistema
 Estoy en proceso de construcción de un sistema que administre los libros leídos, los libros pendientes y los que estan en proceso de lectura. La idea de este sistema surge porque muchos lectores (en especial aquellos que solo leen en linea y descargan PDFs en internet) llegan a olvidar que libros han leido, cuales estapan leyendo o cuales dejaron pendientes. 
+Para este proyecto usaré visual estudio, trabajaré con el Framework de .net y usaré el patrón MVC y claro el lenguaje principal para mi app es C#.
 
 ### Primera idea del sistema
-Principalmente tenia en mente un sistema que administre el dinero que gato, sin embargo me convencio mas el proyecto de los libros, entonces opte por Magic Library el cual lo considero adecuado para poder realizarlo en este cuatrimestre.
+Principalmente tenia en mente un sistema que administre el dinero que gasto, sin embargo me convencio mas el proyecto de los libros, entonces opte por Magic Library el cual lo considero adecuado para poder realizarlo en este cuatrimestre.
 
 ### Funcionalidades
 - Magic library busca llevar un registro de los libros que el usuario ha leído, los que está leyendo actualmente y los que tiene pendientes.
-- El usuairo puede establecer cuantos libros quiere leer este año y la 
+- El usuairo puede establecer cuantos libros quiere leer este año 
 - El sistema permitirá establecer metas diarias de lectura para fomentar el hábito de la lectura.
-- Tembién se podrán agregar notas o comentarios sobre cada libro para recordar detalles importantes o reflexiones personales.
+- También se podrán agregar notas o comentarios sobre cada libro para recordar detalles importantes o reflexiones personales.
 - Este sistema planea incluir Inteligencia Artificial para recomendar libros basados en las preferencias del usuario y su historial de lectura.
 - Además, se planea implementar una función de seguimiento del progreso de lectura, donde el usuario pueda marcar los capítulos o páginas que ha leído y recibir estadísticas sobre su avance.
 - El usuario podrá resibir notificaciones para recordar sus metas diarias de lectura o para sugerir nuevos libros basado en sus intereses. 
@@ -44,12 +41,12 @@ Este patrón arquitectónico separa 3 responsabilidades:
 - View: lo que ve el usuario. No consulta datos por sí misma.
 - Controller: Recibe peticiones y es el intermediario entre la vista y el modelo. No genera HTML.
 
-Me convence más este pattrón porque es fácil de entender y tiene una gran comunidad de soporte. 
+Me convence más este patrón porque es fácil de entender y tiene una gran comunidad de soporte. 
 
 ### Atributos de calidad estáticos por el cual elegí este patrón
 - **Mantenibilidad**: Al separar las responsabilidades, es más fácil de mantener y actualizar el sistema. Si necesito cambiar la forma en que se muestran los datos, solo tengo que modificar la vista sin afectar el modelo o el controlador.
 - **Escalabilidad**: Al tener una estructura clara, es más fácil de escalar el sistema a medida que crece. Puedo agregar nuevas funcionalidades sin afectar las partes existentes.
-- Modularidad: Cada componente (modelo, vista, controlador) es independiente, lo que facilita la reutilización de código y la colaboración entre desarrolladores.
+- **Modularidad**: Cada componente (modelo, vista, controlador) es independiente, lo que facilita la reutilización de código y la colaboración entre desarrolladores.
 
 
 
@@ -83,7 +80,7 @@ Me convence más este pattrón porque es fácil de entender y tiene una gran com
 ## Diagrama  - vistas arquitectónicas
 
 ### Vista lógica:
-#### Se muestran los mpodulos principales del sistema y sus relaciones.
+#### Se muestran los modulos principales del sistema y sus relaciones.
 
 ![Vista lógica]( docs/ArqV1.png )
 
@@ -100,6 +97,10 @@ Me convence más este pattrón porque es fácil de entender y tiene una gran com
 #### La primera imagen se adapta a como estoy implementando el sistema actualmente usando archivos JSON
 ![Vista de despliegue-v1]( docs/ArqV4-1.png )
 
-#### La segunda imagen se adapta a como planeo implemntar a futuro sustituyendo JSON por la base de datos relacional MySQL. 
+#### La segunda imagen se adapta a como planeo implementar a futuro sustituyendo JSON por la base de datos relacional MySQL. 
 ![Vista de desplieguev2]( docs/ArqV4-2.png )
+
+## Declaración de uso de IA
+
+Declaro que utilicé inteligencia artificial (gemini), para los demás diagramas solo utilicé para revisar que los diagramas estuvieran correctos y para sugerirme mejoras, ya que no me encontraba convencida y le pedía sugerencias. Con respecto a la redacción de este ADR, utilicé la IA para revisar la redacción y la ortografía del contexto, la IA de visual me proporcionaba opciones de autocompletado para las frases y si me convencían las usaba, si no, las modificaba.
 
