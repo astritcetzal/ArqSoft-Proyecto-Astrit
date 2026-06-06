@@ -23,9 +23,9 @@ Estoy en proceso de construcción de un sistema que administre los libros leído
 Principalmente tenia en mente un sistema que administre el dinero que gato, sin embargo me convencio mas el proyecto de los libros, entonces opte por Magic Library el cual lo considero adecuado para poder realizarlo en este cuatrimestre.
 
 ### Funcionalidades
--Magic library busca llevar un registro de los libros que el usuario ha leído, los que está leyendo actualmente y los que tiene pendientes.
+- Magic library busca llevar un registro de los libros que el usuario ha leído, los que está leyendo actualmente y los que tiene pendientes.
 - El usuairo puede establecer cuantos libros quiere leer este año y la 
--El sistema permitirá establecer metas diarias de lectura para fomentar el hábito de la lectura.
+- El sistema permitirá establecer metas diarias de lectura para fomentar el hábito de la lectura.
 - Tembién se podrán agregar notas o comentarios sobre cada libro para recordar detalles importantes o reflexiones personales.
 - Este sistema planea incluir Inteligencia Artificial para recomendar libros basados en las preferencias del usuario y su historial de lectura.
 - Además, se planea implementar una función de seguimiento del progreso de lectura, donde el usuario pueda marcar los capítulos o páginas que ha leído y recibir estadísticas sobre su avance.
@@ -46,8 +46,14 @@ Este patrón arquitectónico separa 3 responsabilidades:
 
 Me convence más este pattrón porque es fácil de entender y tiene una gran comunidad de soporte. 
 
-### Alternativas consideradas
+### Atributos de calidad estáticos por el cual elegí este patrón
+- **Mantenibilidad**: Al separar las responsabilidades, es más fácil de mantener y actualizar el sistema. Si necesito cambiar la forma en que se muestran los datos, solo tengo que modificar la vista sin afectar el modelo o el controlador.
+- **Escalabilidad**: Al tener una estructura clara, es más fácil de escalar el sistema a medida que crece. Puedo agregar nuevas funcionalidades sin afectar las partes existentes.
+- Modularidad: Cada componente (modelo, vista, controlador) es independiente, lo que facilita la reutilización de código y la colaboración entre desarrolladores.
 
+
+
+### Alternativas consideradas
 
 
 | Alternativa | Por qué la descarté |
@@ -56,6 +62,8 @@ Me convence más este pattrón porque es fácil de entender y tiene una gran com
 | MVP         | Android nativo; la view es muy “pasiva”, no toma ninguna decisión.                 |
 | Hexagonal         | más para sistemas empresariales.                  |
 
+
+
 ---
 
 ## Consecuencias
@@ -63,20 +71,16 @@ Me convence más este pattrón porque es fácil de entender y tiene una gran com
 **✅ Lo que gano:**
 
 - Al separarlo en responsabilidades se vuelve más fácil de escalar y permite que se agreguen más funcionalidades. Cada componente se puede desarrollar, mantener y probar por separado. 
-- Como es un proyecto individual, debo conocer muy bien cuales clases corresponden a cada capa lo que resulta en mucha responsabilidad.
-- 
+- Al ser un desarrollo individual, adoptar la estructura estricta de carpetas de MVC reduce la carga de decisiones . El patrón dicta donde colocar cada archivo, lo que acelera el flujo de trabajo y mantiene el código organizado.
 
 
 **⚠️ Lo que sacrifico o asumo:**
 
 - Introduce complejidad: la aplicación requiere más archivos y carpetas lo que puede ocasionar que sea más difícil de entender y seguir. 
-- Puede no adaptarse a todos los escenarios porque algunas aplicaciones pueden tener requisitos diferentes o específicos que no encajan bien con este patrón. 
+- Si el proyecto escala en el futuro y se quiere una aplicación movil nativa, se tendria que contruir una API REST separada, debido a que actualmente la interfaz estaria fuertemente ligada al servidor. 
 
 
 ## Diagrama
 
-Un boceto de cómo se estructura tu sistema (draw.io, Mermaid o a mano escaneado)
-
-![Diagrama del sistema]( docs/diagrama-nivel-1.png )
 
 
