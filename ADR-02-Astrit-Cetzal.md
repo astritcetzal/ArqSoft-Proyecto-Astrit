@@ -102,5 +102,5 @@ Me convence más este patrón porque es fácil de entender y tiene una gran comu
 
 ## Declaración de uso de IA
 
-Declaro que utilicé inteligencia artificial (gemini), para los demás diagramas solo utilicé para revisar que los diagramas estuvieran correctos y para sugerirme mejoras, ya que no me encontraba convencida y le pedía sugerencias. Con respecto a la redacción de este ADR, utilicé la IA para revisar la redacción y la ortografía del contexto, la IA de visual me proporcionaba opciones de autocompletado para las frases y si me convencían las usaba, si no, las modificaba.
+Declaro que utilicé inteligencia artificial (gemini), para los diagramas solo utilicé para revisar que los diagramas estuvieran correctos y para sugerirme mejoras, ya que no me encontraba convencida y le pedía sugerencias. Con respecto a la redacción de este ADR, utilicé la IA para revisar la redacción y la ortografía del contexto, la IA de visual me proporcionaba opciones de autocompletado para las frases y si me convencían las usaba, si no, las modificaba.
 
