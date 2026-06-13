@@ -1,4 +1,4 @@
-# ADR-02: Magic library - Definición de Estilo arquitectónico
+# ADR-03: Magic library - Definición de Estilo arquitectónico
 
 | Campo  | Valor |
 |--------|-------|
