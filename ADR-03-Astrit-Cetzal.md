@@ -26,18 +26,27 @@ Actualmente la persistencia de datos se implementará de forma rápida utilizand
 
 ## Decisión
 
-
+He decidio por adoptar el estilo de Arquitectura Hexagonal (Puerto y adaptadores) para la estructura global del sistema. 
 
 
 ### ¿Por qué?
-Como estilo principal tenia en mente el Modelo vista controlador
+Este estilo arquitectónico resuelve el problema de la evolución del almacenamiento en Magic Library. Al invertir las dependencias y utilizar "Puertos" (interfaces), el nucleo del sistema (la gestión de libros y metas) queda completamente aislado.
+
+Esta caracteristica concreta me permite conectar el repositorio JSON actual y al momento de querer cambiar a base de datos, solo debo desconectar e inyectar u nuevo repositorio a MySQL sin tener que modificar una sola linea de código de las reglas de negocio o de los controladores. 
 
 
 ### Atributos de calidad estáticos por el cual elegí este patrón
 
 
+
+
 ### Alternativas consideradas
 
+| Alternativa | Por qué la descarté |
+|-------------|---------------------|
+| Microservicios         | Apesar de que ofrece que cada servico escale de manera independiente se sacrifica la complejidad operativa, se tiene que mantener, monitorear y desplegar múltiples servicio, y solo hay que usarlo en sistemas grandes con equipo distintos por área de negocio.                   |
+| Capas         | Porque solo hay que usarlo cuando es solo una interfaz o equipo pequeñp y se debe evitar cuando se necesitan multiples usuarios.                 |
+| Monolitico         | Mezclar la lógica de negocio directamente dentro de los controladores MVC hace que el código sea dificil de probar                 |
 
 
 
@@ -54,7 +63,7 @@ Como estilo principal tenia en mente el Modelo vista controlador
 
 
 
-#
+## Trade-off
 
 
 
