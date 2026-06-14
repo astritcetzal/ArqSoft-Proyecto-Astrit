@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="MagicLibrary.Application/MagicLibrary.Application.csproj" Id="6d21b9fc-dd59-46ba-8093-933a7ea1f5d4" />
+  <Project Path="MagicLibrary.Domain/MagicLibrary.Domain.csproj" Id="8105fcc7-bdb3-4f78-8cc0-592918002548" />
+  <Project Path="MagicLibrary.Infrastruture/MagicLibrary.Infrastruture.csproj" Id="82c60dc3-c87d-4d92-a1d3-9a9018afe719" />
+  <Project Path="MagicLibrary.Web/MagicLibrary.Web.csproj" Id="cff744c0-33b6-46c5-9c2d-d1ebcf83d3ae" />
+</Solution>
