@@ -1,5 +1,10 @@
 ﻿################################################################################
 # Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
 ################################################################################
-
-/.vs
+# Carpetas de compilación
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.suo
+*.db
