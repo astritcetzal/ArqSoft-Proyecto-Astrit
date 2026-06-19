@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MagicLibraryMVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0a6df1440d166edaba7e1673b99b563099bdea7e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d84bfd8d9e7f9ebfb4d2319635aefa615716eae7")]
 [assembly: System.Reflection.AssemblyProductAttribute("MagicLibraryMVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MagicLibraryMVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
