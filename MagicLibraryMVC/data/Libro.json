@@ -1,0 +1,35 @@
+[
+  {
+    "IdLibro": 1,
+    "Titulo": "El Imperio Final",
+    "Autor": "Brandon Sanderson",
+    "Paginas": 688,
+    "FechaInicio": "2026-05-10",
+    "Estado": "Terminado",
+    "FechaTerminado": "2026-05-25",
+    "CalificacionPersonal": 9,
+    "ResenaPersonal": "el mejor libro"
+  },
+  {
+    "IdLibro": 2,
+    "Titulo": "H\u00E1bitos At\u00F3micos",
+    "Autor": "James Clear",
+    "Paginas": 320,
+    "FechaInicio": "2026-06-15",
+    "Estado": "Leyendo",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 3,
+    "Titulo": "Clean Architecture",
+    "Autor": "Robert C. Martin",
+    "Paginas": 432,
+    "FechaInicio": null,
+    "Estado": "Pendiente",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  }
+]
