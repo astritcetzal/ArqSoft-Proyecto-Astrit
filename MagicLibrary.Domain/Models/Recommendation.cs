@@ -8,8 +8,8 @@
         public string TituloLibro { get; set; }
         public string Autor {  get; set; }
         public string Razon { get; set; }
-        public int paginas { get; set; }
-        public string genero { get; set; }
+        public int Paginas { get; set; }
+        public string Genero { get; set; }
 
     }
 }

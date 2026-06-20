@@ -1,4 +1,4 @@
-# ADR-03: Magic library - Definición de Estilo arquitectónico
+# ADR-04: Magic library - API REST
 
 | Campo  | Valor |
 |--------|-------|
@@ -57,7 +57,22 @@ Implementar una API REST utilizando ASP.Net Core Web Api y documentarla con Swag
 - ¿Por qué NoSQL? A pesar de que mis datos son estrcutrados, la necesidad de almacenar imagenes (portadas de libros) junto con la metadata hace que un eaquema flexible sea más eficiente que que un modelo relacional estricto, facilitando la escalabilidad del sistema sin migración complejos.
 
 ## Endpoints 
-
+![diagrama ]( docs/todos.png )
+### Todos los libros
+![diagrama ]( docs/book-1.png)
+![diagrama ]( docs/book-2.png )
+### Libro por ID
+![diagrama ]( docs/book-id-1.png )
+![diagrama ]( docs/book-id-2.png )
+### Todas las recomendaciones
+![diagrama ]( docs/recommendation.png )
+![diagrama ]( docs/recommendation-2.png )
+### Libro recomendado por ID
+![diagrama ]( docs/recommendation-id-1.png )
+![diagrama ]( docs/recommendation-id-2.png )
+### Filtrar libro por género
+![diagrama ]( docs/recommendation-filtro-1.png )
+![diagrama ](docs/recommendation-filtro-2.png )
 
 
 ## Diagrama

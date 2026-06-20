@@ -30,7 +30,7 @@ namespace MagicLibrary.Api.Controllers
         {
             // Lógica para filtrar
             var recomendaciones = _service.ObtenerTodos()
-                .Where(r => r.genero.Equals(genero, StringComparison.OrdinalIgnoreCase))
+                .Where(r => r.Genero.Equals(genero, StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
             return recomendaciones.Any() ? Ok(recomendaciones) : NotFound($"No hay recomendaciones para el género: {genero}");
