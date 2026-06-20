@@ -43,18 +43,19 @@ Implementar una API REST utilizando ASP.Net Core Web Api y documentarla con Swag
 
 **✅ Lo que gano:**
 
-- Consecuencia técnica: Cuando migre de JSON  a MySQL será un proceso limpio esto gracias a la inyección de dependencias. Lo que permite escalabilidad.
-- Consecuencia sobre el proceso: Puedo enfocarme primero en la lógica de negocio y luego realizar las configuraciones dificiles de la base de datos para el final.
-- Testeabilidad: al tener el dominio aislado de los archivos JSON y la vista, puedo realizar puebras unitarias rápidas solo para las reglas de mis libros y metas. 
-- Mantenibilidad: El aislamiento asegura que cuando migre la infrastructura de JSON  a MySQL, el riesgo de introducir bugs en la lógica central de Magic Library es casi nulo. 
-- Uso en móviles: gracias a la inyeccción de dependencias puedo agregar un nuevo proyeto. Dicha API será el nuevo adapter de entreda. 
+- Técnica: La API expone los datos de maner estructurada (JSON), haciendo que la migración a una base de datos sea invisible para el cliente.
+- Proceso: La documentación automática con swagger que permite probar la API al instante sin tener que crear un frontend complejo para validar los endpoints.
+
 
 **⚠️ Lo que sacrifico o asumo:**
 
-- Limitación técnica: se requiere la creación de más archivos para operaciones simples que en otros estilos tomarían un solo archivo.
-- Deuda o riesgo: Existe el riesgo de OverKill. Debo mantener los puertos y adaptadores lo más simples posibles para no complicar un CRUD.
-- Eficiencia en el desarrollo inicial: La estructura multiproyecto requiere crear más abstracciones, interfaces y configurar más inyecciones de dependencias por lo que a diferencia de otros sistemas que tomaria un minuto, con este se requiere la creación de varios archivos. 
-- Rendimiento: El uso excesivo de interfaces y la división de la memoria entre las diferentes capas añade un overhead computacional en comparación con hacer llamadas directas, aunque para este sistema es imperceptible. 
+- Seguridad: Al abrir endpoints, asumo la responsabilidad de implementar autenticación (JWT) en futuras entregas, ya que actaulmente están abiertos.
+- Latencia: Al pasar de lectura de archivos locales a peticiones HTTP, el tiempo de respuesta aumenta ligeramente debido al stack de red. 
+
+### Estrategia de persistencia y produccción 
+- Acceso a datos en producción: Migraré de archivos JSON  a una Base de datos NoSQL (como MongoDB o DynamoDB).
+- ¿Por qué NoSQL? A pesar de que mis datos son estrcutrados, la necesidad de almacenar imagenes (portadas de libros) junto con la metadata hace que un eaquema flexible sea más eficiente que que un modelo relacional estricto, facilitando la escalabilidad del sistema sin migración complejos.
+
 
 ## Diagrama
 
@@ -63,7 +64,6 @@ Implementar una API REST utilizando ASP.Net Core Web Api y documentarla con Swag
 
 ### Cláusula de uso de IA
 
-Se declara el uso de inteligencia artificial de manera asistida, por lo que se requirió para validar información, entender mejor la diferencia entre cada uno de los modelos de arquitectura y como apoyo para validar la información escrita y para ayudar a mejorar la ortografia. 
-
+Se declara el uso de inteligencia artificial como herramienta de apoyo para el diseño de la arquitectura de la API en la correción de errores y la generacion de datos de pruba para las recomendaciones y para esta se basó de mis libros registrados en "libro.json".
 
 
