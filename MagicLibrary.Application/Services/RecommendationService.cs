@@ -1,6 +1,6 @@
 ﻿namespace MagicLibrary.Application.Services
 {
-    public class RecomendacionService
+    public class RecommendationService
     {
     }
 }
