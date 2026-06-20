@@ -56,10 +56,13 @@ Implementar una API REST utilizando ASP.Net Core Web Api y documentarla con Swag
 - Acceso a datos en producción: Migraré de archivos JSON  a una Base de datos NoSQL (como MongoDB o DynamoDB).
 - ¿Por qué NoSQL? A pesar de que mis datos son estrcutrados, la necesidad de almacenar imagenes (portadas de libros) junto con la metadata hace que un eaquema flexible sea más eficiente que que un modelo relacional estricto, facilitando la escalabilidad del sistema sin migración complejos.
 
+## Endpoints 
+
+
 
 ## Diagrama
 
-![Diagrama del sistema]( docs/diagrama-hx.png )
+![Diagrama del sistema]( docs/hexagonal.png )
 
 
 ### Cláusula de uso de IA

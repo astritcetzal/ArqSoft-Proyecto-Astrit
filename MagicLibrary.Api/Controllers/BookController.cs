@@ -25,8 +25,9 @@ namespace MagicLibrary.Api.Controllers
         public IActionResult GetById(int id)
         {
             var libro = _service.ObtenerPorId(id);
-            return libro == null ? NotFound() : Ok(libro);
+            return libro == null ? NotFound($"No se encontraron libros con el id: {id}") : Ok(libro);
         }
+
 
     }
 }
