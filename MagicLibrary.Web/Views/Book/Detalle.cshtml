@@ -1,0 +1,70 @@
+﻿@model MagicLibrary.Domain.Models.Book
+
+
+<div class="detalle-total">
+    <div class="detalle-texto">
+        <p><strong>Titulo: </strong> @Model.Titulo</p>
+
+        <p><strong>Nombre de Autor: </strong>@Model.Autor</p>
+
+        <p><strong>Páginas: </strong>@Model.Paginas</p>
+
+        <p><strong>Fecha de inicio de lectura: </strong>@Model.FechaInicio</p>
+        <p><strong>Estado de lectura: </strong>@Model.Estado</p>
+        <p><strong>Fecha de finalización: </strong>@Model.FechaTerminado</p>
+
+    </div>
+</div>
+<hr>
+
+<h3>Reseña</h3>
+
+
+@if (string.IsNullOrEmpty(Model.ResenaPersonal))
+{
+    <form asp-action="GuardarMiOpinion" method="post">
+        <input type="hidden" name="idLibro" value="@Model.IdLibro" />
+        
+        <div class="grupo-input">
+            <textarea name="comentario" placeholder="Escribe tus pensamientos sobre este libro..." required></textarea>
+        </div>
+
+        <div class="rating">
+            <input type="radio" id="star10" name="calificacion" value="10" /><label for="star10">★</label>
+            <input type="radio" id="star9" name="calificacion" value="9" /><label for="star9">★</label>
+            <input type="radio" id="star8" name="calificacion" value="8" /><label for="star8">★</label>
+            <input type="radio" id="star7" name="calificacion" value="7" /><label for="star7">★</label>
+            <input type="radio" id="star6" name="calificacion" value="6" /><label for="star6">★</label>
+            <input type="radio" id="star5" name="calificacion" value="5" /><label for="star5">★</label>
+            <input type="radio" id="star4" name="calificacion" value="4" /><label for="star4">★</label>
+            <input type="radio" id="star3" name="calificacion" value="3" /><label for="star3">★</label>
+            <input type="radio" id="star2" name="calificacion" value="2" /><label for="star2">★</label>
+            <input type="radio" id="star1" name="calificacion" value="1" /><label for="star1">★</label>
+        </div>
+        <button type="submit">Guardar mi opinión</button>
+    </form>
+}
+else
+{
+    <div class="comentario">
+
+        <p><strong>Mi Opinión:</strong> @Model.ResenaPersonal</p>
+        <p><strong>Calificación:</strong> @Model.CalificacionPersonal / 10 ★</p>
+        
+        <div class="acciones-resena">
+            <a asp-action="EditarResena" asp-route-idLibro="@Model.IdLibro" class="btn-editar">Editar opinión</a>
+            <form asp-action="GuardarMiOpinion" method="post" style="display:inline;">
+                <input type="hidden" name="idLibro" value="@Model.IdLibro" />
+                <input type="hidden" name="comentario" value="" />
+                <input type="hidden" name="calificacion" value="0" />
+                <button type="submit" class="btn-borrar" onclick="return confirm('¿Seguro que deseas borrar tu opinión?')">Eliminar opinión</button>
+            </form>
+        </div>
+    </div>
+}
+
+<hr />
+<a asp-action="Index" class="link-cancelar">&larr; Volver a todos mis libros</a>
+
+
+

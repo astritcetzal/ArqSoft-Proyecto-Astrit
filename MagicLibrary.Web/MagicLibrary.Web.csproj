@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MagicLibrary.Application\MagicLibrary.Application.csproj" />
+    <ProjectReference Include="..\MagicLibrary.Domain\MagicLibrary.Domain.csproj" />
+    <ProjectReference Include="..\MagicLibrary.Infrastructure\MagicLibrary.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
