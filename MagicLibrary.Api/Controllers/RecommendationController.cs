@@ -1,16 +1,29 @@
-﻿using MagicLibrary.Domain.Interfaces;
-using MagicLibrary.Domain.Models;
-using MagicLibrary.Application.Services;
+﻿using MagicLibrary.Application.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography.X509Certificates;
 
-namespace MagicLibrary.Web.Controllers
+namespace MagicLibrary.Api.Controllers
 {
-    public class RecommendationController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class RecommendationController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly RecommendationService _service;
+
+        public RecommendationController(RecommendationService service)
         {
-            return View();
+            _service = service;
         }
+
+
+        [HttpGet]
+        public IActionResult GetAll() => Ok(_service.ObtenerTodos());
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var recomendacion = _service.ObtenerPorId(id);
+            return recomendacion == null ? NotFound() : Ok(recomendacion);
+        }
+
     }
 }

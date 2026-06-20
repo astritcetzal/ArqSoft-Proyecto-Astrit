@@ -1,29 +1,47 @@
+using MagicLibrary.Application.Services;
+using MagicLibrary.Domain.Interfaces;
+using MagicLibrary.Infrastructure.Repositories;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer(); // Necesario para Swagger
+builder.Services.AddSwaggerGen();           // Necesario para Swagger
+
+// Repositorios
+builder.Services.AddScoped<IBookRepository, JsonBookRepository>();
+builder.Services.AddScoped<IRecommendationRepository, JsonRecommendationRepository>();
+// Servicios de aplicación
+builder.Services.AddScoped<BookService>();
+builder.Services.AddScoped<RecommendationService>();
+
+//nuevooo
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirTodo", app =>
+    {
+        app.AllowAnyOrigin()
+           .AllowAnyHeader()
+           .AllowAnyMethod();
+    });
+});
+
+// conf swagger 
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+// 4. Configurar el pipeline
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-app.UseRouting();
-
 app.UseAuthorization();
-
-app.MapStaticAssets();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
-
+app.MapControllers(); // ¡Esto es vital para tu API!
 
 app.Run();

@@ -10,5 +10,6 @@ namespace MagicLibrary.Domain.Interfaces
         void Agregar(Book libro);
         //void Eliminar(int id);
         void Actualizar(Book libro);
+
     }
 }
