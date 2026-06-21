@@ -6,7 +6,7 @@
 | Fecha  | 19/06/2026 |
 | Estado | `Aceptado` |
 
- Remplazado por ADR-02
+ Remplaza al ADR-03
 
 ---
 
@@ -22,7 +22,7 @@ Implementar una API REST utilizando ASP.Net Core Web Api y documentarla con Swag
 
 ### ¿Por qué?
 1. Estandar de la industria: REST es el lenguaje universal de la web.
-2. Desacoplamiento: Permite que el frontend y el backend evoluciones de forma independiente.
+2. Desacoplamiento: Permite que el frontend y el backend evolucionen de forma independiente.
 3. Swagger: Permite documentar automáticamente los endpoints (Books y Recommendations), facilitando la validación del sistema por terceros.
 
 
@@ -30,9 +30,9 @@ Implementar una API REST utilizando ASP.Net Core Web Api y documentarla con Swag
 
 | Alternativa | Por qué la descarté |
 |-------------|---------------------|
-| gRCP         | Es excelente para comunicación interna entre servicios, pero es difícil de probar y consumir desde navegadores (requiere librerías adicionales).                   |
-| Capas         | Ofrece flexibilidad, pero para este sistema de lectura, REST cubre las necesidades con mucha menos complejidad de configuración.                  |
-| Monolitico         | Son tecnologías obsoletas y demasiado pesadas/verbosas para un proyecto moderno en .NET. MVC hace que el código sea difícil de probar.                 |
+| gRPC         | Es excelente para comunicación interna entre servicios, pero es difícil de probar y consumir desde navegadores (requiere librerías adicionales).                   |
+| GrapghQl         | Ofrece flexibilidad, pero para este sistema de lectura, REST cubre las necesidades con mucha menos complejidad de configuración.                  |
+| SOAP/WCF         | Son tecnologías obsoletas y demasiado pesadas/verbosas para un proyecto moderno en .NET. MVC hace que el código sea difícil de probar.                 |
 
 
 
@@ -52,9 +52,9 @@ Implementar una API REST utilizando ASP.Net Core Web Api y documentarla con Swag
 - Seguridad: Al abrir endpoints, asumo la responsabilidad de implementar autenticación (JWT) en futuras entregas, ya que actaulmente están abiertos.
 - Latencia: Al pasar de lectura de archivos locales a peticiones HTTP, el tiempo de respuesta aumenta ligeramente debido al stack de red. 
 
-### Estrategia de persistencia y produccción 
+### Estrategia de persistencia y producción 
 - Acceso a datos en producción: Migraré de archivos JSON  a una Base de datos NoSQL (como MongoDB o DynamoDB).
-- ¿Por qué NoSQL? A pesar de que mis datos son estrcutrados, la necesidad de almacenar imagenes (portadas de libros) junto con la metadata hace que un eaquema flexible sea más eficiente que que un modelo relacional estricto, facilitando la escalabilidad del sistema sin migración complejos.
+- ¿Por qué NoSQL? La naturaleza del catalogo requiere flexibilidad para los datos restructurados. Sin embargo, para los archivos pesados, usaré un servicio de almacenamiento de objetos como Amazon S3, guardando unicamente la URL pública de la imagen en la base de datos NoSQL.. Esto evita sobrecargar la base de datos, reduce la latencia de la peticiones HTTP y sigue las mejores practicas de escalabilidad y optimización de costos.
 
 ## Endpoints 
 ![diagrama ]( docs/todos.png )
