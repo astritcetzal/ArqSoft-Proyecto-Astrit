@@ -12,8 +12,12 @@ Directory.CreateDirectory(dataFolder);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBookRepository, JsonBookRepository>();
+builder.Services.AddScoped<IRecommendationRepository, JsonRecommendationRepository>();
+builder.Services.AddScoped<IUserRepository, JsonUserRepository>();
 builder.Services.AddScoped<BookService>();
-var app = builder.Build();
+builder.Services.AddScoped<RecommendationService>();
+builder.Services.AddScoped<UserService>();
+var app = builder.Build(); 
 
 
 // Configure the HTTP request pipeline.

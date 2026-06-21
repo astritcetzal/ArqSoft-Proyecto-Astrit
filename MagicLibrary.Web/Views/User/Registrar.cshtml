@@ -1,0 +1,22 @@
+﻿@model MagicLibrary.Domain.Models.User
+
+<div class="contenedos-formulario">
+    <h1>Registrarse</h1>
+    <form asp-action="Registrar" method="post">
+        <div class="grupo-input">
+            <label>Nombre</label>
+            <input asp-for="Nombre" />
+        </div>
+        <div class="grupo-input">
+            <label>Correo</label>
+            <input asp-for="Correo" />
+        </div>
+        <div class="grupo-input">
+            <label>Contraseña</label>
+            <input asp-for="Contrasena" type="password" />
+        </div>
+        <button type="submit" class="btn-guardar">Registrar</button>
+    </form>
+    <hr />
+    <a asp-controller="Index" asp-action="Index" class="link-cancelar">&larr; Cancelar</a>
+</div>
