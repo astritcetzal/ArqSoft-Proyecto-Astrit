@@ -9,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBookRepository, JsonBookRepository>();
 builder.Services.AddScoped<BookService>();
+builder.Services.AddScoped<IRecommendationRepository, JsonRecommendationRepository>();
+builder.Services.AddScoped<RecommendationService>();
+builder.Services.AddScoped<IUserRepository, JsonUserRepository>();
+builder.Services.AddScoped<UserService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

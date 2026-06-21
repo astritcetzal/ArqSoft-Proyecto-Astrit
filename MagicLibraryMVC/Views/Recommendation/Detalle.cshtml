@@ -1,0 +1,25 @@
+﻿@model MagicLibraryMVC.Models.Recommendation
+
+
+<div class="detalle-total-recomendaciones">
+    <div class="detalle-texto-recomendaciones">
+        <p><strong>Titulo: </strong> @Model.TituloLibro</p>
+
+        <p><strong>Nombre de Autor: </strong>@Model.Autor</p>
+        
+
+        <p><strong>Páginas: </strong>@Model.Paginas</p>
+        <p><strong>Genero: </strong>@Model.Genero</p>
+        <p class="razon-destacada">Razón para leer: @Model.Razon</p>
+
+    </div>
+</div>
+<hr>
+
+<hr />
+<a asp-action="Index" class="link-cancelar">&larr; Volver a recomendaciones</a>
+
+
+
+
+

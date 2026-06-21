@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "airan ",
+    "Correo": "astri@gmail.com",
+    "Contrasena": "1234"
+  },
+  {
+    "Id": 2,
+    "Nombre": "airan ",
+    "Correo": "astri@gmail.com",
+    "Contrasena": "12345"
+  },
+  {
+    "Id": 3,
+    "Nombre": "airan ",
+    "Correo": "astri@gmail.com",
+    "Contrasena": "erfr "
+  }
+]
