@@ -1,0 +1,37 @@
+﻿@model List<MagicLibrary.Domain.Models.Recommendation>
+
+<div class="contenedor-principal-recomendaciones">
+    <div class="header-recomendaciones">
+        <h1>Recomendaciones</h1>
+      
+    </div>
+    <div class="contenedor-filtros-recomendaciones">
+        <a asp-action="Index" class="filtro-btn">Todos</a>
+        @foreach (var tip in ViewBag.Generos as List<string>)
+        {
+            <a asp-action="Index" asp-route-Genero="@tip" class="filtro-btn">@tip</a>
+        }
+    </div>
+
+    <hr />
+
+    
+
+    <div class="grid">
+        @foreach (var recomendacion in Model)
+        {
+            <a asp-action="Detalle" asp-route-id="@recomendacion.Id" class="tarjeta-recomendaciones">
+                <div class="tarjeta-contenido-recomendaciones">
+                    <h3>@recomendacion.TituloLibro</h3>
+                    <div class="tarjeta-info-recomendaciones">
+                        <span class="etiqueta-genero">@recomendacion.Genero</span>
+                        <span class="etiqueta-autor">@recomendacion.Autor</span>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+
+</div>
+
+

@@ -14,7 +14,6 @@ namespace MagicLibrary.Api.Controllers
             _service = service;
         }
 
-
         [HttpGet]
         public IActionResult GetAll() => Ok(_service.ObtenerTodos());
 
@@ -29,9 +28,7 @@ namespace MagicLibrary.Api.Controllers
         public IActionResult GetByGenre([FromQuery] string genero)
         {
             // Lógica para filtrar
-            var recomendaciones = _service.ObtenerTodos()
-                .Where(r => r.Genero.Equals(genero, StringComparison.OrdinalIgnoreCase))
-                .ToList();
+            var recomendaciones = _service.ObtenerPorGenero(genero);
 
             return recomendaciones.Any() ? Ok(recomendaciones) : NotFound($"No hay recomendaciones para el género: {genero}");
         }

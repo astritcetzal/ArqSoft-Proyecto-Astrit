@@ -19,5 +19,13 @@ namespace MagicLibrary.Application.Services
             return _repo.ObtenerPorId(id);
         }
         /// obtener por genero
+        public List<Recommendation> ObtenerPorGenero(string porGenero)
+        {
+            return _repo.ObtenerTodos().Where(r => r.Genero == porGenero).ToList();
+        }
+        public List<string> ObtenerGenero()
+        {
+            return _repo.ObtenerTodos().Select(r => r.Genero).Distinct().ToList();
+        }
     }
 }
