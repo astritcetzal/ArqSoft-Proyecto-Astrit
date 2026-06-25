@@ -1,11 +1,18 @@
+using MagicLibrary.Application.Services;
+using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
 using MagicLibrary.Infrastructure.Repositories;
-using MagicLibrary.Application.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-using MagicLibrary.Domain.Interfaces;
 
 
 var builder = WebApplication.CreateBuilder(args);
+// Si no han iniciado sesion no se puede acceder
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(opciones =>
+    {
+        opciones.LoginPath = "/Usuario/IniciarSesion"; // Si alguien sin sesión intenta entrar a algo bloqueado, lo manda aquí
+    });
 //----
 var dataFolder = Path.Combine(builder.Environment.ContentRootPath, "data");
 Directory.CreateDirectory(dataFolder);
@@ -30,7 +37,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
+app.UseAuthentication(); // junto a cookies ya sabes :/
 app.UseAuthorization();
 
 app.MapStaticAssets();

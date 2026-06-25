@@ -32,6 +32,30 @@
         }
     </div>
 
+    <button class="btn-ia-flotante" onclick="toggleChatIA()">
+        <i class="fa-solid  fa-book-open"></i>Consultar a Gemini
+    </button>
+    <div class="cajon-chat-ia" id="cajonIA">
+        <div class="chat-header">
+            <h4>Oráculo de lectura</h4>
+            <button class="btn-cerrar-chat" onclick="toggleChatIA()">X</button>
+        </div>
+        <div class="char-mensajes">
+            <div class="mensaje-burbuja ia">
+                Hola, soy tu asistente de recomendaciones. Veo que tienes libros de Fantasía en tu catálogo. ¿Te gustaría que busque algo similar o quieres explorar un género nuevo?.
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" class="input-chat" placeholder="Escribe tu peticón a la IA...">
+            <button class="btn-enviar-chat">Enviar</button>
+        </div>
+    </div>
+
 </div>
 
 
+<script>
+    function toggleChatIA(){
+        document.getElementById('cajonIA').classList.toggle('abierto');
+    }
+</script>

@@ -21,7 +21,7 @@ body {
   margin-bottom: 60px;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholders {
   color: var(--bs-secondary-color);
   text-align: end;
 }
@@ -364,4 +364,281 @@ textarea {
 }
 
 /* Reutilizamos tu clase de botón principal para coherencia visual */
+
+
+/* =========================================
+   11. ESTILO EDITORIAL: RECOMENDACIONES
+========================================= */
+:root {
+    /* Colores extraídos exactamente de tu imagen de referencia */
+    --verde-editorial: #9CAF9B;
+    --azul-editorial: #2B5B84;
+    --naranja-acento: #FF7A00;
+    --blanco-humo: #F9F9F9;
+    --negro-tinta: #1A1A1A;
+}
+
+.contenedor-principal-recomendaciones {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Encabezado: Letras gigantes, sin bordes redondos */
+.header-recomendaciones h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--negro-tinta);
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    margin-bottom: 30px;
+    border-left: 12px solid var(--naranja-acento); /* Bloque naranja de la imagen */
+    padding-left: 20px;
+    line-height: 1;
+}
+
+/* Filtros: Tipo pestañas de sección, pegadas y sólidas */
+.contenedor-filtros-recomendaciones {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+    border-bottom: 3px solid var(--negro-tinta);
+}
+
+    .contenedor-filtros-recomendaciones .filtro-btn {
+        background-color: transparent;
+        color: var(--negro-tinta);
+        padding: 15px 25px;
+        font-size: 0.85rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-decoration: none;
+        border: none;
+        border-radius: 0; /* Recto, cero curvas */
+        transition: background-color 0.2s;
+    }
+
+        .contenedor-filtros-recomendaciones .filtro-btn:hover {
+            background-color: var(--negro-tinta);
+            color: white;
+        }
+
+/* Tarjetas: Alternando bloques sólidos verde y azul como en tu imagen */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 0; /* Sin espacio para que parezca un collage de revista */
+}
+
+.tarjeta-recomendaciones {
+    text-decoration: none !important;
+    display: block;
+    border: 1px solid white; /* Línea divisoria muy fina */
+}
+
+.tarjeta-contenido-recomendaciones {
+    padding: 50px 40px;
+    height: 100%;
+    border-radius: 0;
+    transition: transform 0.3s;
+}
+
+/* Magia CSS: Pinta una tarjeta verde y la siguiente azul, automáticamente */
+.tarjeta-recomendaciones:nth-child(odd) .tarjeta-contenido-recomendaciones {
+    background-color: var(--verde-editorial);
+    color: white;
+}
+
+.tarjeta-recomendaciones:nth-child(even) .tarjeta-contenido-recomendaciones {
+    background-color: var(--azul-editorial);
+    color: white;
+}
+
+.tarjeta-contenido-recomendaciones h3 {
+    font-size: 2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin: 0 0 20px 0;
+    color: white;
+}
+
+.tarjeta-info-recomendaciones {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.etiqueta-genero {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.etiqueta-autor {
+    font-size: 1.1rem;
+    font-style: italic; /* Estilo de firma */
+    opacity: 0.9;
+}
+
+/* Vista de Detalles: Crudo y directo */
+.detalle-total-recomendaciones {
+    background-color: white;
+    padding: 60px 0;
+    border-top: 6px solid var(--negro-tinta);
+    border-radius: 0;
+}
+
+.detalle-texto-recomendaciones p {
+    font-size: 1.2rem;
+    color: var(--negro-tinta);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.detalle-texto-recomendaciones strong {
+    display: inline-block;
+    width: 200px;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+/* El elemento destacado de la revista */
+.razon-destacada {
+    font-size: 1.8rem !important;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    color: var(--azul-editorial) !important;
+    border-left: 5px solid var(--naranja-acento);
+    padding-left: 25px;
+    margin: 40px 0;
+    line-height: 1.4;
+}
+
+
+/*IA estiloos*/
+.btn-ia-flotante {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color: #2D1B4E; /* Morado profundo */
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    font-family: inherit;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    z-index: 1000;
+    border-radius: 0 !important; /* Cero curvas */
+    box-shadow: -5px 5px 0px #B8A2E3; /* Sombra lila sólida */
+    transition: transform 0.2s;
+}
+
+    .btn-ia-flotante:active {
+        transform: translate(-2px, 2px);
+        box-shadow: -3px 3px 0px #B8A2E3;
+    }
+
+.cajon-chat-ia {
+    position: fixed;
+    top: 0;
+    right: -450px; /* Oculto por defecto */
+    width: 400px;
+    height: 100vh;
+    background-color: #F8F7FC;
+    border-left: 4px solid #2D1B4E;
+    z-index: 2000;
+    transition: right 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+    .cajon-chat-ia.abierto {
+        right: 0;
+    }
+
+.chat-header {
+    background-color: #2D1B4E;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .chat-header h4 {
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+.btn-cerrar-chat {
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.chat-mensajes {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.mensaje-burbuja {
+    background-color: white;
+    border: 2px solid #DEDAE6;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    color: #2C2A28;
+    border-radius: 0 !important; /* Cero curvas */
+}
+
+    .mensaje-burbuja.ia {
+        border-color: #B8A2E3;
+        border-left: 6px solid #B8A2E3;
+    }
+
+.chat-input-area {
+    padding: 20px;
+    background-color: white;
+    border-top: 2px solid #DEDAE6;
+    display: flex;
+    gap: 10px;
+}
+
+.input-chat {
+    flex-grow: 1;
+    padding: 12px;
+    border: 2px solid #DEDAE6;
+    font-family: inherit;
+    border-radius: 0 !important;
+}
+
+    .input-chat:focus {
+        outline: none;
+        border-color: #2D1B4E;
+    }
+
+.btn-enviar-chat {
+    background-color: #D17C64; /* Terracota */
+    color: white;
+    border: none;
+    padding: 0 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 0 !important;
+}
+
+
 
