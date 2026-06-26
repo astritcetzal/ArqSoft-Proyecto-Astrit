@@ -9,9 +9,11 @@ namespace MagicLibrary.Web.Controllers
     public class BookController : Controller
     {
         private readonly BookService _service;
-        public BookController(BookService service)
+        private readonly RecommendationService _recService;
+        public BookController(BookService service, RecommendationService recService)
         {
             _service = service;
+            _recService = recService;
         }
 
         //filtrado
@@ -75,5 +77,17 @@ namespace MagicLibrary.Web.Controllers
 
             return View(libro); // Te manda a la vista que acabamos de arreglar
         }
+        [HttpGet]
+        public IActionResult AgregarDesdeRecomendacion(int id)
+        {
+            var recomendacion = _recService.ObtenerPorId(id);
+            if (recomendacion == null) return NotFound();
+
+            // EL CONTROLADOR SOLO DELEGA LA TRANSFORMACION AL SERVICIO
+            var nuevoLibro = _service.PrepararLibroDesdeRecomendacion(recomendacion);
+            return View("Agregar", nuevoLibro);
+        }
+
     }
+
 }

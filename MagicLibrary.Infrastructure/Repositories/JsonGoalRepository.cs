@@ -1,5 +1,6 @@
 ﻿using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
 using System.Text.Json;
 
@@ -9,13 +10,9 @@ namespace MagicLibrary.Infrastructure.Repositories
     {
         //ruta del archivo json
         private readonly string _file;
-        public JsonGoalRepository(string file)
+        public JsonGoalRepository(IWebHostEnvironment env)
         {
-            _file = file;
-            // Si la carpeta no existe, crearla
-            var carpeta = Path.GetDirectoryName(_file);
-            if (!string.IsNullOrEmpty(carpeta))
-                Directory.CreateDirectory(carpeta);
+            _file = Path.Combine(env.ContentRootPath, "data", "Goals.json");
         }
         public List<Goal> ObtenerTodos()
         {

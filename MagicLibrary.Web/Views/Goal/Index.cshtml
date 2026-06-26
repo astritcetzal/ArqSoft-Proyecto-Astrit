@@ -1,5 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model MagicLibrary.Domain.Models.Goal
+
+<div class="grid">   
+                   <p>@Model.Anio</p>
+                    <p>@Model.CantidadObjetivo </p>
+                    <p>@(300 / ViewBag.DiasRestantes)</p>
+    
+    @foreach (var lib in Model.LibrosAsignados)
+    {
+        <p>@lib.Titulo</p>
+        <div>
+        @if (lib.EstaCompletado == true)
+        {
+                <div clas="linea-vacia">(Completado)</div>
+        }
+        </div>
+    }
+    @if (Model.LibrosAsignados.Count < Model.CantidadObjetivo)
+    {
+        <form asp-controller="Goal" asp-action="AgregarItem" method="post">
+                         <select name="RecomendacionId">
+
+                            @foreach (var rec in ViewBag.Recommendation)
+                                    {
+                                <option value="@rec.Id">@rec.TituloLibro</option>
+                                    }
+
+                            </select>
+                            <button type="submit">Asignar Libro</button>
+                            
+         </form> 
+    }
+
+</div>
+
+
+

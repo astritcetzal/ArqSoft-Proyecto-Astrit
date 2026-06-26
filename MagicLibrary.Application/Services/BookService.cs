@@ -10,6 +10,15 @@ namespace MagicLibrary.Application.Services
         {
             _repo = repo;
         }
+        public Book PrepararLibroDesdeRecomendacion(Recommendation recommendation)
+        {
+            return new Book
+            {
+                Titulo = recommendation.TituloLibro,
+                Autor = recommendation.Autor,
+                Paginas = recommendation.Paginas
+            };
+        }
         public List<Book> ObtenerTodos()
         {
             return _repo.ObtenerTodos();
@@ -37,6 +46,7 @@ namespace MagicLibrary.Application.Services
         {
             _repo.Actualizar(libro);
         }
+
 
     }
 }

@@ -10,7 +10,28 @@ namespace MagicLibrary.Application.Services
         {
             _repo = repo;
         }
-
+        // logica para asegurar que siempre haya una meta para mostrar
+        public Goal ObtenerMetaOCrearPorDefecto(int idUsuario, int anio)
+        {
+            var meta = _repo.ObtenerTodos().FirstOrDefault(g => g.IdUsuario == idUsuario && g.Anio == anio);
+            if (meta == null)
+            {
+                meta = new Goal
+                {
+                    IdUsuario = idUsuario,
+                    Anio = anio,
+                    CantidadObjetivo = 5,
+                    LibrosAsignados = new List<GoalItem>()
+                };
+            }
+            return meta;
+        }
+        // lógica para calculos matematicos del negocio
+        public int CalcularDiasRestantesAnio()
+        {
+            DateTime finDeAnio = new DateTime(DateTime.Now.Year, 12, 31);
+            return (finDeAnio - DateTime.Now).Days;
+        }
         public List<Goal> ObtenerTodos()
         {
             return _repo.ObtenerTodos();

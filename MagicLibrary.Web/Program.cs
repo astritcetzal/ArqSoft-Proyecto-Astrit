@@ -24,6 +24,8 @@ builder.Services.AddScoped<IUserRepository, JsonUserRepository>();
 builder.Services.AddScoped<BookService>();
 builder.Services.AddScoped<RecommendationService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<IGoalRepository, JsonGoalRepository>();
+builder.Services.AddScoped<GoalService>();
 var app = builder.Build();
 
 
