@@ -13,11 +13,13 @@ namespace MagicLibrary.Web.Controllers
     {
         private readonly RecommendationService _Rservice;
         private readonly GoalService _Gservice;
+        private readonly BookService _Bservice;
 
-        public GoalController(GoalService Gservice,RecommendationService Rservice)
+        public GoalController(GoalService Gservice,RecommendationService Rservice, BookService Bservice)
         {
             _Gservice = Gservice;
             _Rservice = Rservice;
+            _Bservice = Bservice;
         }
 
 
@@ -43,6 +45,15 @@ namespace MagicLibrary.Web.Controllers
                             totalPaginas += detallesLibro.Paginas;
                         }
                     }
+                    // Sumamos también si viene de Mis Libros
+                    else if (!item.EstaCompletado && item.MiLibroId.HasValue)
+                    {
+                        var detallesLibro = _Bservice.ObtenerPorId(item.MiLibroId.Value);
+                        if (detallesLibro != null)
+                        {
+                            totalPaginas += detallesLibro.Paginas;
+                        }
+                    }
                 }
 
             }
@@ -50,6 +61,8 @@ namespace MagicLibrary.Web.Controllers
             ViewBag.DiasRestantes = diasRestantes;
             ViewBag.TotalPaginas = totalPaginas; //mandar suma
             ViewBag.Recommendation = _Rservice.ObtenerTodos();
+            // 2. Mandamos a la vista los libros que el usuario está leyendo o por leer
+            ViewBag.MisLibros = _Bservice.ObtenerTodos().Where(b => b.Estado != "Terminado").ToList();
             return View(metaActual);
         }
 
@@ -75,38 +88,43 @@ namespace MagicLibrary.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AgregarItem(int RecomendacionId)
+        public IActionResult AgregarItem(int? RecomendacionId, int? MiLibroId)
         {
-            //buscar meta actal del usaurio
-            var metaActual = _Gservice.ObtenerMetaActual(1, DateTime.Now.Year);
+            var metaActual = _Gservice.ObtenerMetaOCrearPorDefecto(1, DateTime.Now.Year);
+            if (metaActual.LibrosAsignados == null) metaActual.LibrosAsignados = new List<GoalItem>();
 
-            // buscar los detalless de la recomendacion que le usuario seleccionó
-            var recomendacion = _Rservice.ObtenerPorId(RecomendacionId);
-            if (recomendacion != null)
+            // 3A. Si el usuario eligió de Recomendaciones
+            if (RecomendacionId.HasValue)
             {
-
-                //crear nuevo item para la libreta
-                var nuevoItem = new GoalItem
+                var recomendacion = _Rservice.ObtenerPorId(RecomendacionId.Value);
+                if (recomendacion != null)
                 {
-                    Titulo = recomendacion.TituloLibro,
-                    RecomendacionId = recomendacion.Id,
-                    EstaCompletado = false
-                };
-                // si el json no inicializa la lista la creamoa aqui para que no explote
-
-                if (metaActual.LibrosAsignados == null)
-                {
-                    metaActual.LibrosAsignados = new List<GoalItem>();
+                    metaActual.LibrosAsignados.Add(new GoalItem
+                    {
+                        Titulo = recomendacion.TituloLibro,
+                        RecomendacionId = recomendacion.Id,
+                        EstaCompletado = false
+                    });
                 }
-
-                //agregar a la lista de la meta y guardamos los cambios
-
-                metaActual.LibrosAsignados.Add(nuevoItem);
-                _Gservice.Actualizar(metaActual);
             }
-            // RECARGAR LA PAGINA PARA QUE SE VEA LA NUEVA LINEA
+            // 3B. Si el usuario eligió de Mis Libros
+            else if (MiLibroId.HasValue)
+            {
+                var miLibro = _Bservice.ObtenerPorId(MiLibroId.Value);
+                if (miLibro != null)
+                {
+                    metaActual.LibrosAsignados.Add(new GoalItem
+                    {
+                        Titulo = miLibro.Titulo,
+                        MiLibroId = miLibro.IdLibro,
+                        EstaCompletado = false
+                    });
+                }
+            }
+
+            _Gservice.Actualizar(metaActual);
             return RedirectToAction("Index");
-         }
+        }
         [HttpPost]
         public IActionResult ActualizarMeta(int nuevaCantidad)
         {
@@ -123,20 +141,40 @@ namespace MagicLibrary.Web.Controllers
 
         [HttpPost]
         public IActionResult MarcarCompletado(string tituloLibro)
-        { 
-            // buscamos la meta actual
+        {
             var metaActual = _Gservice.ObtenerMetaOCrearPorDefecto(1, DateTime.Now.Year);
-            //buscar el libro especifico dentro de la libreta usando LINQ
-            var libro = metaActual.LibrosAsignados.FirstOrDefault(i => i.Titulo == tituloLibro);
-            
-            if (libro != null)
+            var libroEnMeta = metaActual.LibrosAsignados.FirstOrDefault(i => i.Titulo == tituloLibro);
+
+            if (libroEnMeta != null)
             {
-                //ponemos la palomita y guardamos
-                libro.EstaCompletado = true;
+                // 4. Marcamos la palomita en la libreta
+                libroEnMeta.EstaCompletado = true;
                 _Gservice.Actualizar(metaActual);
+
+                // 5. Lógica Hexagonal: Actualizar el estado en el inventario real
+                if (libroEnMeta.MiLibroId.HasValue)
+                {
+                    // Si ya era un libro nuestro, lo actualizamos
+                    var libroReal = _Bservice.ObtenerPorId(libroEnMeta.MiLibroId.Value);
+                    if (libroReal != null)
+                    {
+                        libroReal.Estado = "Terminado";
+                        _Bservice.Actualizar(libroReal);
+                    }
+                }
+                else if (libroEnMeta.RecomendacionId.HasValue)
+                {
+                    // Si era una recomendación, lo agregamos a Mis Libros como terminado
+                    var recomendacion = _Rservice.ObtenerPorId(libroEnMeta.RecomendacionId.Value);
+                    if (recomendacion != null)
+                    {
+                        var nuevoLibro = _Bservice.PrepararLibroDesdeRecomendacion(recomendacion);
+                        nuevoLibro.Estado = "Terminado";
+                        _Bservice.Agregar(nuevoLibro);
+                    }
+                }
             }
 
-           //recargar pagina
             return RedirectToAction("Index");
         }
 

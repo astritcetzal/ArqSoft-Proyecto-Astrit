@@ -7,8 +7,8 @@
     "FechaInicio": null,
     "Estado": "Terminado",
     "FechaTerminado": null,
-    "CalificacionPersonal": null,
-    "ResenaPersonal": null
+    "CalificacionPersonal": 10,
+    "ResenaPersonal": "de los mejores que he leido, mi 2do libro favorito"
   },
   {
     "IdLibro": 2,
@@ -149,6 +149,39 @@
     "Paginas": 400,
     "FechaInicio": null,
     "Estado": "Por leer",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 15,
+    "Titulo": "El mundo de Sof\u00EDa",
+    "Autor": "Jostein Gaarder",
+    "Paginas": 600,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 16,
+    "Titulo": "Jane Eyre",
+    "Autor": "Charlotte Bront\u00EB",
+    "Paginas": 544,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 17,
+    "Titulo": "La invenci\u00F3n de Hugo Cabret",
+    "Autor": "Brian Selznick",
+    "Paginas": 533,
+    "FechaInicio": null,
+    "Estado": "Terminado",
     "FechaTerminado": null,
     "CalificacionPersonal": null,
     "ResenaPersonal": null

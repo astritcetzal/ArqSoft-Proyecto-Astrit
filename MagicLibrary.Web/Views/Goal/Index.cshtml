@@ -15,7 +15,7 @@
         </div>
         <div class="caja-stat destacado">
             <span class="stat-numero">
-                @(ViewBag.TotalPaginas == 0? 0:Math.Ceiling((double)ViewBag.TotalPaginas/ViewBag.DiasRestantes))
+                @(ViewBag.TotalPaginas == 0 ? 0 : Math.Ceiling((double)ViewBag.TotalPaginas / ViewBag.DiasRestantes))
             </span>
             <span class="stat-texto">Páginas/Día recomendadas</span>
         </div>
@@ -31,9 +31,9 @@
                     
                     @if (!lib.EstaCompletado)
                     {
-                        <form asp-controller="Goal" asp-action="MarcarCompletado" method="post" style="margin: 2px;">
+                        <form asp-controller="Goal" asp-action="MarcarCompletado" method="post" style="margin: 0;">
                             <input type="hidden" name="tituloLibro" value="@lib.Titulo" />
-                            <button type="submit" class="check-cuadrado" style="background: blue; cursor: pointer; padding: 1px;">
+                            <button type="submit" class="check-cuadrado" style="background: transparent; cursor: pointer; padding: 0;">
                             </button>
                         </form>
                     }
@@ -58,13 +58,29 @@
         <div class="meta-formulario">
             <h4>Asignar nuevo libro a la meta</h4>
             <form asp-controller="Goal" asp-action="AgregarItem" method="post" class="form-agregar">
-                <select name="RecomendacionId" class="input-cuadrado" required>
-                    <option value="">-- Elige una recomendación --</option>
-                    @foreach (var rec in ViewBag.Recommendation)
+                
+                <select name="MiLibroId" class="input-cuadrado">
+                    <option value="">-- De mis libros pendientes --</option>
+                    @if (ViewBag.MisLibros != null)
                     {
-                        <option value="@rec.Id">@rec.TituloLibro</option>
+                        @foreach (var lib in ViewBag.MisLibros)
+                        {
+                            <option value="@lib.IdLibro">@lib.Titulo</option>
+                        }
                     }
                 </select>
+
+                <select name="RecomendacionId" class="input-cuadrado">
+                    <option value="">-- De recomendaciones --</option>
+                    @if (ViewBag.Recommendation != null)
+                    {
+                        @foreach (var rec in ViewBag.Recommendation)
+                        {
+                            <option value="@rec.Id">@rec.TituloLibro</option>
+                        }
+                    }
+                </select>
+
                 <button type="submit" class="btn-cuadrado">ASIGNAR LIBRO</button>
             </form>
         </div>

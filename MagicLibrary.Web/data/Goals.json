@@ -3,7 +3,7 @@
     "IdMeta": 1,
     "IdUsuario": 1,
     "Anio": 2026,
-    "CantidadObjetivo": 8,
+    "CantidadObjetivo": 9,
     "LibrosAsignados": [
       {
         "Titulo": "El color p\u00FArpura",
@@ -13,7 +13,7 @@
       },
       {
         "Titulo": "Circe",
-        "EstaCompletado": false,
+        "EstaCompletado": true,
         "RecomendacionId": 3,
         "MiLibroId": null
       },
@@ -31,14 +31,26 @@
       },
       {
         "Titulo": "La invenci\u00F3n de Hugo Cabret",
-        "EstaCompletado": false,
+        "EstaCompletado": true,
         "RecomendacionId": 7,
         "MiLibroId": null
       },
       {
         "Titulo": "El mundo de Sof\u00EDa",
-        "EstaCompletado": false,
+        "EstaCompletado": true,
         "RecomendacionId": 5,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "El retrato de Dorian Gray",
+        "EstaCompletado": false,
+        "RecomendacionId": 10,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "Jane Eyre",
+        "EstaCompletado": false,
+        "RecomendacionId": 8,
         "MiLibroId": null
       }
     ]
