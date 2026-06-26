@@ -1,157 +1,156 @@
 [
-    {
-      "IdLibro": 1,
-      "Titulo": "Corazonadas",
-      "Autor": "Benito Taibo",
-      "Paginas": 208,
-      "FechaInicio": null,
-      "Estado": "Terminado",
-      "FechaTerminado": null,
-      "CalificacionPersonal": null,
-      "ResenaPersonal": null
-    },
-    {
-      "IdLibro": 2,
-      "Titulo": "Kim Jiyoung, nacida en 1982",
-      "Autor": "Cho Nam-joo",
-      "Paginas": 192,
-      "FechaInicio": null,
-      "Estado": "Terminado",
-      "FechaTerminado": null,
-      "CalificacionPersonal": null,
-      "ResenaPersonal": null
-    },
-    {
-      "IdLibro": 3,
-      "Titulo": "Electra",
-      "Autor": "Jennifer Saint",
-      "Paginas": 352,
-      "FechaInicio": null,
-      "Estado": "Terminado",
-      "FechaTerminado": null,
-      "CalificacionPersonal": null,
-      "ResenaPersonal": null
-    },
-    {
-      "IdLibro": 4,
-      "Titulo": "Harry Potter y la piedra filosofal",
-      "Autor": "J.K. Rowling",
-      "Paginas": 223,
-      "FechaInicio": null,
-      "Estado": "Terminado",
-      "FechaTerminado": null,
-      "CalificacionPersonal": null,
-      "ResenaPersonal": null
-    },
-    {
-      "IdLibro": 5,
-      "Titulo": "Reino de fieras",
-      "Autor": "Gin Phillips",
-      "Paginas": 336,
-      "FechaInicio": null,
-      "Estado": "Terminado",
-      "FechaTerminado": null,
-      "CalificacionPersonal": null,
-      "ResenaPersonal": null
-    },
-    {
-      "IdLibro": 6,
-      "Titulo": "El niño con el pijama de rayas",
-      "Autor": "John Boyne",
-      "Paginas": 224,
-      "FechaInicio": null,
-      "Estado": "Terminado",
-      "FechaTerminado": null,
-      "CalificacionPersonal": null,
-      "ResenaPersonal": null
-    },
-    {
-      "IdLibro": 7,
-      "Titulo": "El diario de Ana Frank",
-      "Autor": "Ana Frank",
-      "Paginas": 304,
-      "FechaInicio": null,
-      "Estado": "Terminado",
-      "FechaTerminado": null,
-      "CalificacionPersonal": null,
-      "ResenaPersonal": null
-    },
-    {
-      "IdLibro": 8,
-      "Titulo": "Marianela",
-      "Autor": "Benito Pérez Galdós",
-      "Paginas": 208,
-      "FechaInicio": null,
-      "Estado": "Terminado",
-      "FechaTerminado": null,
-      "CalificacionPersonal": null,
-      "ResenaPersonal": null
-    },
-    {
-      "IdLibro": 9,
-      "Titulo": "Katún",
-      "Autor": "Francisco Rebolledo",
-      "Paginas": 624,
-      "FechaInicio": null,
-      "Estado": "Terminado",
-      "FechaTerminado": null,
-      "CalificacionPersonal": null,
-      "ResenaPersonal": null
-    },
-    {
-      "IdLibro": 10,
-      "Titulo": "Colmillo Blanco",
-      "Autor": "Jack London",
-      "Paginas": 256,
-      "FechaInicio": null,
-      "Estado": "Terminado",
-      "FechaTerminado": null,
-      "CalificacionPersonal": null,
-      "ResenaPersonal": null
-    },
-    {
-      "IdLibro": 11,
-      "Titulo": "La sombra de la serpiente",
-      "Autor": "Rick Riordan",
-      "Paginas": 528,
-      "FechaInicio": "2026-06-19",
-      "Estado": "Leyendo",
-      "FechaTerminado": null,
-      "CalificacionPersonal": null,
-      "ResenaPersonal": null
-    },
-    {
-      "IdLibro": 12,
-      "Titulo": "Te doy mi corazón (Bridgerton 3)",
-      "Autor": "Julia Quinn",
-      "Paginas": 352,
-      "FechaInicio": "2026-06-19",
-      "Estado": "Leyendo",
-      "FechaTerminado": null,
-      "CalificacionPersonal": null,
-      "ResenaPersonal": null
-    },
-    {
-      "IdLibro": 13,
-      "Titulo": "Harry Potter y la cámara secreta",
-      "Autor": "J.K. Rowling",
-      "Paginas": 251,
-      "FechaInicio": null,
-      "Estado": "Por leer",
-      "FechaTerminado": null,
-      "CalificacionPersonal": null,
-      "ResenaPersonal": null
-    },
-    {
-      "IdLibro": 14,
-      "Titulo": "Los reyes malditos",
-      "Autor": "Maurice Druon",
-      "Paginas": 400,
-      "FechaInicio": null,
-      "Estado": "Por leer",
-      "FechaTerminado": null,
-      "CalificacionPersonal": null,
-      "ResenaPersonal": null
-    }
-  
+  {
+    "IdLibro": 1,
+    "Titulo": "Corazonadas",
+    "Autor": "Benito Taibo",
+    "Paginas": 208,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 2,
+    "Titulo": "Kim Jiyoung, nacida en 1982",
+    "Autor": "Cho Nam-joo",
+    "Paginas": 192,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": 10,
+    "ResenaPersonal": "el mejor"
+  },
+  {
+    "IdLibro": 3,
+    "Titulo": "Electra",
+    "Autor": "Jennifer Saint",
+    "Paginas": 352,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 4,
+    "Titulo": "Harry Potter y la piedra filosofal",
+    "Autor": "J.K. Rowling",
+    "Paginas": 223,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 5,
+    "Titulo": "Reino de fieras",
+    "Autor": "Gin Phillips",
+    "Paginas": 336,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 6,
+    "Titulo": "El ni\u00F1o con el pijama de rayas",
+    "Autor": "John Boyne",
+    "Paginas": 224,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 7,
+    "Titulo": "El diario de Ana Frank",
+    "Autor": "Ana Frank",
+    "Paginas": 304,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 8,
+    "Titulo": "Marianela",
+    "Autor": "Benito P\u00E9rez Gald\u00F3s",
+    "Paginas": 208,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 9,
+    "Titulo": "Kat\u00FAn",
+    "Autor": "Francisco Rebolledo",
+    "Paginas": 624,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 10,
+    "Titulo": "Colmillo Blanco",
+    "Autor": "Jack London",
+    "Paginas": 256,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 11,
+    "Titulo": "La sombra de la serpiente",
+    "Autor": "Rick Riordan",
+    "Paginas": 528,
+    "FechaInicio": "2026-06-19",
+    "Estado": "Leyendo",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 12,
+    "Titulo": "Te doy mi coraz\u00F3n (Bridgerton 3)",
+    "Autor": "Julia Quinn",
+    "Paginas": 352,
+    "FechaInicio": "2026-06-19",
+    "Estado": "Leyendo",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 13,
+    "Titulo": "Harry Potter y la c\u00E1mara secreta",
+    "Autor": "J.K. Rowling",
+    "Paginas": 251,
+    "FechaInicio": null,
+    "Estado": "Por leer",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 14,
+    "Titulo": "Los reyes malditos",
+    "Autor": "Maurice Druon",
+    "Paginas": 400,
+    "FechaInicio": null,
+    "Estado": "Por leer",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  }
 ]

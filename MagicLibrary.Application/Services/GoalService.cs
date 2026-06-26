@@ -23,6 +23,7 @@ namespace MagicLibrary.Application.Services
                     CantidadObjetivo = 5,
                     LibrosAsignados = new List<GoalItem>()
                 };
+                _repo.Agregar(meta);
             }
             return meta;
         }

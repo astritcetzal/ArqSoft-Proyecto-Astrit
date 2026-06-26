@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "IdMeta": 1,
+    "IdUsuario": 1,
+    "Anio": 2026,
+    "CantidadObjetivo": 8,
+    "LibrosAsignados": [
+      {
+        "Titulo": "El color p\u00FArpura",
+        "EstaCompletado": true,
+        "RecomendacionId": 4,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "Circe",
+        "EstaCompletado": false,
+        "RecomendacionId": 3,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "Jane Eyre",
+        "EstaCompletado": true,
+        "RecomendacionId": 8,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "La hija del relojero",
+        "EstaCompletado": true,
+        "RecomendacionId": 9,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "La invenci\u00F3n de Hugo Cabret",
+        "EstaCompletado": false,
+        "RecomendacionId": 7,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "El mundo de Sof\u00EDa",
+        "EstaCompletado": false,
+        "RecomendacionId": 5,
+        "MiLibroId": null
+      }
+    ]
+  }
+]

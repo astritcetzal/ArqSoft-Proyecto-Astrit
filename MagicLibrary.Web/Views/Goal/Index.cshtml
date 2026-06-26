@@ -1,37 +1,78 @@
 ﻿@model MagicLibrary.Domain.Models.Goal
 
-<div class="grid">   
-                   <p>@Model.Anio</p>
-                    <p>@Model.CantidadObjetivo </p>
-                    <p>@(300 / ViewBag.DiasRestantes)</p>
-    
-    @foreach (var lib in Model.LibrosAsignados)
-    {
-        <p>@lib.Titulo</p>
-        <div>
-        @if (lib.EstaCompletado == true)
-        {
-                <div clas="linea-vacia">(Completado)</div>
-        }
+<div class="meta-contenedor">
+    <div class="meta-cabecera">
+        <div class="caja-stat">
+            <form asp-controller="Goal" asp-action="ActualizarMeta" method="post" style="display: flex; flex-direction: column; align-items: center;">
+                <input type="number" name="nuevaCantidad" value="@Model.CantidadObjetivo" style="width: 80px; text-align: center; font-size: 2rem; font-weight: bold; border: 2px solid #2D1B4E; border-radius: 0; background: transparent; color: #2D1B4E;" required min="1">
+                <button type="submit" style="font-size: 0.7rem; background: #2D1B4E; color: white; border: none; padding: 4px 10px; margin-top: 5px; cursor: pointer; text-transform: uppercase;">Guardar Meta</button>
+            </form>
         </div>
-    }
+
+        <div class="caja-stat">
+            <span class="stat-numero">@Model.LibrosAsignados.Count</span>
+            <span class="stat-texto">Asignados</span>
+        </div>
+        <div class="caja-stat destacado">
+            <span class="stat-numero">
+                @(ViewBag.TotalPaginas == 0? 0:Math.Ceiling((double)ViewBag.TotalPaginas/ViewBag.DiasRestantes))
+            </span>
+            <span class="stat-texto">Páginas/Día recomendadas</span>
+        </div>
+    </div>
+
+    <div class="meta-lista">
+        <h3>Tu Progreso</h3>
+        
+        @foreach (var lib in Model.LibrosAsignados)
+        {
+            <div class="meta-item @(lib.EstaCompletado ? "completado" : "pendiente")">
+                <div class="item-info">
+                    
+                    @if (!lib.EstaCompletado)
+                    {
+                        <form asp-controller="Goal" asp-action="MarcarCompletado" method="post" style="margin: 2px;">
+                            <input type="hidden" name="tituloLibro" value="@lib.Titulo" />
+                            <button type="submit" class="check-cuadrado" style="background: blue; cursor: pointer; padding: 1px;">
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="check-cuadrado" style="background-color: #5F8D4E; border-color: #5F8D4E; color: white;">X</span>
+                    }
+
+                    <span class="titulo-libro">@lib.Titulo</span>
+                </div>
+                
+                @if (lib.EstaCompletado)
+                {
+                    <span class="etiqueta-completado">¡TERMINADO!</span>
+                }
+            </div>
+        }
+    </div>
+
     @if (Model.LibrosAsignados.Count < Model.CantidadObjetivo)
     {
-        <form asp-controller="Goal" asp-action="AgregarItem" method="post">
-                         <select name="RecomendacionId">
-
-                            @foreach (var rec in ViewBag.Recommendation)
-                                    {
-                                <option value="@rec.Id">@rec.TituloLibro</option>
-                                    }
-
-                            </select>
-                            <button type="submit">Asignar Libro</button>
-                            
-         </form> 
+        <div class="meta-formulario">
+            <h4>Asignar nuevo libro a la meta</h4>
+            <form asp-controller="Goal" asp-action="AgregarItem" method="post" class="form-agregar">
+                <select name="RecomendacionId" class="input-cuadrado" required>
+                    <option value="">-- Elige una recomendación --</option>
+                    @foreach (var rec in ViewBag.Recommendation)
+                    {
+                        <option value="@rec.Id">@rec.TituloLibro</option>
+                    }
+                </select>
+                <button type="submit" class="btn-cuadrado">ASIGNAR LIBRO</button>
+            </form>
+        </div>
     }
-
+    else
+    {
+        <div class="meta-completa-msj">
+            Has llenado todos los espacios de tu meta para el @Model.Anio. ¡A leer!
+        </div>
+    }
 </div>
-
-
-
