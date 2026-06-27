@@ -1,9 +1,4 @@
-Portada
-Breve introducción (nombre del proyecto, qué hace, qué resuelve)
-Estado en la Unidad I
-Agradecimientos
-
-# ADR-01: [Título corto de la decisión]
+# ADR-05: Patrones GOF implementados
 
 | Campo  | Valor |
 |--------|-------|
@@ -34,7 +29,7 @@ Debido a que el sistem está en una etapa de evoluvión constante (de JSON a fut
 
 ### ¿Por qué?
 
-- Factory: Para crear objetos sin saber exactamente cual, porque mientras este en desarrollo se van a consultar los datos del JSON y cuando esté en producción se establece por el momento a memoria, per más adelante lo voy a establecer para una base de datos. Lo elegí porque en mi arquitectura hexagonal necesito que la capa de Application no sepa cómo se instancia el repositorio (si es un JsonBookRepository o en el futuro un SqlBookRepository). El patrón Factory centraliza esta creación, permitiendo que mi sistema sea "agnóstico" a la tecnología de persistencia.
+- Factory: Para crear objetos sin saber exactamente cual, porque mientras este en desarrollo se van a consultar los datos del JSON y cuando esté en producción se establece por el momento a memoria, pero más adelante lo voy a establecer para una base de datos. Lo elegí porque en mi arquitectura hexagonal necesito que la capa de Application no sepa cómo se instancia el repositorio (si es un JsonBookRepository o en el futuro un SqlBookRepository). El patrón Factory centraliza esta creación, permitiendo que mi sistema sea "agnóstico" a la tecnología de persistencia.
 - Decorator: Me permite añadir comportamientos extra sin modificar la clase base Book, respetando el principio de Abierto/Cerrado.
 - Observer: Lo elegí para desacoplar el sistema de metas de la lógica de notificaciones. Cuando un usuario marca una meta o agrega un libro, el GoalService no necesita saber cómo se envía el mensaje (WhatsApp, correo, etc.); el Observer notifica a los suscriptores registrados automáticamente.
 
@@ -71,7 +66,20 @@ Menciona al menos:
 
 ## Diagrama
 
+### C1
+
+![Diagrama del sistema]( images/C1-actualizado.png)
+
+### C2
+
+![Diagrama del sistema]( images/C2-actualizado.png )
+
+### C3
 
 ![Diagrama del sistema]( images/C3.png )
 
+
+## Declaración de uso de IA
+Declaro el uso de Inteligencia Artifiacial para corregir errores, entender mejor conceptos. 
+Lo usé para el CSS pero la lógica es mia y me ayudó para corregir conflictos al momento de correr.
 
