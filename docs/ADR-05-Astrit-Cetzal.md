@@ -33,9 +33,70 @@ Debido a que el sistem está en una etapa de evoluvión constante (de JSON a fut
 - Decorator: Me permite añadir comportamientos extra sin modificar la clase base Book, respetando el principio de Abierto/Cerrado.
 - Observer: Lo elegí para desacoplar el sistema de metas de la lógica de notificaciones. Cuando un usuario marca una meta o agrega un libro, el GoalService no necesita saber cómo se envía el mensaje (WhatsApp, correo, etc.); el Observer notifica a los suscriptores registrados automáticamente.
 
+
+
+## Implementacion de GOF
+
+Factory por el momento tengo establecido un archivo para que se guarde en memoria los datos en producción pero más adelante lo cambiare por una base de datos
+
+````
+public static IBookRepository AgregarLibroRepository(string entorno, IWebHostEnvironment env)
+        {
+            return entorno switch
+            {
+                "Production" => new MemoryBookRepository(),
+                _ => new JsonBookRepository(env)
+            };
+        }
+````
+
+Decorator 
+La clase LoggingBookRepository actúa como el decorador de infraestructura: implementa la interfaz IBookRepository y recibe otra instancia de la misma interfaz a través de su constructor para envolverla. Esto permite auditar y verificar el estado de disponibilidad de la información en tiempo de ejecución dentro de los siguientes métodos:
+
+```
+public List<Book> ObtenerTodos()
+public Book? ObtenerPorId(int id)
+
+```
+
+Observer - La principal funcion es que notifique cuando el usario agregue un libro en Metas, implementa de `IGoalObserver`y en `GoalService` tenemos el método para confirmar el libros agregado
+
+### Service
+```
+public void ConfirmarLibroAgregado(Goal goal)
+        {
+            //notificar 
+            foreach (var observer in _observers)
+            {
+                observer.OnSavedBook(goal);
+            }
+
+        }
+
+````
+### Interfaces
+
+````
+ public interface IGoalObserver
+    {
+        void OnSavedBook(Goal goal);
+    }
+````
+### Infrastructure
+
+````
+public class EmailObserver: IGoalObserver
+    {
+        public void OnSavedBook(Goal goal) => Console.WriteLine($"[Email] Haz agregado un nuevo libro a tu meta {goal.IdMeta} - Ahora tienes {goal.LibrosAsignados.Count} libros asignados");
+    }
+
+````
+
+
+
 ### Alternativas consideradas
 
-*(Mínimo 3 filas)*
+
 
 | Alternativa | Por qué la descarté |
 |-------------|---------------------|
@@ -76,7 +137,7 @@ Menciona al menos:
 
 ### C3
 
-![Diagrama del sistema]( images/C3.png )
+![Diagrama del sistema]( images/C-3.png )
 
 
 ## Declaración de uso de IA

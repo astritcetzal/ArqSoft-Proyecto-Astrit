@@ -10,6 +10,11 @@ namespace MagicLibrary.Infrastructure.Repositories
     {
         private readonly IBookRepository _inner;
 
+        public LoggingBookRepository(IBookRepository book)
+        {
+            _inner = book;
+        }
+
         public List<Book> ObtenerTodos()
         {
             Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] ObtenerTodos - inicio");
@@ -30,10 +35,7 @@ namespace MagicLibrary.Infrastructure.Repositories
             return resultado;
         }
 
-        public LoggingBookRepository(IBookRepository book)
-        {
-            _inner = book;
-        }
+        
         public void Actualizar(Book libro)
         {
             throw new NotImplementedException();
