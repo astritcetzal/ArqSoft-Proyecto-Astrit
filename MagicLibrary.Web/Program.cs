@@ -1,6 +1,5 @@
 using MagicLibrary.Application.Services;
 using MagicLibrary.Domain.Interfaces;
-using MagicLibrary.Domain.Models;
 using MagicLibrary.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(opciones =>
     {
-        opciones.LoginPath = "/Home/Welcome"; // Si alguien sin sesión intenta entrar a algo bloqueado, lo manda aquí
+        opciones.LoginPath = "/Home/Welcome"; 
     });
 //----
 var dataFolder = Path.Combine(builder.Environment.ContentRootPath, "data");

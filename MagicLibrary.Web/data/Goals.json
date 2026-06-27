@@ -6,27 +6,15 @@
     "CantidadObjetivo": 9,
     "LibrosAsignados": [
       {
-        "Titulo": "El color p\u00FArpura",
+        "Titulo": "La ladrona de libros",
         "EstaCompletado": true,
-        "RecomendacionId": 4,
+        "RecomendacionId": 1,
         "MiLibroId": null
       },
       {
-        "Titulo": "Circe",
+        "Titulo": "Percy Jackson y el ladr\u00F3n del rayo",
         "EstaCompletado": true,
-        "RecomendacionId": 3,
-        "MiLibroId": null
-      },
-      {
-        "Titulo": "Jane Eyre",
-        "EstaCompletado": true,
-        "RecomendacionId": 8,
-        "MiLibroId": null
-      },
-      {
-        "Titulo": "La hija del relojero",
-        "EstaCompletado": true,
-        "RecomendacionId": 9,
+        "RecomendacionId": 2,
         "MiLibroId": null
       },
       {
@@ -36,21 +24,39 @@
         "MiLibroId": null
       },
       {
-        "Titulo": "El mundo de Sof\u00EDa",
-        "EstaCompletado": true,
-        "RecomendacionId": 5,
+        "Titulo": "El retrato de Dorian Gray",
+        "EstaCompletado": false,
+        "RecomendacionId": 10,
         "MiLibroId": null
       },
       {
-        "Titulo": "El retrato de Dorian Gray",
-        "EstaCompletado": true,
-        "RecomendacionId": 10,
+        "Titulo": "La hija del relojero",
+        "EstaCompletado": false,
+        "RecomendacionId": 9,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "El mundo de Sof\u00EDa",
+        "EstaCompletado": false,
+        "RecomendacionId": 5,
         "MiLibroId": null
       },
       {
         "Titulo": "Jane Eyre",
         "EstaCompletado": false,
         "RecomendacionId": 8,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "Circe",
+        "EstaCompletado": false,
+        "RecomendacionId": 3,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "Los juegos del hambre",
+        "EstaCompletado": false,
+        "RecomendacionId": 6,
         "MiLibroId": null
       }
     ]

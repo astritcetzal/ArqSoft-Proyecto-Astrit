@@ -18,8 +18,8 @@
     "FechaInicio": null,
     "Estado": "Terminado",
     "FechaTerminado": null,
-    "CalificacionPersonal": 10,
-    "ResenaPersonal": "el mejor"
+    "CalificacionPersonal": 0,
+    "ResenaPersonal": null
   },
   {
     "IdLibro": 3,
@@ -139,8 +139,8 @@
     "FechaInicio": null,
     "Estado": "Por leer",
     "FechaTerminado": null,
-    "CalificacionPersonal": null,
-    "ResenaPersonal": null
+    "CalificacionPersonal": 10,
+    "ResenaPersonal": "Buen libro"
   },
   {
     "IdLibro": 14,
@@ -155,9 +155,9 @@
   },
   {
     "IdLibro": 15,
-    "Titulo": "El mundo de Sof\u00EDa",
-    "Autor": "Jostein Gaarder",
-    "Paginas": 600,
+    "Titulo": "La ladrona de libros",
+    "Autor": "Markus Zusak",
+    "Paginas": 544,
     "FechaInicio": null,
     "Estado": "Terminado",
     "FechaTerminado": null,
@@ -166,9 +166,9 @@
   },
   {
     "IdLibro": 16,
-    "Titulo": "Jane Eyre",
-    "Autor": "Charlotte Bront\u00EB",
-    "Paginas": 544,
+    "Titulo": "Percy Jackson y el ladr\u00F3n del rayo",
+    "Autor": "Rick Riordan",
+    "Paginas": 288,
     "FechaInicio": null,
     "Estado": "Terminado",
     "FechaTerminado": null,
@@ -180,28 +180,6 @@
     "Titulo": "La invenci\u00F3n de Hugo Cabret",
     "Autor": "Brian Selznick",
     "Paginas": 533,
-    "FechaInicio": null,
-    "Estado": "Terminado",
-    "FechaTerminado": null,
-    "CalificacionPersonal": null,
-    "ResenaPersonal": null
-  },
-  {
-    "IdLibro": 18,
-    "Titulo": "El retrato de Dorian Gray",
-    "Autor": "Oscar Wilde",
-    "Paginas": 254,
-    "FechaInicio": null,
-    "Estado": "Terminado",
-    "FechaTerminado": null,
-    "CalificacionPersonal": null,
-    "ResenaPersonal": null
-  },
-  {
-    "IdLibro": 19,
-    "Titulo": "Jane Eyre",
-    "Autor": "Charlotte Bront\u00EB",
-    "Paginas": 544,
     "FechaInicio": null,
     "Estado": "Terminado",
     "FechaTerminado": null,
