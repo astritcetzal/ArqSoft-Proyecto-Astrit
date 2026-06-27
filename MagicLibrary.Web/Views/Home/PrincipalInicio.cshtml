@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Principal";
+    Layout = null;
+    <link rel="stylesheet" href="~/css/site.css" />
+}
+
+<div class="hero-principal-limpio">
+    <h1 class="hero-titulo">Magic Library</h1>
+    <div class="hero-texto-editorial">
+    <p>
+        Magic Library no es solo una lista de libros; es un espacio dedicado a documentar tu proceso de aprendizaje,
+        tus reflexiones más profundas y el impacto que cada historia deja en tu camino.Comienza hoy a organizar tu biblioteca personal y manten un hábito de lectura.
+    </p>
+    <p>¿Ya tienes una cuenta?</p>
+
+    </div>
+    <div class="acciones-hero">
+        <div class="contenedor-botones-inicio">
+            <a asp-controller="User" asp-action="IniciarSesion" class="btn-estilo-editorial">Iniciar Sesión</a>
+            <a asp-controller="User" asp-action="Registrar" class="btn-estilo-editorial">Registrarse</a>
+        </div>
+        
+    </div>
+    
+</div>

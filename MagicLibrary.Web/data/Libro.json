@@ -185,5 +185,27 @@
     "FechaTerminado": null,
     "CalificacionPersonal": null,
     "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 18,
+    "Titulo": "El retrato de Dorian Gray",
+    "Autor": "Oscar Wilde",
+    "Paginas": 254,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 19,
+    "Titulo": "Jane Eyre",
+    "Autor": "Charlotte Bront\u00EB",
+    "Paginas": 544,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
   }
 ]

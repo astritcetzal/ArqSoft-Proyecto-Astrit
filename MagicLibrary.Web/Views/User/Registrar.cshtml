@@ -1,8 +1,14 @@
 ﻿@model MagicLibrary.Domain.Models.User
+@{
+    ViewData["Title"] = "Registrarse";
+    Layout = null;
+    <link rel="stylesheet" href="~/css/site.css" />
+}
 
-<div class="contenedos-formulario">
+
+<div class="formulario-registro">
     <h1>Registrarse</h1>
-    <form asp-action="Registrar" method="post">
+    <form asp-controller="User" asp-action="Registrar" method="post">
         <div class="grupo-input">
             <label>Nombre</label>
             <input asp-for="Nombre" />
@@ -15,8 +21,9 @@
             <label>Contraseña</label>
             <input asp-for="Contrasena" type="password" />
         </div>
+        <hr />
         <button type="submit" class="btn-guardar">Registrar</button>
     </form>
     <hr />
-    <a asp-controller="" asp-action="Index" class="link-cancelar">&larr; Cancelar</a>
+    <a asp-controller="Home" asp-action="PrincipalInicio" class="link-cancelar">&larr; Cancelar</a>
 </div>

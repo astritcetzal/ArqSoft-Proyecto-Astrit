@@ -44,6 +44,11 @@ body {
     --crema-tarjeta: #FFFFFF;
     --borde-delgado: 1px solid #E6E2D8;
     --transicion-elegante: all 0.4s ease;
+    --verde-editorial: #9CAF9B;
+    --azul-editorial: #2B5B84;
+    --naranja-acento: #FF7A00;
+    --blanco-humo: #F9F9F9;
+    --negro-tinta: #1A1A1A;
 }
 
 body {
@@ -369,14 +374,7 @@ textarea {
 /* =========================================
    11. ESTILO EDITORIAL: RECOMENDACIONES
 ========================================= */
-:root {
-    /* Colores extraídos exactamente de tu imagen de referencia */
-    --verde-editorial: #9CAF9B;
-    --azul-editorial: #2B5B84;
-    --naranja-acento: #FF7A00;
-    --blanco-humo: #F9F9F9;
-    --negro-tinta: #1A1A1A;
-}
+
 
 .contenedor-principal-recomendaciones {
     max-width: 1100px;
@@ -647,6 +645,12 @@ textarea {
     margin: 0 auto;
     padding: 20px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
+    /*max-width: 900px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: white;
+    border: 4px solid var(--texto-tinta);
+    box-shadow: 15px 15px 0px var(--fondo-papel);*/
 }
 
 .meta-cabecera {
@@ -697,6 +701,105 @@ textarea {
     font-size: 0.8rem;
     letter-spacing: 1px;
 }
+
+/*/**/
+/* Estilo específico para el Login */
+.formulario-login {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 40px;
+    border: 3px solid var(--texto-tinta);
+    background: white;
+}
+
+/* Estilo específico para el Registro */
+.formulario-registro {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 40px;
+    border: 3px solid var(--verde-salvia); /* Diferenciamos el borde */
+    background: white;
+}
+
+/* Estilo específico para la Pantalla Principal */
+/* Pantalla Principal Limpia */
+.hero-principal-limpio {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--fondo-papel);
+    text-align: center;
+}
+
+.hero-titulo {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: 5px;
+    color: var(--texto-tinta);
+    margin-bottom: 50px;
+    border-bottom: 8px solid var(--verde-salvia);
+    padding-bottom: 10px;
+}
+
+.acciones-hero {
+    display: flex;
+    gap: 20px;
+}
+
+/* Reutilizamos tus botones editoriales para que combine perfecto */
+/* Contenedor que agrupa los botones */
+.contenedor-botones-inicio {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* Estilo de caja (botón) para los enlaces */
+.btn-estilo-editorial {
+    display: inline-block;
+    background-color: var(--texto-tinta); /* Tu color original */
+    color: var(--fondo-papel);
+    padding: 15px 30px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 2px solid var(--texto-tinta);
+    border-radius: 0; /* Asegura que sean rectangulares */
+    transition: var(--transicion-elegante);
+}
+
+    .btn-estilo-editorial:hover {
+        background-color: transparent;
+        color: var(--texto-tinta);
+        border-color: var(--texto-tinta);
+    }
+.hero-texto-editorial {
+    max-width: 600px;
+    margin: 30px auto 40px auto;
+    font-size: 1.1rem;
+    color: var(--texto-suave); /* El gris cálido que ya tienes definido */
+    line-height: 1.8;
+    text-align: center;
+    border-left: 3px solid var(--texto-tinta); /* Línea editorial a la izquierda */
+    padding-left: 20px;
+}
+
+    .hero-texto-editorial p {
+        margin-bottom: 15px;
+    }
+
+/**/
+
+
+
+
+
+
+
+
 
 /* Lista de libros */
 .meta-lista {
@@ -998,7 +1101,11 @@ textarea {
     .btn-cuadrado:hover {
         background-color: transparent;
         color: #2D1B4E;
-    }
+   }
+
+    
+
+
 
 
 

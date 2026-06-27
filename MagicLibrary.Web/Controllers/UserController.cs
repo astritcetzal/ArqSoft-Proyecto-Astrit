@@ -32,7 +32,7 @@ namespace MagicLibrary.Web.Controllers
             _service.Agregar(user);
 
             // Tras registrarse, lo mandamos al catálogo
-            return RedirectToAction("Index", "Book");
+            return RedirectToAction("Index", "Home");
         }
 
 
@@ -63,7 +63,7 @@ namespace MagicLibrary.Web.Controllers
                 // 3. Le entregamos el gafete (Cookie) al navegador
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identidad));
 
-                return RedirectToAction("Index", "Book");
+                return RedirectToAction("Index", "Home");
             }
 
             ModelState.AddModelError(string.Empty, "Correo o contraseña incorrectos");

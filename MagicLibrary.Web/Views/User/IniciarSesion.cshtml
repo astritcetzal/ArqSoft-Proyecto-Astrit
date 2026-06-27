@@ -1,11 +1,14 @@
 ﻿@model MagicLibrary.Domain.Models.User
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+    Layout = null;
+    <link rel="stylesheet" href="~/css/site.css" />
+}
 
-<div class="contenedos-formulario">
+<div class="formulario-login">
     <h1>Iniciar Sesión</h1>
-    <form asp-action="IniciarSesion" method="post">
-        
+    <form asp-controller="User" asp-action="IniciarSesion" method="post">
         <div asp-validation-summary="All" class="text-danger"></div>
-
         <div class="grupo-input">
             <label>Correo</label>
             <input asp-for="Correo" />
@@ -14,8 +17,9 @@
             <label>Contraseña</label>
             <input asp-for="Contrasena" type="password" />
         </div>
+        <hr />
         <button type="submit" class="btn-guardar">Iniciar sesión</button>
     </form>
     <hr />
-    <a asp-controller="" asp-action="Index" class="link-cancelar">&larr; Cancelar</a>
+    <a asp-controller="Home" asp-action="PrincipalInicio" class="link-cancelar">&larr; Cancelar</a>
 </div>

@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(opciones =>
     {
-        opciones.LoginPath = "/Usuario/IniciarSesion"; // Si alguien sin sesión intenta entrar a algo bloqueado, lo manda aquí
+        opciones.LoginPath = "/Home/Welcome"; // Si alguien sin sesión intenta entrar a algo bloqueado, lo manda aquí
     });
 //----
 var dataFolder = Path.Combine(builder.Environment.ContentRootPath, "data");
@@ -46,8 +46,8 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    pattern: "{controller=Home}/{action=PrincipalInicio}/{id?}")
+    ;
 
 
 app.Run();

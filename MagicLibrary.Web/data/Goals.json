@@ -43,7 +43,7 @@
       },
       {
         "Titulo": "El retrato de Dorian Gray",
-        "EstaCompletado": false,
+        "EstaCompletado": true,
         "RecomendacionId": 10,
         "MiLibroId": null
       },
