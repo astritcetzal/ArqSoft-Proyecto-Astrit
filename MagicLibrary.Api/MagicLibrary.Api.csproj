@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="data\Goals.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="data\Libro.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -6,9 +6,12 @@ namespace MagicLibrary.Application.Services
     public class GoalService
     {
         private readonly IGoalRepository _repo;
-        public GoalService(IGoalRepository repo)
+        private readonly IEnumerable<IGoalObserver> _observers;
+        public GoalService(IGoalRepository repo, IEnumerable<IGoalObserver> observers)
+
         {
             _repo = repo;
+            _observers = observers;
         }
         // logica para asegurar que siempre haya una meta para mostrar
         public Goal ObtenerMetaOCrearPorDefecto(int idUsuario, int anio)
@@ -58,5 +61,16 @@ namespace MagicLibrary.Application.Services
         {
             return _repo.ObtenerTodos().FirstOrDefault(g => g.IdUsuario == idUsuario && g.Anio == anio);
         }
+
+        public void ConfirmarLibroAgregado(Goal goal)
+        {
+            //notificar 
+            foreach (var observer in _observers)
+            {
+                observer.OnSavedBook(goal);
+            }
+
+        }
+
     }
 }

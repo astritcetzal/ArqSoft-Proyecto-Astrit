@@ -1,11 +1,13 @@
-﻿using MagicLibrary.Domain.Interfaces;
+﻿using MagicLibrary.Application.Services;
+using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
-using MagicLibrary.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.X509Certificates;
 
 namespace MagicLibrary.Web.Controllers
 {
+    [Authorize]
     public class RecommendationController : Controller
     {
         private readonly RecommendationService _service;

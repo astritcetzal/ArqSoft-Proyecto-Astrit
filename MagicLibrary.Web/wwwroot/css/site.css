@@ -818,6 +818,189 @@ textarea {
 }
 
 
+.meta-contenedor {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: white;
+    border: 4px solid #2D1B4E;
+    box-shadow: 15px 15px 0px #EBE5F7;
+}
+
+.meta-cabecera {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.caja-stat {
+    flex: 1;
+    background-color: #F8F7FC;
+    border: 2px solid #2D1B4E;
+    padding: 25px 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0;
+    box-shadow: 4px 4px 0px #2D1B4E;
+    transition: transform 0.2s;
+}
+
+    .caja-stat:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0px #2D1B4E;
+    }
+
+    .caja-stat.destacado {
+        background-color: #2D1B4E;
+        color: white;
+    }
+
+.stat-numero {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 10px;
+    font-family: monospace;
+}
+
+.stat-texto {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+/* Ocultar flechas del input number (El truco que te enseñé) */
+.input-sin-flechas {
+    appearance: textfield;
+}
+
+    .input-sin-flechas::-webkit-outer-spin-button,
+    .input-sin-flechas::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+.meta-lista {
+    margin-bottom: 40px;
+}
+
+    .meta-lista h3 {
+        color: #2D1B4E;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        border-bottom: 3px solid #2D1B4E;
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+        font-weight: 900;
+    }
+
+.meta-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid #DEDAE6;
+    margin-bottom: 15px;
+    background-color: white;
+    transition: border-color 0.3s;
+}
+
+    .meta-item:hover {
+        border-color: #2D1B4E;
+    }
+
+    .meta-item.completado {
+        background-color: #F0FFF0;
+        border-color: #2D1B4E;
+    }
+
+.item-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.check-cuadrado {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #2D1B4E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #2D1B4E;
+}
+
+.meta-item.completado .titulo-libro {
+    text-decoration: line-through;
+    color: #A0A0A0;
+}
+
+.titulo-libro {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1A1A1A;
+}
+
+.etiqueta-completado {
+    background-color: #2D1B4E;
+    color: white;
+    padding: 8px 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.meta-formulario {
+    background-color: #EBE5F7;
+    border: 2px solid #2D1B4E;
+    padding: 30px;
+}
+
+    .meta-formulario h4 {
+        margin-top: 0;
+        color: #2D1B4E;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 900;
+    }
+
+.form-agregar {
+    display: flex;
+    gap: 15px;
+}
+
+.input-cuadrado {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #2D1B4E;
+    border-radius: 0;
+    font-size: 1rem;
+    background: white;
+}
+
+.btn-cuadrado {
+    background-color: #2D1B4E;
+    color: white;
+    border: 2px solid #2D1B4E;
+    padding: 0 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 0;
+    letter-spacing: 1px;
+}
+
+    .btn-cuadrado:hover {
+        background-color: transparent;
+        color: #2D1B4E;
+    }
+
+
 
 
 
