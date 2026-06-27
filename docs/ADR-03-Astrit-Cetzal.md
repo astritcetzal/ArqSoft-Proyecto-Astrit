@@ -76,7 +76,7 @@ Esta característica concreta me permite conectar el repositorio JSON actual y a
 
 ## Diagrama
 
-![Diagrama del sistema]( docs/diagrama-hx.png )
+![Diagrama del sistema]( images/diagrama-hx.png )
 
 
 ### Cláusula de uso de IA

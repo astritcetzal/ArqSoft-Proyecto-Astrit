@@ -4,9 +4,9 @@
 |--------|-------|
 | Autor  | Astrit Cetzal |
 | Fecha  | 19/06/2026 |
-| Estado | `Aceptado` |
+| Estado | `Remplazado por ADR 5` |
 
- Remplaza al ADR-03
+ 
 
 ---
 
@@ -77,7 +77,7 @@ Implementar una API REST utilizando ASP.Net Core Web Api y documentarla con Swag
 
 ## Diagrama
 
-![Diagrama del sistema]( docs/hexagonal.png )
+![Diagrama del sistema]( images/hexagonal.png )
 
 
 ### Cláusula de uso de IA

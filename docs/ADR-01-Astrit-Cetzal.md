@@ -62,4 +62,4 @@ Me convence más este pattrón porque es fácil de entender y tiene una gran com
 
 Un boceto de cómo se estructura tu sistema (draw.io, Mermaid o a mano escaneado)
 
-![Diagrama del sistema]( docs/diagrama-nivel-1.png )
+![Diagrama del sistema]( images/diagrama-nivel-1.png )
