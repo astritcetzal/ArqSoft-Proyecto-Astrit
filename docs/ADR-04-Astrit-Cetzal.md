@@ -57,22 +57,22 @@ Implementar una API REST utilizando ASP.Net Core Web Api y documentarla con Swag
 - ¿Por qué NoSQL? La naturaleza del catalogo requiere flexibilidad para los datos restructurados. Sin embargo, para los archivos pesados, usaré un servicio de almacenamiento de objetos como Amazon S3, guardando unicamente la URL pública de la imagen en la base de datos NoSQL.. Esto evita sobrecargar la base de datos, reduce la latencia de la peticiones HTTP y sigue las mejores practicas de escalabilidad y optimización de costos.
 
 ## Endpoints 
-![diagrama ]( docs/todos.png )
+![diagrama ]( images/todos.png )
 ### Todos los libros
-![diagrama ]( docs/book-1.png)
-![diagrama ]( docs/book-2.png )
+![diagrama ]( images/book-1.png)
+![diagrama ]( images/book-2.png )
 ### Libro por ID
-![diagrama ]( docs/book-id-1.png )
-![diagrama ]( docs/book-id-2.png )
+![diagrama ]( images/book-id-1.png )
+![diagrama ]( images/book-id-2.png )
 ### Todas las recomendaciones
-![diagrama ]( docs/recommendation.png )
-![diagrama ]( docs/recommendation-2.png )
+![diagrama ]( images/recommendation.png )
+![diagrama ]( images/recommendation-2.png )
 ### Libro recomendado por ID
-![diagrama ]( docs/recommendation-id-1.png )
-![diagrama ]( docs/recommendation-id-2.png )
+![diagrama ]( images/recommendation-id-1.png )
+![diagrama ]( images/recommendation-id-2.png )
 ### Filtrar libro por género
-![diagrama ]( docs/recommendation-filtro-1.png )
-![diagrama ](docs/recommendation-filtro-2.png )
+![diagrama ]( images/recommendation-filtro-1.png )
+![diagrama ](images/recommendation-filtro-2.png )
 
 
 ## Diagrama

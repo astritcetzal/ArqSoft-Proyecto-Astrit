@@ -120,23 +120,23 @@ Fase 2 (Futuro): es mi plan para subir el proyecto a producción con AWS. La ide
 ### Vista lógica:
 #### Se muestran los modulos principales del sistema y sus relaciones.
 
-![Vista lógica]( docs/ArqV1.png )
+![Vista lógica]( images/ArqV1.png )
 
 ### Vista de desarrollo:
 #### Se muestra como está organizado el código en carpetas y archivos, siguiendo la estructura del patrón MVC.
-![Vista de desarrollo]( docs/ArqV2.png )
+![Vista de desarrollo]( images/ArqV2.png )
 
 ### Vista de procesos:
 #### Se muestra el flujo de procesos y cómo interactúan los diferentes componentes del sistema.
-![Vista de procesos]( docs/ArqV3.png )
+![Vista de procesos]( images/ArqV3.png )
 
 ### Vista de despliegue:
 
 #### La primera imagen se adapta a como estoy implementando el sistema actualmente usando archivos JSON
-![Vista de despliegue-v1]( docs/ArqV4-1.png )
+![Vista de despliegue-v1]( images/ArqV4-1.png )
 
 #### La segunda imagen se adapta a como planeo implementar a futuro sustituyendo JSON por la base de datos relacional MySQL. 
-![Vista de desplieguev2]( docs/ArqV4-2.png )
+![Vista de desplieguev2]( images/ArqV4-2.png )
 
 
 
