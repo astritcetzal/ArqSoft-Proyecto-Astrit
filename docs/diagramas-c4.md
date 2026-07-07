@@ -26,3 +26,29 @@ C4Context
     Rel(magicLibrary, notifSys, "Notifica avances", "Observer Pattern")
 
 ```
+
+## C4 Nivel 2 - Contenedores
+¿Para quién es? Arquitectos y desarrolladores.
+
+¿Qué pregunta responde? ¿Cuáles son las piezas técnicas grandes y cómo se comunican bajo arquitectura hexagonal?
+
+```mermaid
+C4Container
+    title Diagrama de Contenedores (Nivel 2) - Magic Library
+
+    Person(lector, "Lector (Usuario)")
+
+    System_Boundary(c1, "Magic Library (Hexagonal)") {
+        Container(webApp, "Capa Web (MVC)", "ASP.NET Core 10", "Interfaz de usuario y controladores.")
+        Container(appCore, "Capa de Aplicación y Dominio", "C# Class Library", "Lógica de negocio, servicios y puertos (Interfaces).")
+        Container(infra, "Capa de Infraestructura", "C# Class Library", "Adaptadores: Repositorios (JSON), Notificadores y Factory.")
+        ContainerDb(jsonStore, "Persistencia", "JSON Files", "Base de datos local (libros, usuarios, metas).")
+    }
+
+    Rel(lector, webApp, "Accede", "HTTPS")
+    Rel(webApp, appCore, "Invoca lógica", "DI")
+    Rel(appCore, infra, "Implementa puertos", "Interface")
+    Rel(infra, jsonStore, "Lee/Escribe", "File I/O")
+
+```
+
