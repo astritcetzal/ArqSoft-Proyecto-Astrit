@@ -52,3 +52,35 @@ C4Container
 
 ```
 
+```mermaid
+C4Container
+    title Diagrama de Contenedores (Nivel 2) - Magic Library
+
+    Person(lector, "Lector (Usuario)", "Interactúa a través del navegador web.")
+    Person(movil, "Usuario Móvil (Futuro)", "Interactúa a través de una futura app.")
+
+    System_Boundary(c1, "Magic Library (Hexagonal)") {
+        Container(webApp, "Aplicación Web (Frontend)", "ASP.NET Core MVC", "Entrega las vistas HTML y maneja las sesiones del usuario.")
+        Container(apiApp, "API REST", "ASP.NET Core Web API", "Expone los endpoints en formato JSON (Swagger) para libros y metas.")
+        Container(appCore, "Capa de Aplicación y Dominio", "C# Class Library", "Lógica de negocio, servicios (BookService, GoalService) y puertos.")
+        Container(infra, "Capa de Infraestructura", "C# Class Library", "Adaptadores: Repositorios locales (JSON), Patrones GoF y Notificadores.")
+        ContainerDb(jsonStore, "Persistencia", "JSON Files", "Almacenamiento de libros, usuarios y metas.")
+    }
+
+    Rel(lector, webApp, "Accede a las vistas", "HTTPS")
+    Rel(movil, apiApp, "Consume datos", "HTTPS/JSON")
+    Rel(webApp, apiApp, "Consume datos (Opcional)", "HTTPS")
+    
+    Rel(webApp, appCore, "Invoca lógica", "Inyección de Dependencias")
+    Rel(apiApp, appCore, "Invoca lógica", "Inyección de Dependencias")
+    
+    Rel(appCore, infra, "Implementa puertos", "Interfaces")
+    Rel(infra, jsonStore, "Lee/Escribe", "File I/O")
+
+````
+## C4 Nivel 3 - Componentes
+
+¿Para quién es? Programadores.
+
+¿Qué pregunta responde? ¿Cómo interactúan las clases concretas (Servicios, Repositorios, Patrones GoF)?
+
