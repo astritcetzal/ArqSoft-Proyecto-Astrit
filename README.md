@@ -1,35 +1,47 @@
 # MAGIC LIBRARY
-Un sistema web diseñado para administrar y fomentar el hábito de la lectura. Este proyecto nace de la necesidad de ayudar a los lectores (especialmente a aquellos que leen en línea o en PDF) a no olvidar qué libros han leído, cuáles están leyendo actualmente y cuáles dejaron pendientes
 
+Un sistema web diseñado para administrar y fomentar el hábito de la lectura. Este proyecto nace de la necesidad de ayudar a los lectores (especialmente a aquellos que leen en línea o en PDF) a no olvidar qué libros han leído, cuáles están leyendo actualmente y cuáles dejaron pendientes
+Plataforma diseñada para ayudar a las personas a desarrollar y mantener un hábito de lectura. 
 
 ## Funcionalidades Principales
+
 - **Registro de catálogo**: Gestión de libros terminados, en proceso y pendientes.
 
-- **Seguimiento de metas**: Sistema para establecer y monitorear metas diarias de lectura.
+- **Seguimiento de metas**: Sistema para establecer y monitorear metas anuales de lectura.
 
 - **Notas y reflexiones**: Espacio para agregar reseñas y comentarios personales sobre cada libro.
 
 ## Tecnologías y Arquitectura
+
 - **Lenguaje**: C#
 
 - **Framework**: ASP.NET Core
 
-- **Arquitectura**: Patrón MVC (Model-View-Controller) para mantener una separación limpia de responsabilidades.
+- **Arquitectura**: Hexagonal.
+
+- **Patrones GOF**: Decorator, Factory, Observer
 
 - **Almacenamiento Actual**: Archivos locales en formato JSON.
 
 - **Entorno de Desarrollo**: Visual Studio
 
+- **API REST**: Proporciona endpoints para interactuar con la aplicación.
+
 ## Estructura del Código
 
 
-- **Models**: Define las entidades centrales (Libro, Usuario, Meta, Reseña).
+- **Models**: Define las entidades centrales (Book, User, Goal, Recommendation).
 
 - **Views**: Las pantallas con las que interactúa el usuario.
 
-- **Controllers**: Los intermediarios que reciben las peticiones y orquestan la lógica (LibroController, etc.).
+- **Controllers**: Los intermediarios que reciben las peticiones y orquestan la lógica (BookController, etc.).
 
 - **Infrastructure**: Repositorios encargados de leer y escribir la información en los archivos JSON.
+
+
+## Diagramas C4
+
+➡️ [Haz clic aquí para ver los diagramas C4](docs/diagramaS-c4.md)
 
 ##  Próximos Pasos 
 
@@ -44,7 +56,7 @@ Este proyecto está en fase de crecimiento. Las siguientes mejoras planificadas 
 
 ### Declaración de uso de IA
 
-Declaro que utlice inteligencia artificial para mejorar la ortografia y redacción. 
+Declaro que utlice inteligencia artificial para mejorar la ortografia y redacción asi como para organiar mejorar las ideas de redacción. 
 
 
 

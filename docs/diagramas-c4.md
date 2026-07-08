@@ -8,7 +8,7 @@ Esta documentación describe la arquitectura de Magic Library, una plataforma or
 
 **¿Para quién es?** Para cualquier usuario lector interesado en gestionar sus hábitos.
 
-**¿Qué pregunta responde?** ¿Cómo interactúa el usuario con el sistema y sus servicios externos?
+**¿Qué pregunta responde?** Cómo interactúa el usuario con el sistema y sus servicios externos
 
 ```mermaid
 C4Context
@@ -63,7 +63,7 @@ C4Container
 
 ¿Para quién es? Programadores.
 
-¿Qué pregunta responde? ¿Cómo interactúan las clases concretas (Servicios, Repositorios, Patrones GoF)?
+¿Qué pregunta responde? Cómo interactúan las clases concretas (Servicios, Repositorios, Patrones GoF)
 
 
 
