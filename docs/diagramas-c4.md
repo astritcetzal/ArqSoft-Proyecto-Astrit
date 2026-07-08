@@ -128,3 +128,9 @@ C4Component
     Rel(decorator, ibookRepo, "Envuelve y extiende")
 
   ``` 
+
+  ## Declaracion de uso de IA
+
+  Declaro el uso de inteligencia artificial de manera asistida para darme el código de los diagramas C4, pero no para la toma de decisiones de diseño. La arquitectura y las decisiones de implementación son mi responsabilidad. Supervisé cada uno de los digramas generados y los ajusté según mis necesidades y criterios de diseño. La IA fue utilizada únicamente como una herramienta para acelerar la creación de diagramas y no influyó en la dirección arquitectónica del proyecto.
+
+
