@@ -41,7 +41,7 @@ Plataforma diseñada para ayudar a las personas a desarrollar y mantener un háb
 
 ## Diagramas C4
 
-➡️ [Haz clic aquí para ver los diagramas C4](docs/diagramaS-c4.md)
+➡️ [Haz clic aquí para ver los diagramas C4](docs/diagramas-c4.md)
 
 ##  Próximos Pasos 
 
