@@ -84,3 +84,47 @@ C4Container
 
 ¿Qué pregunta responde? ¿Cómo interactúan las clases concretas (Servicios, Repositorios, Patrones GoF)?
 
+
+
+```mermaid
+C4Component
+    title Diagrama de Componentes (Nivel 3) - Detalle Técnico
+
+    Container_Boundary(web, "Capa Web / API") {
+        Component(bookCtrl, "BookController", "MVC", "Gestiona flujos y vistas de lectura.")
+        Component(goalCtrl, "GoalController", "MVC", "Gestiona vistas de las metas del lector.")
+    }
+
+    Container_Boundary(core, "Capa de Aplicación y Dominio") {
+        Component(goalSvc, "GoalService", "Service", "Lógica: Cálculo de progreso y notificación.")
+        Component(bookSvc, "BookService", "Service", "Lógica: Gestión de estado del libro.")
+        
+        Component(igoalRepo, "IGoalRepository", "Interface", "Puerto de persistencia de metas.")
+        Component(ibookRepo, "IBookRepository", "Interface", "Puerto de persistencia de libros.")
+        Component(igoalObs, "IGoalObserver", "Interface", "Puerto para Observadores.")
+    }
+
+    Container_Boundary(infra, "Capa de Infraestructura") {
+        Component(jsonGoal, "JsonGoalRepository", "Adaptador", "Persistencia JSON.")
+        Component(jsonBook, "JsonBookRepository", "Adaptador", "Persistencia JSON para libros.")
+        Component(factory, "RepositoryFactory", "Factory", "Instanciación según entorno.")
+        Component(decorator, "LoggingBookRepository", "Decorator", "Logging dinámico sin alterar lógica.")
+        Component(emailObs, "EmailObserver", "Observer", "Implementación de notificación por email.")
+    }
+
+    Rel(goalCtrl, goalSvc, "Llama a")
+    Rel(bookCtrl, bookSvc, "Llama a")
+    
+    Rel(goalSvc, igoalRepo, "Usa")
+    Rel(goalSvc, igoalObs, "Notifica a", "Patrón Observer")
+    Rel(bookSvc, ibookRepo, "Usa")
+    
+    Rel(jsonGoal, igoalRepo, "Implementa")
+    Rel(jsonBook, ibookRepo, "Implementa")
+    Rel(emailObs, igoalObs, "Implementa")
+    
+    Rel(factory, jsonGoal, "Instancia")
+    Rel(factory, jsonBook, "Instancia")
+    Rel(decorator, ibookRepo, "Envuelve y extiende")
+
+  ``` 
