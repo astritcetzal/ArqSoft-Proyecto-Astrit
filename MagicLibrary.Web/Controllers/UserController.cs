@@ -54,7 +54,9 @@ namespace MagicLibrary.Web.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, usuarioValido.Nombre),
-                    new Claim(ClaimTypes.Email, usuarioValido.Correo)
+                    new Claim(ClaimTypes.Email, usuarioValido.Correo),
+                    // guardar el id como texto
+                    new Claim("UserId", usuarioValido.Id.ToString())
                 };
 
                 // 2. Creamos la identidad y le ponemos el sello oficial

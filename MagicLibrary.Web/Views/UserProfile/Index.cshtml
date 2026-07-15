@@ -1,0 +1,31 @@
+﻿@model MagicLibrary.Domain.Models.UserProfile
+
+@{
+    ViewData["Title"] = "Mi Perfil de Lector";
+}
+
+<div class="contenedor-principal">
+    <div class="header-libro">
+        <h1>Mi Perfil de Lector</h1>
+        <!-- Botón preparado para cuando quieras hacer la función de editar -->
+        <a href="#" class="btn-agregar-libro">Editar Perfil</a>
+    </div>
+
+    <hr />
+
+    <div class="detalle-total">
+        <div class="detalle-texto">
+            <p><strong>Nivel de experiencia: </strong> @Model.NivelLector</p>
+            
+            <p><strong>Libros leídos en la vida: </strong> @Model.CantidadLibrosHistorico</p>
+            
+            <p><strong>Lector apasionado desde: </strong> @Model.FechaInicio</p>
+            
+            <p><strong>Géneros favoritos: </strong> @Model.GenerosFavoritos</p>
+        </div>
+    </div>
+    
+    <div class="meta-completa-msj" style="margin-top: 20px;">
+        Esta información nos ayuda a que el Oráculo IA y las sugerencias de metas sean mucho más precisas para ti.
+    </div>
+</div>

@@ -19,11 +19,16 @@ Directory.CreateDirectory(dataFolder);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBookRepository, JsonBookRepository>();
 builder.Services.AddScoped<IRecommendationRepository, JsonRecommendationRepository>();
+builder.Services.AddScoped<IUserProfileRepository, JsonUserProfileRepository>();
+builder.Services.AddScoped<IRecommendationRepository, JsonRecommendationRepository>();
 builder.Services.AddScoped<IUserRepository, JsonUserRepository>();
+builder.Services.AddScoped<IGoalRepository, JsonGoalRepository>();
 builder.Services.AddScoped<BookService>();
+builder.Services.AddScoped<GoalService>();
+builder.Services.AddScoped<UserProfileService>();
 builder.Services.AddScoped<RecommendationService>();
 builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<IGoalRepository, JsonGoalRepository>();
+
 builder.Services.AddScoped<GoalService>();
 var app = builder.Build();
 

@@ -8,7 +8,6 @@ namespace MagicLibrary.Infrastructure.Repositories
     public class JsonRecommendationRepository: IRecommendationRepository
     {
     private readonly string _path;
-    private readonly JsonSerializerOptions _options = new() { WriteIndented = true };
     public JsonRecommendationRepository(IWebHostEnvironment env)
     {
         _path = Path.Combine(env.ContentRootPath, "data", "recomendacion.json");

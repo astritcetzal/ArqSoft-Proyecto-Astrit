@@ -3,7 +3,7 @@
     "IdMeta": 1,
     "IdUsuario": 1,
     "Anio": 2026,
-    "CantidadObjetivo": 9,
+    "CantidadObjetivo": 11,
     "LibrosAsignados": [
       {
         "Titulo": "La ladrona de libros",
@@ -25,7 +25,7 @@
       },
       {
         "Titulo": "El retrato de Dorian Gray",
-        "EstaCompletado": false,
+        "EstaCompletado": true,
         "RecomendacionId": 10,
         "MiLibroId": null
       },
@@ -57,6 +57,12 @@
         "Titulo": "Los juegos del hambre",
         "EstaCompletado": false,
         "RecomendacionId": 6,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "Jane Eyre",
+        "EstaCompletado": false,
+        "RecomendacionId": 8,
         "MiLibroId": null
       }
     ]

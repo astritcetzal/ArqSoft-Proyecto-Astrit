@@ -150,8 +150,8 @@
     "FechaInicio": null,
     "Estado": "Por leer",
     "FechaTerminado": null,
-    "CalificacionPersonal": null,
-    "ResenaPersonal": null
+    "CalificacionPersonal": 10,
+    "ResenaPersonal": "cwdwcd"
   },
   {
     "IdLibro": 15,
@@ -180,6 +180,17 @@
     "Titulo": "La invenci\u00F3n de Hugo Cabret",
     "Autor": "Brian Selznick",
     "Paginas": 533,
+    "FechaInicio": null,
+    "Estado": "Terminado",
+    "FechaTerminado": null,
+    "CalificacionPersonal": null,
+    "ResenaPersonal": null
+  },
+  {
+    "IdLibro": 18,
+    "Titulo": "El retrato de Dorian Gray",
+    "Autor": "Oscar Wilde",
+    "Paginas": 254,
     "FechaInicio": null,
     "Estado": "Terminado",
     "FechaTerminado": null,
