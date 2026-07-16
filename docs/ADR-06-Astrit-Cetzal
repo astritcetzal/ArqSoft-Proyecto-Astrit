@@ -3,8 +3,8 @@
 | Campo  | Valor |
 |--------|-------|
 | Autor  | Astrit Cetzal |
-| Fecha  | 26/06/2026 |
-| Estado | `Reemplazado por ADR-06`  |
+| Fecha  | 15/07/2026 |
+| Estado | `Aceptado`  |
 
 ---
 
@@ -18,7 +18,7 @@ Debido a que el sistem está en una etapa de evoluvión constante (de JSON a fut
 
 ---
 
-## Decisión
+## Decisión 1: Implementación de Patrones de Diseño (GOF)
 
 >  Patrones de diseño GOF
 - Factory Method (Credencial) implementando la creacion de los repositorios de datos.
@@ -92,6 +92,13 @@ public class EmailObserver: IGoalObserver
 
 ````
 
+## Decisión 2: Inversión de Dependencias (Principios SOLID)
+
+*   Implementar interfaces estrictas para la capa de servicios (crear `IBookService`, `IGoalService`, `IUserProfileService` dentro de `MagicLibrary.Application.Interfaces`).
+*   Inyectar estas interfaces en los controladores en lugar de inyectar las clases concretas (`BookService`, `GoalService`).
+*   Asegurar que la capa Web (Adaptador de entrada) dependa exclusivamente de abstracciones, cumpliendo con el Principio de Inversión de Dependencias (la "D" de SOLID) y disminuyendo el acoplamiento.
+
+---
 
 
 ### Alternativas consideradas
@@ -143,4 +150,11 @@ Menciona al menos:
 ## Declaración de uso de IA
 Declaro el uso de Inteligencia Artifiacial para corregir errores, entender mejor conceptos. 
 Lo usé para el CSS pero la lógica es mia y me ayudó para corregir conflictos al momento de correr.
+
+
+
+
+
+
+
 
