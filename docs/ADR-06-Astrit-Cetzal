@@ -113,9 +113,38 @@ public class EmailObserver: IGoalObserver
 
 ---
 
+## Desición 3: Identificación y refactorización de Code Smells
+
+Idetificar y erradicar vicios de código en la capa de presentación mediante las siguiente refactorización:
+
+### Code Smell 1: Long Method y Tight Coupling
+* **Ubicación**: `GoalController`, método `Index()`.
+* **Como solucionarlo**:
+    1. Aplicar la técnica *Estract Method*
+    2. Extraer el bloque de código iterativo (`foreach`) responsable de realizar cálculos matemátocamente sobre los libros asiganodos.
+    3. Trasladar dicha lógica hacia un nuevo método `CalcularTotalPaginasPendientes(Goal meta)` en la capa de Aplicación.
+    4. Invocar el nuevo método desde el controlador,
+
+### Code Smell 2: Feature Envy (Envidia de Funcionalidad)
+* **Ubicación**: `GoalController`, método `MarcarCompletado(string tituloLibro)`.
+* **Como solucionarlo**:
+    1. Applicar la técnica *Move Method*.
+    2. Retirar del controlador las decisiones de negocio (buscar el libro en otros servicios, transformar recomendaciones en libros nuevos y cambias estados).
+    3. Encapsular toda esta lógica en un método unificado dentro de la capa de Aplicación.
+    4. Limitar el controlador a recibir la petición y delegar la acción al servicio.
+
+
+
+----
+
+
+
+
 ## Consecuencias
 
 **✅ Lo que gano:**
+
+*GOF*
 
 > Técnica: * Escalabilidad: El Factory permite cambiar la base de datos sin tocar la lógica.
 
@@ -127,7 +156,9 @@ public class EmailObserver: IGoalObserver
 
 **⚠️ Lo que sacrifico o asumo:**
 
-Menciona al menos:
+
+*GOF*
+
 - Limitación técnica: El uso de Factory y Observer añade una capa de indirección, lo que puede hacer que el flujo de depuración sea más complejo al inicio.
 
 - Riesgo: Un uso excesivo de Observer puede generar "efectos secundarios" difíciles de rastrear si no se documenta bien qué componentes están escuchando a quién.
