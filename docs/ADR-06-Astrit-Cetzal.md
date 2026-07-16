@@ -1,4 +1,4 @@
-# ADR-05: Patrones GOF implementados
+# ADR-06: Deuda técnicas
 
 | Campo  | Valor |
 |--------|-------|
