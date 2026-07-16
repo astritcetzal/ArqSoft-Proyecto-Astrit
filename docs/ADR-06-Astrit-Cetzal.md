@@ -133,11 +133,27 @@ Idetificar y erradicar vicios de código en la capa de presentación mediante la
     3. Encapsular toda esta lógica en un método unificado dentro de la capa de Aplicación.
     4. Limitar el controlador a recibir la petición y delegar la acción al servicio.
 
+----   
 
+## Desición 4: Documentación y Mitigación de Deuda técnica
 
-----
+### Deuda Técnica 1: Infraestructura y configuración 
+* **Qué es**: Rutas estáticas de archivos JSON escritas a mano (*hardcodeadas*) directamente dentro de las clases de la capa de Infraestructura.
+* **Por qué existe**: Decisión consciente asumida para lograr un prototipado veloz en un entorno local y cumplir con fechas de entrega sin tener que configurar variables de entorno complejas.
+* **Costo de no pagarla**: Romper por completo la aplicación al momento de desplegarla en un servidor en la nube. Las rutas del sistema de archivos en producción serán distintas; si la deuda crece, será necesario modificar el código fuente y recompilar la aplicacióncada vez que se cambie de entorno.
+* **Propuesta de solución**: Inyectar la interfaz `IConfiguración` para leer el nombre y la ubicación de los archivos de forma dinámica a traves de variables de entorno del sistema operativo.
 
+### Deuda Técnica 2: Seguridad en lógica de Negocio
+* **Qué es**: Almacenamiento y validación de contraseñas de usuarios en texto plano directamente en la base de datos (`ùsers.json`) y en el método de autenticación.
+* **Por qué existe**: Descuido tolerado de forma temporal para validar con rápidez el funcionamiento del flujo de inicio de sesipon y la generación de *Cookies*, priorizando la interfaz gráfica del backend.
+* **Costo de no pagarla**: Generar una vulnerabilidad crítica. Comprometer las cuentas de todos los usuarios de forma inmediata en caso de que un tercero obtenga acceso de lectura a los archivos JSON o a la futura base de datos.
+* **Propuesta de solución**: Integrar una librería externa de criptografia  (como `BCrypt.Net`). Refactorizar el método de registro para aplicar *Hashing* a la contraseña antes de guardarla, y modificar el inico de sesión para que utilice el método de comparaciónscriptográfica.
 
+### Deuda Técnica 3: Persistencia y concurrencia (JSON vs Base de datos)
+* **Qué es**: Uso de archivos físico `.json` como motor de base de datos principal para el registro de libros y métas
+* **Por qué existe**: Desición tomada para agilizar la construcción de la arquitectura hexagonal y validar las interfaces de los repositorios sin depender de una conexión a un motor de base de datos real.
+* **Costo de no pagarla**: General excepciones de *Acceso Denegado (I/O)* o pérdida de datos debido a que los archivos de texto plano no soportan operaciones concurrentes. Si dos usuarios intentan guardar su progreso en el mismo milisegndo, el sistema colapsará.
+* **Propuesta de solución**: Desarrollar un nuevo adaptador de infraestructura (ej. `DynamoDbRepository`) que implemente las interfaces existentes y migrar la persistencia hacia Amazon DynamoDb, aprovechando la capa gratuita y el entorno en la nube para garantizar alta disponibilidad y concurrencia. 
 
 
 ## Consecuencias
