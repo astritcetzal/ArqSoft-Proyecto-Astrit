@@ -172,7 +172,14 @@ Idetificar y erradicar vicios de código en la capa de presentación mediante la
 
 ## Diagramas C4
 
-➡️ [Haz clic aquí para ver los diagramas C4](docs/diagramas-c4.md)
+➡️ [Haz clic aquí para ver los diagramas C4](diagramas-c4.md)
+
+
+## Declaración de uso de IA
+Declarar el uso de Inteligencia Artificial como herramienta de apoyo analítico. Utilizar la IA para asistir en la auditoría de código, logrando identificar formalmente los "Code Smells" (*Long Method*, *Feature Envy*) ocultos en la capa de presentación. Emplear la IA para validar la correcta aplicación de las técnicas de refactorización orientada a objetos (*Extract Method*, *Move Method*) y para estructurar semánticamente la documentación técnica y las deudas de infraestructura. La autoría del código base, el diseño arquitectónico y las decisiones estratégicas de migración a la nube permanecen como creación propia.
+
+
+
 
 
 
