@@ -160,47 +160,19 @@ Idetificar y erradicar vicios de código en la capa de presentación mediante la
 
 **✅ Lo que gano:**
 
-*GOF*
-
-> Técnica: * Escalabilidad: El Factory permite cambiar la base de datos sin tocar la lógica.
-
-- Flexibilidad: El Decorator permite enriquecer los datos de libros sin tocar el núcleo.
-
-- Desacoplamiento: El Observer permite que el sistema de notificaciones sea opcional y fácil de escalar a otros canales (ej: notificaciones push).
-
-> Proceso: Facilita el trabajo en equipo; cada patrón aísla una responsabilidad, permitiendo modificar notificaciones sin tocar la persistencia de datos.
+* **Desacoplamiento total**: lograr que las notificaciones, las consulas y la persistencia de datos evolucionen por separado gracias a los patrones GOF y las interfaces de los servicios. 
+* **Código Limpio**: Facilitar la lectura de los controladores y permitir la realización de pruebas unitarias sobre los cálculos matemáticos en la capa de servicios.
+* **Preparación Cloud**: Garantizar que el proyecto sea robusto, seguro y escalable para inminente despliegue en servicios de AWS.
 
 **⚠️ Lo que sacrifico o asumo:**
 
-
-*GOF*
-
-- Limitación técnica: El uso de Factory y Observer añade una capa de indirección, lo que puede hacer que el flujo de depuración sea más complejo al inicio.
-
-- Riesgo: Un uso excesivo de Observer puede generar "efectos secundarios" difíciles de rastrear si no se documenta bien qué componentes están escuchando a quién.
-
-## Diagrama
-
-### C1
-
-![Diagrama del sistema]( images/C1-actualizado.png)
-
-### C2
-
-![Diagrama del sistema]( images/C2-actualizado.png )
-
-### C3
-
-![Diagrama del sistema]( images/C-3.png )
+*  **Curva de complejidad**: Añadir múltiple abstracciones e inyecciones de dependencias puede dificultar la depuración inicial del código para nuevos integrantes.
+*  **Inversión de tiempo**: Dedicar horas de desarrollo a refactorizar funciones, establecer interfaces y configurar el SDK de AWS retrasa temporalemnte la creación de nuevas pantallas visuales.
 
 
-## Declaración de uso de IA
-Declaro el uso de Inteligencia Artifiacial para corregir errores, entender mejor conceptos. 
-Lo usé para el CSS pero la lógica es mia y me ayudó para corregir conflictos al momento de correr.
+## Diagramas C4
 
-
-
-
+➡️ [Haz clic aquí para ver los diagramas C4](docs/diagramas-c4.md)
 
 
 
