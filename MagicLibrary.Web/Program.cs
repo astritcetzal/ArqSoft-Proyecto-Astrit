@@ -3,7 +3,7 @@ using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-
+using MagicLibrary.Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 // Si no han iniciado sesion no se puede acceder
@@ -23,13 +23,13 @@ builder.Services.AddScoped<IUserProfileRepository, JsonUserProfileRepository>();
 builder.Services.AddScoped<IRecommendationRepository, JsonRecommendationRepository>();
 builder.Services.AddScoped<IUserRepository, JsonUserRepository>();
 builder.Services.AddScoped<IGoalRepository, JsonGoalRepository>();
-builder.Services.AddScoped<BookService>();
-builder.Services.AddScoped<GoalService>();
-builder.Services.AddScoped<UserProfileService>();
-builder.Services.AddScoped<RecommendationService>();
-builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IGoalService, GoalService>();
+builder.Services.AddScoped<IUserProfileService, UserProfileService>();
+builder.Services.AddScoped<IRecommendationService, RecommendationService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
-builder.Services.AddScoped<GoalService>();
+
 var app = builder.Build();
 
 
