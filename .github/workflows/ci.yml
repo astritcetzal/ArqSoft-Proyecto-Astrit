@@ -1,0 +1,29 @@
+name: CI Pipeline Magic Library
+
+on:
+  push:
+    branches: [ "main", "diagramas", "pruebas" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del código
+      uses: actions/checkout@v4
+
+    - name: Configurar .NET 10
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Restaurar dependencias
+      run: dotnet restore
+
+    - name: Compilar solución
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Correr pruebas unitarias (xUnit)
+      run: dotnet test --no-build --configuration Release --verbosity normal
