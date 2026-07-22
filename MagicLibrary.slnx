@@ -4,4 +4,5 @@
   <Project Path="MagicLibrary.Domain/MagicLibrary.Domain.csproj" Id="6de76ddd-b843-4860-8bd1-14fa4ce7c456" />
   <Project Path="MagicLibrary.Infrastructure/MagicLibrary.Infrastructure.csproj" Id="816e5770-c59b-44ed-9db0-9d1e3803ffa8" />
   <Project Path="MagicLibrary.Web/MagicLibrary.Web.csproj" />
+  <Project Path="MagicLibrary.xUnit/MagicLibrary.xUnit.csproj" Id="8c6e0343-5da9-4845-a100-7d4bef38442f" />
 </Solution>
