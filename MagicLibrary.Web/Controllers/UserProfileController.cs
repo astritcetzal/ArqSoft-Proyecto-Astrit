@@ -1,4 +1,4 @@
-﻿using MagicLibrary.Application.Services;
+﻿using MagicLibrary.Application.Interfaces;
 using MagicLibrary.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +9,10 @@ namespace MagicLibrary.Web.Controllers
 {
     public class UserProfileController : Controller
     {
-        private readonly UserProfileService _userProfileService;
+        private readonly IUserProfileService _userProfileService;
       
 
-        public UserProfileController(UserProfileService userProfileService)
+        public UserProfileController(IUserProfileService userProfileService)
         {
             _userProfileService = userProfileService;
            

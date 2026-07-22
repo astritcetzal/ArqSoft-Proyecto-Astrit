@@ -1,20 +1,20 @@
-﻿using MagicLibrary.Application.Services;
+﻿using MagicLibrary.Application.Interfaces;
+using MagicLibrary.Application.Services;
 using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using System.Security.Cryptography.X509Certificates;
 
 namespace MagicLibrary.Web.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UserService _service;
+        private readonly IUserService _service;
 
         // El servicio llega por inyección de dependencias
-        public UserController(UserService service)
+        public UserController(IUserService service)
         {
             _service = service;
         }

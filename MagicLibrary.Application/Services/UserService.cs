@@ -1,9 +1,10 @@
-﻿using MagicLibrary.Domain.Interfaces;
+﻿using MagicLibrary.Application.Interfaces;
+using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
 
 namespace MagicLibrary.Application.Services
 {
-    public class UserService
+    public class UserService: IUserService
     {
         private readonly IUserRepository _repo;
 

@@ -1,9 +1,10 @@
-﻿using MagicLibrary.Domain.Interfaces;
+﻿using MagicLibrary.Application.Interfaces;
+using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
 
 namespace MagicLibrary.Application.Services
 {
-    public class BookService
+    public class BookService: IBookService
     {
         private readonly IBookRepository _repo;
         public BookService(IBookRepository repo)

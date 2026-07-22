@@ -1,9 +1,10 @@
-﻿using MagicLibrary.Domain.Interfaces;
+﻿using MagicLibrary.Application.Interfaces;
+using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
 
 namespace MagicLibrary.Application.Services
 {
-    public class RecommendationService
+    public class RecommendationService: IRecommendationService
     {
         private readonly IRecommendationRepository _repo;
         public RecommendationService(IRecommendationRepository repo)

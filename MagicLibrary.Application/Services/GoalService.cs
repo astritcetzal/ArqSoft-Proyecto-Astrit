@@ -1,19 +1,23 @@
-﻿using MagicLibrary.Domain.Interfaces;
+﻿using MagicLibrary.Application.Interfaces;
+using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
 
 namespace MagicLibrary.Application.Services
 {
-    public class GoalService
+    public class GoalService : IGoalService
     {
         private readonly IGoalRepository _repo;
         private readonly IEnumerable<IGoalObserver> _observers;
-        public GoalService(IGoalRepository repo, IEnumerable<IGoalObserver> observers)
+        private readonly IBookService _bservice;
+        private readonly IRecommendationService _rService;
+        public GoalService(IGoalRepository repo, IEnumerable<IGoalObserver> observers, IBookService bservice, IRecommendationService rService)
 
         {
             _repo = repo;
             _observers = observers;
+            _bservice = bservice;
+            _rService = rService;
         }
-        // logica para asegurar que siempre haya una meta para mostrar
         public Goal ObtenerMetaOCrearPorDefecto(int idUsuario, int anio)
         {
             var meta = _repo.ObtenerTodos().FirstOrDefault(g => g.IdUsuario == idUsuario && g.Anio == anio);
@@ -44,32 +48,77 @@ namespace MagicLibrary.Application.Services
         {
             return _repo.ObtenerPorId(id);
         }
-
         public void Agregar(Goal goal)
         {
             //validaciones de negoco agregar para que no trunque el sistema
             _repo.Agregar(goal);
         }
-
         public void Actualizar(Goal goal)
         {
             _repo.Actualizar(goal);
         }
-
-        // agregar este método que será  util para el controller
         public Goal? ObtenerMetaActual(int idUsuario, int anio)
         {
             return _repo.ObtenerTodos().FirstOrDefault(g => g.IdUsuario == idUsuario && g.Anio == anio);
         }
-
         public void ConfirmarLibroAgregado(Goal goal)
-        {
-            //notificar 
+        {//notificar 
             foreach (var observer in _observers)
             {
                 observer.OnSavedBook(goal);
             }
-
+        } 
+        public int CalcularTotalPaginasPendientes(Goal metaActual)
+        {
+            int totalPaginas = 0;
+            if (metaActual.LibrosAsignados != null) 
+            { 
+                foreach (var item in metaActual.LibrosAsignados)
+                {
+                    if (!item.EstaCompletado && item.RecomendacionId.HasValue)
+                    {
+                        var detallesLibro = _rService.ObtenerPorId(item.RecomendacionId.Value);
+                        if (detallesLibro != null) totalPaginas += detallesLibro.Paginas;
+                    }
+                    else if (!item.EstaCompletado && item.MiLibroId.HasValue) 
+                    {
+                        var detallesLibro = _bservice.ObtenerPorId(item.MiLibroId.Value);
+                        if (detallesLibro != null) totalPaginas += detallesLibro.Paginas;
+                    }
+                }
+            }
+            return totalPaginas;
+        }
+        //code smell 2
+        public void CompletarLibroEnMeta(int idUsuario, int anio, string tituloLibro)
+        {
+            var metaActual = ObtenerMetaOCrearPorDefecto(idUsuario, anio);
+            var libroEnMeta = metaActual.LibrosAsignados.FirstOrDefault(i => i.Titulo == tituloLibro);
+        
+            if (libroEnMeta != null)
+            {
+                libroEnMeta.EstaCompletado = true;
+                Actualizar(metaActual);
+                if (libroEnMeta.MiLibroId.HasValue)
+                {
+                    var libroReal = _bservice.ObtenerPorId(libroEnMeta.MiLibroId.Value);
+                    if(libroReal != null)
+                    {
+                        libroReal.Estado = "Terminado";
+                        _bservice.Actualizar(libroReal);
+                    }
+                }
+                else if(libroEnMeta.RecomendacionId.HasValue)
+                {
+                    var recomendacion = _rService.ObtenerPorId(libroEnMeta.RecomendacionId.Value);
+                    if (recomendacion!= null)
+                    {
+                        var nuevoLibro = _bservice.PrepararLibroDesdeRecomendacion(recomendacion);
+                        nuevoLibro.Estado = "Terminado";
+                        _bservice.Agregar(nuevoLibro);
+                    }
+                }
+            }    
         }
 
     }

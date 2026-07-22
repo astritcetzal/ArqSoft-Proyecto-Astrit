@@ -5,58 +5,33 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.X509Certificates;
 using AspNetCoreGeneratedDocument;
 
-using Microsoft.AspNetCore.Authorization; //para login 
+using Microsoft.AspNetCore.Authorization;
+using MagicLibrary.Application.Interfaces; //para login 
 namespace MagicLibrary.Web.Controllers
 {
-    [Authorize] //ára que sea obligatoria la autenticacion 
+    [Authorize] //hára que sea obligatoria la autenticacion 
     public class GoalController : Controller
     {
-        private readonly RecommendationService _Rservice;
-        private readonly GoalService _Gservice;
-        private readonly BookService _Bservice;
+        private readonly IRecommendationService _Rservice;
+        private readonly IGoalService _Gservice;
+        private readonly IBookService _Bservice;
 
-        public GoalController(GoalService Gservice,RecommendationService Rservice, BookService Bservice)
+        public GoalController(IGoalService Gservice,IRecommendationService Rservice, IBookService Bservice)
         {
             _Gservice = Gservice;
             _Rservice = Rservice;
             _Bservice = Bservice;
         }
-
-
         public IActionResult Index()
         {
             ViewBag.Recommendation = _Rservice.ObtenerTodos();
-
             //Pedir datos procesados a los servicios
             var metaActual = _Gservice.ObtenerMetaOCrearPorDefecto(1, DateTime.Now.Year);
             var diasRestantes = _Gservice.CalcularDiasRestantesAnio();
-            if (diasRestantes <= 0) diasRestantes = 1; 
+            if (diasRestantes <= 0) diasRestantes = 1;
 
-            int totalPaginas = 0;
-            if (metaActual.LibrosAsignados != null)
-            {
-                foreach (var item in metaActual.LibrosAsignados)
-                {
-                    if (!item.EstaCompletado && item.RecomendacionId.HasValue)
-                    {
-                        var detallesLibro = _Rservice.ObtenerPorId(item.RecomendacionId.Value);
-                        if (detallesLibro != null)
-                        {
-                            totalPaginas += detallesLibro.Paginas;
-                        }
-                    }
-                    // Sumamos también si viene de Mis Libros
-                    else if (!item.EstaCompletado && item.MiLibroId.HasValue)
-                    {
-                        var detallesLibro = _Bservice.ObtenerPorId(item.MiLibroId.Value);
-                        if (detallesLibro != null)
-                        {
-                            totalPaginas += detallesLibro.Paginas;
-                        }
-                    }
-                }
-
-            }
+            int totalPaginas = _Gservice.CalcularTotalPaginasPendientes(metaActual) ;
+            
             //pasar los datos a la vista
             ViewBag.DiasRestantes = diasRestantes;
             ViewBag.TotalPaginas = totalPaginas; //mandar suma
@@ -65,8 +40,6 @@ namespace MagicLibrary.Web.Controllers
             ViewBag.MisLibros = _Bservice.ObtenerTodos().Where(b => b.Estado != "Terminado").ToList();
             return View(metaActual);
         }
-
-        
         public IActionResult ObtenerPorId(int id)
         {
             var goals = _Gservice.ObtenerTodos().Where(g=> g.IdMeta ==id );
@@ -81,12 +54,10 @@ namespace MagicLibrary.Web.Controllers
             _Gservice.Agregar(goals);
             return RedirectToAction("Index");
         }
-
         public IActionResult Actualizar(Goal goals)
         {
             return View(goals);
         }
-
         [HttpPost]
         public IActionResult AgregarItem(int? RecomendacionId, int? MiLibroId)
         {
@@ -121,7 +92,6 @@ namespace MagicLibrary.Web.Controllers
                     });
                 }
             }
-
             _Gservice.Actualizar(metaActual);
             return RedirectToAction("Index");
         }
@@ -138,46 +108,13 @@ namespace MagicLibrary.Web.Controllers
 
             return RedirectToAction("Index");
         }
-
         [HttpPost]
         public IActionResult MarcarCompletado(string tituloLibro)
         {
-            var metaActual = _Gservice.ObtenerMetaOCrearPorDefecto(1, DateTime.Now.Year);
-            var libroEnMeta = metaActual.LibrosAsignados.FirstOrDefault(i => i.Titulo == tituloLibro);
-
-            if (libroEnMeta != null)
-            {
-                // 4. Marcamos la palomita en la libreta
-                libroEnMeta.EstaCompletado = true;
-                _Gservice.Actualizar(metaActual);
-
-                // 5. Lógica Hexagonal: Actualizar el estado en el inventario real
-                if (libroEnMeta.MiLibroId.HasValue)
-                {
-                    // Si ya era un libro nuestro, lo actualizamos
-                    var libroReal = _Bservice.ObtenerPorId(libroEnMeta.MiLibroId.Value);
-                    if (libroReal != null)
-                    {
-                        libroReal.Estado = "Terminado";
-                        _Bservice.Actualizar(libroReal);
-                    }
-                }
-                else if (libroEnMeta.RecomendacionId.HasValue)
-                {
-                    // Si era una recomendación, lo agregamos a Mis Libros como terminado
-                    var recomendacion = _Rservice.ObtenerPorId(libroEnMeta.RecomendacionId.Value);
-                    if (recomendacion != null)
-                    {
-                        var nuevoLibro = _Bservice.PrepararLibroDesdeRecomendacion(recomendacion);
-                        nuevoLibro.Estado = "Terminado";
-                        _Bservice.Agregar(nuevoLibro);
-                    }
-                }
-            }
-
+            _Gservice.CompletarLibroEnMeta(1, DateTime.Now.Year, tituloLibro);
+            
             return RedirectToAction("Index");
         }
-
     }
 }
 

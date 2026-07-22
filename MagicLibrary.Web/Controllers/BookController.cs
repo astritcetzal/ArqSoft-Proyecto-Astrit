@@ -1,4 +1,5 @@
-﻿using MagicLibrary.Application.Services;
+﻿using MagicLibrary.Application.Interfaces;
+using MagicLibrary.Application.Services;
 using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -10,9 +11,9 @@ namespace MagicLibrary.Web.Controllers
     [Authorize]
     public class BookController : Controller
     {
-        private readonly BookService _service;
-        private readonly RecommendationService _recService;
-        public BookController(BookService service, RecommendationService recService)
+        private readonly IBookService _service;
+        private readonly IRecommendationService _recService;
+        public BookController(IBookService service, IRecommendationService recService)
         {
             _service = service;
             _recService = recService;

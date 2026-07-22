@@ -1,12 +1,11 @@
-﻿using MagicLibrary.Domain.Interfaces;
+﻿using MagicLibrary.Application.Interfaces;
+using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace MagicLibrary.Application.Services
 {
-    public class UserProfileService
+    public class UserProfileService: IUserProfileService
     {
         private readonly IUserProfileRepository _userProfileRepository;
         public UserProfileService(IUserProfileRepository userProfileRepository)
