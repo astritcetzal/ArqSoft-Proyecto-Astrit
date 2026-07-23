@@ -12,7 +12,6 @@ namespace MagicLibrary.xUnit
     // ====================================================================
     // REPOSITORIOS FAKE (Adaptadores en memoria)
     // ====================================================================
-
     public class BookRepositoryFake : IBookRepository
     {
         private readonly List<Book> _books;
