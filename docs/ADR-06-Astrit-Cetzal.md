@@ -156,9 +156,9 @@ Idetificar y erradicar vicios de código en la capa de presentación mediante la
 
 ### Clases elegidas y justificación
 
-1. **BookController:** Se eligió para asegurar que el flujo principal de inventario funcione. Permite hacer pruebas aisladas de cuando un libro se agrega y verificar que las acciones permitidas (como listar, ver detalles o guardar) respondan correctamente con los datos esperados y redirijan a las vistas correctas.
-2. **GoalController:** Se eligió porque contiene el núcleo interactivo del seguimiento de hábitos de lectura. Al probarlo, garantizamos que las reglas de negocio (como cargar la meta actual del año o interactuar con los libros asignados) no se rompan si en el futuro modificamos la interfaz o cambiamos de base de datos.
-3. **UserProfileController:** Se seleccionó porque gestiona la configuración personal del usuario. Probar esta clase es estratégico, ya que asegura que la actualización de datos (como el nivel de lector, libros leídos y géneros favoritos) se guarde correctamente. Estos datos serán la materia prima indispensable para la futura integración del sistema de recomendaciones con Inteligencia Artificial.
+1. **BookControllerTests:** Se eligió para asegurar que el flujo principal de inventario funcione. Permite hacer pruebas aisladas de cuando un libro se agrega y verificar que las acciones permitidas (como listar, ver detalles o guardar) respondan correctamente con los datos esperados y redirijan a las vistas correctas.
+2. **GoalControllerTests:** Se eligió porque contiene el núcleo interactivo del seguimiento de hábitos de lectura. Al probarlo, garantizamos que las reglas de negocio (como cargar la meta actual del año o interactuar con los libros asignados) no se rompan si en el futuro modificamos la interfaz o cambiamos de base de datos.
+3. **UserProfileControllerTests:** Se seleccionó porque gestiona la configuración personal del usuario. Probar esta clase es estratégico, ya que asegura que la actualización de datos (como el nivel de lector, libros leídos y géneros favoritos) se guarde correctamente. Estos datos serán la materia prima indispensable para la futura integración del sistema de recomendaciones con Inteligencia Artificial.
 
 
 
@@ -194,7 +194,11 @@ Idetificar y erradicar vicios de código en la capa de presentación mediante la
 
 
 ## Declaración de uso de IA
-Declarar el uso de Inteligencia Artificial como herramienta de apoyo analítico. Utilizar la IA para asistir en la auditoría de código, logrando identificar formalmente los "Code Smells" (*Long Method*, *Feature Envy*) ocultos en la capa de presentación. Emplear la IA para validar la correcta aplicación de las técnicas de refactorización orientada a objetos (*Extract Method*, *Move Method*) y para estructurar semánticamente la documentación técnica y las deudas de infraestructura. La autoría del código base, el diseño arquitectónico y las decisiones estratégicas de migración a la nube permanecen como creación propia.
+Declarar el uso de Inteligencia Artificial como herramienta de apoyo analítico. 
+Utilizar la IA para asistir en la auditoría de código, logrando identificar formalmente los "Code Smells" (*Long Method*, *Feature Envy*) ocultos en la capa de presentación. 
+Emplear la IA para validar la correcta aplicación de las técnicas de refactorización orientada a objetos (*Extract Method*, *Move Method*) y para estructurar semánticamente la documentación técnica y las deudas de infraestructura. 
+La autoría del código base, el diseño arquitectónico y las decisiones estratégicas de migración a la nube permanecen como creación propia.
+La correcta implementación de las pruebas con xUnix, apoyando a entender mejor los conceptos para una correcta implementación.
 
 
 
