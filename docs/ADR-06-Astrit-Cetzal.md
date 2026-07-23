@@ -98,20 +98,6 @@ public class EmailObserver: IGoalObserver
 *   Inyectar estas interfaces en los controladores en lugar de inyectar las clases concretas (`BookService`, `GoalService`).
 *   Asegurar que la capa Web (Adaptador de entrada) dependa exclusivamente de abstracciones, cumpliendo con el Principio de Inversión de Dependencias (la "D" de SOLID) y disminuyendo el acoplamiento.
 
----
-
-
-### Alternativas consideradas
-
-
-
-| Alternativa | Por qué la descarté |
-|-------------|---------------------|
-| Simple Factory (Solo instanciación)         | Es menos flexible que el Factory Method; el Factory Method permite sub-clases para decidir qué instanciar sin cambiar el cliente.                 |
-| Inheritance (Herencia para extender)         | La herencia es rígida y causa una explosión de clases si quiero combinar varias funciones (ej: un libro decorado con 'Alerta de Tiempo' y 'Alerta de Género').                 |
-| Service Locator         | Es considerado un anti-patrón en arquitecturas modernas y rompe la inyección de dependencias que ya tengo configurada en .NET.                 |
-
----
 
 ## Desición 3: Identificación y refactorización de Code Smells
 
@@ -154,6 +140,38 @@ Idetificar y erradicar vicios de código en la capa de presentación mediante la
 * **Por qué existe**: Desición tomada para agilizar la construcción de la arquitectura hexagonal y validar las interfaces de los repositorios sin depender de una conexión a un motor de base de datos real.
 * **Costo de no pagarla**: General excepciones de *Acceso Denegado (I/O)* o pérdida de datos debido a que los archivos de texto plano no soportan operaciones concurrentes. Si dos usuarios intentan guardar su progreso en el mismo milisegndo, el sistema colapsará.
 * **Propuesta de solución**: Desarrollar un nuevo adaptador de infraestructura (ej. `DynamoDbRepository`) que implemente las interfaces existentes y migrar la persistencia hacia Amazon DynamoDb, aprovechando la capa gratuita y el entorno en la nube para garantizar alta disponibilidad y concurrencia. 
+
+
+## Decisión 5: Pruebas con xUnit
+
+- Se utilizó el patrón Arrange - Act - Assert
+
+| Paso | Qué hace | 
+|------|----------|
+| **Arrange** | Prepara lo necesario (instancia los Fakes y los datos de prueba) |
+| **Act** | Ejecuta la acción que se quiere probar llamando al método del controlador |
+| **Assert** | Verifica que el resultado obtenido sea exactamente el esperado. |
+
+- Elegí usar el framework xUnit, cuyo atributo principal para definir una prueba es `[Fact]`.
+
+### Clases elegidas y justificación
+
+1. **BookController:** Se eligió para asegurar que el flujo principal de inventario funcione. Permite hacer pruebas aisladas de cuando un libro se agrega y verificar que las acciones permitidas (como listar, ver detalles o guardar) respondan correctamente con los datos esperados y redirijan a las vistas correctas.
+2. **GoalController:** Se eligió porque contiene el núcleo interactivo del seguimiento de hábitos de lectura. Al probarlo, garantizamos que las reglas de negocio (como cargar la meta actual del año o interactuar con los libros asignados) no se rompan si en el futuro modificamos la interfaz o cambiamos de base de datos.
+3. **UserProfileController:** Se seleccionó porque gestiona la configuración personal del usuario. Probar esta clase es estratégico, ya que asegura que la actualización de datos (como el nivel de lector, libros leídos y géneros favoritos) se guarde correctamente. Estos datos serán la materia prima indispensable para la futura integración del sistema de recomendaciones con Inteligencia Artificial.
+
+
+
+### Alternativas consideradas
+
+
+
+| Alternativa | Por qué la descarté |
+|-------------|---------------------|
+| Simple Factory (Solo instanciación)         | Es menos flexible que el Factory Method; el Factory Method permite sub-clases para decidir qué instanciar sin cambiar el cliente.                 |
+| Inheritance (Herencia para extender)         | La herencia es rígida y causa una explosión de clases si quiero combinar varias funciones (ej: un libro decorado con 'Alerta de Tiempo' y 'Alerta de Género').                 |
+| Service Locator         | Es considerado un anti-patrón en arquitecturas modernas y rompe la inyección de dependencias que ya tengo configurada en .NET.                 |
+
 
 
 ## Consecuencias
