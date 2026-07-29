@@ -1,12 +1,14 @@
+using MagicLibrary.Application.Services;
 using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
-using MagicLibrary.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography.X509Certificates;
 using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MagicLibrary.Web.Controllers
 {
+    
     public class HomeController : Controller
     {
         public IActionResult Index()

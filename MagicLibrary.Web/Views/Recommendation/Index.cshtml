@@ -3,56 +3,64 @@
 <div class="contenedor-principal-recomendaciones">
     <div class="header-recomendaciones">
         <h1>Recomendaciones</h1>
-      
     </div>
+
     <div class="contenedor-filtros-recomendaciones">
         <a asp-action="Index" class="filtro-btn">Todos</a>
-        @foreach (var tip in ViewBag.Generos as List<string>)
+        @if (ViewBag.Generos != null)
         {
-            <a asp-action="Index" asp-route-Genero="@tip" class="filtro-btn">@tip</a>
+            foreach (var tip in ViewBag.Generos as List<string>)
+            {
+                <a asp-action="Index" asp-route-Genero="@tip" class="filtro-btn">@tip</a>
+            }
         }
     </div>
 
     <hr />
 
-    
-
     <div class="grid">
-        @foreach (var recomendacion in Model)
+        @if (Model != null && Model.Any())
         {
-            <a asp-action="Detalle" asp-route-id="@recomendacion.Id" class="tarjeta-recomendaciones">
-                <div class="tarjeta-contenido-recomendaciones">
-                    <h3>@recomendacion.TituloLibro</h3>
-                    <div class="tarjeta-info-recomendaciones">
-                        <span class="etiqueta-genero">@recomendacion.Genero</span>
-                        <span class="etiqueta-autor">@recomendacion.Autor</span>
+            foreach (var recomendacion in Model)
+            {
+                <a asp-action="Detalle" asp-route-id="@recomendacion.Id" class="tarjeta-recomendaciones">
+                    <div class="tarjeta-contenido-recomendaciones">
+                        <h3>@recomendacion.TituloLibro</h3>
+                        <div class="tarjeta-info-recomendaciones">
+                            <span class="etiqueta-genero">@recomendacion.Genero</span>
+                            <span class="etiqueta-autor">@recomendacion.Autor</span>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            }
+        }
+        else
+        {
+            <div style="text-align: center; padding: 40px; color: #555;">
+                <p>✨ No hay recomendaciones registradas aún.</p>
+                <p>Haz clic abajo en <strong>"Consultar a Gemini"</strong> y presiona <strong>ENVIAR</strong> para pedirle sugerencias a la IA basadas en tu perfil.</p>
+            </div>
         }
     </div>
 
+    <!-- Botón flotante para la IA -->
     <button class="btn-ia-flotante" onclick="toggleChatIA()">
-        <i class="fa-solid  fa-book-open"></i>Consultar a Gemini
+        <i class="fa-solid fa-book-open"></i> Consultar a Gemini
     </button>
+
+    <!-- Panel lateral del Oráculo -->
     <div class="cajon-chat-ia" id="cajonIA">
-        <div class="chat-header">
-            <h4>Oráculo de lectura</h4>
-            <button class="btn-cerrar-chat" onclick="toggleChatIA()">X</button>
-        </div>
-        <div class="char-mensajes">
-            <div class="mensaje-burbuja ia">
-                Hola, soy tu asistente de recomendaciones. Veo que tienes libros de Fantasía en tu catálogo. ¿Te gustaría que busque algo similar o quieres explorar un género nuevo?.
-            </div>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" class="input-chat" placeholder="Escribe tu peticón a la IA...">
-            <button class="btn-enviar-chat">Enviar</button>
+        <div class="oraculo-panel">
+            <h3>ORÁCULO DE LECTURA</h3>
+            <p>Hola, soy tu asistente de recomendaciones. Presiona enviar para consultar la IA según tus gustos del perfil.</p>
+    
+            <form asp-action="GenerarConIA" asp-controller="Recommendation" method="get">
+                <input type="text" name="prompt" placeholder="me gustaría algo similar..." />
+                <button type="submit" class="btn-enviar">ENVIAR</button>
+            </form>
         </div>
     </div>
-
 </div>
-
 
 <script>
     function toggleChatIA(){

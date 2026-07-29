@@ -5,7 +5,8 @@ using MagicLibrary.Infrastructure.Data;
 using MagicLibrary.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
+using MagicLibrary.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,8 +32,11 @@ builder.Services.AddScoped<IGoalRepository, GoalRepositoryEf>();
 builder.Services.AddScoped<IRecommendationRepository, RecommendationRepositoryEf>();
 builder.Services.AddScoped<IUserRepository, UserRepositoryEf>();
 builder.Services.AddScoped<IUserProfileRepository, UserProfileRepositoryEf>();
-
-// 2. INYECTAR SERVICIOS (Aplicación) - ¡ESTO TE FALTABA!
+builder.Services.AddScoped<IAiService, AiFallbackOrchestrator>();
+// registrar la llamdad HTTP a Gemini
+builder.Services.AddHttpClient<GeminiApiService>();
+builder.Services.AddHttpClient<GroqApiService>();
+// 2. INYECTAR SERVICIOS (Aplicación)
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IGoalService, GoalService>();
 builder.Services.AddScoped<IRecommendationService, RecommendationService>();

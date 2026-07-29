@@ -26,13 +26,24 @@ namespace MagicLibrary.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registrar(User user)
+        public async Task<IActionResult> Registrar(User user)
         {
             // Ahora sí usamos Agregar
             _service.Agregar(user);
+            // 2. Iniciamos su sesión automáticamente (Auto-Login)
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Nombre),
+                new Claim(ClaimTypes.Email, user.Correo),
+                new Claim("UserId", user.Id.ToString())
+            };
 
-            // Tras registrarse, lo mandamos al catálogo
-            return RedirectToAction("Index", "Home");
+                    var identidad = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identidad));
+
+                    // 3. Lo mandamos directo a crear su Perfil de Lector
+                    return RedirectToAction("Crear", "UserProfile");
+
         }
 
 

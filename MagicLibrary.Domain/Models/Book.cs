@@ -3,6 +3,7 @@
     public class Book
     {
         public int IdLibro { get; set;  }
+        public int UserId { get; set; }
         public string Titulo    { get; set; }
         public string Autor {  get; set; }
         public int Paginas { get; set; }

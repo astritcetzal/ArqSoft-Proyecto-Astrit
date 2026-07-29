@@ -4,6 +4,7 @@ using MagicLibrary.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MagicLibrary.Infrastructure.Migrations
 {
     [DbContext(typeof(MagicLibraryContext))]
-    partial class MagicLibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20260729032731_AgregarUserIdABooks")]
+    partial class AgregarUserIdABooks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
