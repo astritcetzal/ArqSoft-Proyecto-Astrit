@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using MagicLibrary.Application.Services;
 using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
@@ -56,12 +58,12 @@ namespace MagicLibrary.xUnit
     {
         private BookController CrearControllerConDatosDePrueba(out List<Book> librosEsperados)
         {
-            // Arrange — Datos de prueba en memoria
+            // Arrange — Datos de prueba asociados al UserId = 1
             librosEsperados = new List<Book>
             {
-                new Book { IdLibro = 1, Titulo = "El Imperio Final", Autor = "Brandon Sanderson", Estado = "Leyendo" },
-                new Book { IdLibro = 2, Titulo = "Hábitos Atómicos", Autor = "James Clear", Estado = "Terminado" },
-                new Book { IdLibro = 3, Titulo = "Dune", Autor = "Frank Herbert", Estado = "Pendiente" }
+                new Book { IdLibro = 1, UserId = 1, Titulo = "El Imperio Final", Autor = "Brandon Sanderson", Estado = "Leyendo" },
+                new Book { IdLibro = 2, UserId = 1, Titulo = "Hábitos Atómicos", Autor = "James Clear", Estado = "Terminado" },
+                new Book { IdLibro = 3, UserId = 1, Titulo = "Dune", Autor = "Frank Herbert", Estado = "Pendiente" }
             };
 
             var recomendaciones = new List<Recommendation>
@@ -78,11 +80,12 @@ namespace MagicLibrary.xUnit
 
             var controller = new BookController(bookService, recService);
 
-            // Simular usuario autenticado mediante Claims
+            // 🔑 AQUÍ ESTABA EL DETALLE: Agregar el Claim "UserId" con valor "1"
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, "Astrit Cetzal"),
-                new Claim(ClaimTypes.Email, "astrit@correo.com")
+                new Claim(ClaimTypes.Email, "astrit@correo.com"),
+                new Claim("UserId", "1") // 👈 Permite que ObtenerUserIdEnSesion() devuelva 1
             };
             var identity = new ClaimsIdentity(claims, "TestAuth");
             var principal = new ClaimsPrincipal(identity);
@@ -98,16 +101,18 @@ namespace MagicLibrary.xUnit
         [Fact]
         public void Index_SinFiltro_RegresaTodosLosLibros()
         {
-            // Arrange
+            // 1. Arrange
             var controller = CrearControllerConDatosDePrueba(out var librosEsperados);
 
-            // Act
-            var resultado = controller.Index(null) as ViewResult;
-            var modelo = resultado?.Model as List<Book>;
+            // 2. Act
+            var result = controller.Index(null) as ViewResult;
 
-            // Assert
-            Assert.NotNull(modelo);
-            Assert.Equal(librosEsperados.Count, modelo.Count);
+            // 3. Assert
+            Assert.NotNull(result);
+            Assert.NotNull(result.Model);
+
+            var model = Assert.IsAssignableFrom<IEnumerable<Book>>(result.Model);
+            Assert.Equal(3, model.Count());
         }
 
         [Fact]
