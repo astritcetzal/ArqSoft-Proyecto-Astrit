@@ -1,55 +1,55 @@
+using MagicLibrary.Application.Interfaces;
 using MagicLibrary.Application.Services;
 using MagicLibrary.Domain.Interfaces;
+using MagicLibrary.Infrastructure.Data;
 using MagicLibrary.Infrastructure.Repositories;
-
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// 1. Configurar la Base de Datos con EF Core
+builder.Services.AddDbContext<MagicLibraryContext>(options =>
+    options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=MagicLibraryDB;Trusted_Connection=True;"));
+
+// 2. Inyección de IBookRepository usando Decorador (Logging) + EF Core
 builder.Services.AddScoped<IGoalObserver, EmailObserver>();
 builder.Services.AddScoped<IBookRepository>(sp =>
 {
-    var env = sp.GetRequiredService<IWebHostEnvironment>();
-    var repo = RepositoryFactory.AgregarLibroRepository(builder.Environment.EnvironmentName, env);
-    return new LoggingBookRepository(repo);
+    var context = sp.GetRequiredService<MagicLibraryContext>();
+    var repoEf = new BookRepositoryEf(context);
+    return new LoggingBookRepository(repoEf);
 });
-// Add services to the container.
+
+// 3. Repositorios de Infraestructura (EF Core)
+builder.Services.AddScoped<IGoalRepository, GoalRepositoryEf>();
+builder.Services.AddScoped<IRecommendationRepository, RecommendationRepositoryEf>();
+builder.Services.AddScoped<IUserRepository, UserRepositoryEf>();
+builder.Services.AddScoped<IUserProfileRepository, UserProfileRepositoryEf>();
+
+// 4. Servicios de aplicación
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IRecommendationService, RecommendationService>();
+builder.Services.AddScoped<IGoalService, GoalService>();
+
+// 5. Configurar Controllers y Swagger
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer(); // Necesario para Swagger
-builder.Services.AddSwaggerGen();           // Necesario para Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-// Repositorios
-
-builder.Services.AddScoped<IRecommendationRepository, JsonRecommendationRepository>();
-builder.Services.AddScoped<IGoalRepository, JsonGoalRepository>();
-// Servicios de aplicación
-builder.Services.AddScoped<BookService>();
-builder.Services.AddScoped<RecommendationService>();
-builder.Services.AddScoped<GoalService>();
-
-//nuevooo
+// 6. Política de CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("PermitirTodo", app =>
+    options.AddPolicy("PermitirTodo", policy =>
     {
-        app.AllowAnyOrigin()
-           .AllowAnyHeader()
-           .AllowAnyMethod();
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
 
-//nuevooo
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("PermitirTodo", app =>
-    {
-        app.AllowAnyOrigin()
-           .AllowAnyHeader()
-           .AllowAnyMethod();
-    });
-});
 var app = builder.Build();
 
-// 4. Configurar el pipeline
+// 7. Pipeline de la API
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -57,7 +57,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("PermitirTodo");
 app.UseAuthorization();
-app.MapControllers(); // ¡Esto es vital para tu API!
+app.MapControllers();
 
 app.Run();

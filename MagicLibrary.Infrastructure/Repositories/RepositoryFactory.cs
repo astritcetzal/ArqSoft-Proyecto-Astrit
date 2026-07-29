@@ -1,4 +1,4 @@
-﻿using MagicLibrary.Domain.Interfaces;
+﻿/*using MagicLibrary.Domain.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 
 
@@ -10,9 +10,10 @@ namespace MagicLibrary.Infrastructure.Repositories
         {
             return entorno switch
             {
-                "Production" => new MemoryBookRepository(),
+                "Production" => new BookRepositoryEf(),
                 _ => new JsonBookRepository(env)
             };
         }
     }
 }
+*/

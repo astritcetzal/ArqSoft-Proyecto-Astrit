@@ -15,6 +15,7 @@
     }
     public class GoalItem
     {
+        public int IdItem { get; set; }
         // titulo para ponerlo en la libreta
         public string Titulo { get; set; }
         // el usuario le ha dado palimita?

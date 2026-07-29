@@ -1,57 +1,60 @@
+using MagicLibrary.Application.Interfaces;
 using MagicLibrary.Application.Services;
 using MagicLibrary.Domain.Interfaces;
+using MagicLibrary.Infrastructure.Data;
 using MagicLibrary.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-using MagicLibrary.Application.Interfaces;
+using Microsoft.EntityFrameworkCore; 
 
 var builder = WebApplication.CreateBuilder(args);
+
 // Si no han iniciado sesion no se puede acceder
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(opciones =>
     {
-        opciones.LoginPath = "/Home/Welcome"; 
+        opciones.LoginPath = "/Home/Welcome";
     });
-//----
+
+// Conexión a la Base de Datos SQL Server (LocalDB)
+builder.Services.AddDbContext<MagicLibraryContext>(options =>
+    options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=MagicLibraryDB;Trusted_Connection=True;"));
+
 var dataFolder = Path.Combine(builder.Environment.ContentRootPath, "data");
 Directory.CreateDirectory(dataFolder);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IBookRepository, JsonBookRepository>();
-builder.Services.AddScoped<IRecommendationRepository, JsonRecommendationRepository>();
-builder.Services.AddScoped<IUserProfileRepository, JsonUserProfileRepository>();
-builder.Services.AddScoped<IRecommendationRepository, JsonRecommendationRepository>();
-builder.Services.AddScoped<IUserRepository, JsonUserRepository>();
-builder.Services.AddScoped<IGoalRepository, JsonGoalRepository>();
+
+// 1. INYECTAR REPOSITORIOS (Infraestructura)
+builder.Services.AddScoped<IBookRepository, BookRepositoryEf>();
+builder.Services.AddScoped<IGoalRepository, GoalRepositoryEf>();
+builder.Services.AddScoped<IRecommendationRepository, RecommendationRepositoryEf>();
+builder.Services.AddScoped<IUserRepository, UserRepositoryEf>();
+builder.Services.AddScoped<IUserProfileRepository, UserProfileRepositoryEf>();
+
+// 2. INYECTAR SERVICIOS (Aplicación) - ¡ESTO TE FALTABA!
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IGoalService, GoalService>();
-builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddScoped<IUserService, UserService>();
-
+builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 
 var app = builder.Build();
 
-
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseAuthentication(); // junto a cookies ya sabes :/
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=PrincipalInicio}/{id?}")
-    ;
-
+    pattern: "{controller=Home}/{action=PrincipalInicio}/{id?}");
 
 app.Run();
