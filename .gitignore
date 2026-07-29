@@ -10,3 +10,7 @@ obj/
 *.suo
 *.db
 *.csproj.user
+
+# Ignorar configuraciones con API Keys
+appsettings.json
+appsettings.Development.json
