@@ -9,13 +9,11 @@ namespace MagicLibrary.Infrastructure.Services
     {
         private readonly GeminiApiService _geminiService;
         private readonly GroqApiService _groqService;
-
         public AiFallbackOrchestrator(GeminiApiService geminiService, GroqApiService groqService)
         {
             _geminiService = geminiService;
             _groqService = groqService;
         }
-
         public async Task<List<Recommendation>> GenerarRecomendacionesIAAsync(UserProfile perfil)
         {
             // 1. Intentar con Gemini
@@ -84,6 +82,13 @@ namespace MagicLibrary.Infrastructure.Services
                 new Recommendation { Id = 2, TituloLibro = $"Antología de {generoGenerico}", Autor = "Escritor Relevante", Genero = generoGenerico, Razon = $"Lectura recomendada en {generoGenerico}." },
                 new Recommendation { Id = 3, TituloLibro = $"Lectura Clave de {generoGenerico}", Autor = "Especialista del Tema", Genero = generoGenerico, Razon = $"Adaptado a tus preferencias." }
             };
+        }
+        public async Task<List<Book>> ExtraerLibrosDeTextoAsync(string textoUsuario)
+        {
+            var resultados = await _geminiService.ExtraerLibrosDeTextoAsync(textoUsuario);
+            if (resultados != null && resultados.Count > 0) return resultados;
+
+            return await _groqService.ExtraerLibrosDeTextoAsync(textoUsuario);
         }
     }
 }

@@ -16,6 +16,10 @@
     </div>
 </div>
 <hr>
+<a href="@Url.Action("EditarDetalles", "Book", new { id = Model.IdLibro })" class="btn btn-outline-secondary btn-sm">
+     Editar
+</a>
+<hr />
 
 <h3>Reseña</h3>
 
@@ -65,6 +69,8 @@ else
 
 <hr />
 <a asp-action="Index" class="link-cancelar">&larr; Volver a todos mis libros</a>
+
+
 
 
 

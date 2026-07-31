@@ -7,5 +7,6 @@ namespace MagicLibrary.Application.Interfaces
     public interface IAiService
     {
         Task<List<Recommendation>> GenerarRecomendacionesIAAsync(UserProfile perfil);
+        Task<List<Book>> ExtraerLibrosDeTextoAsync(string textoUsuario);
     }
 }

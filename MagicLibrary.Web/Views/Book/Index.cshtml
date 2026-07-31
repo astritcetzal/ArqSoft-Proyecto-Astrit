@@ -29,7 +29,34 @@
             </a>
         }
     </div>
+    <!-- Botón para abrir el Modal -->
+    <button type="button" class="btn btn-outline-primary fw-bold" data-bs-toggle="modal" data-bs-target="#modalCargaMasiva">
+        ✨ Importar lista con IA
+    </button>
 
+    <!-- Modal Carga Masiva -->
+    <div class="modal fade" id="modalCargaMasiva" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form asp-action="CargarMasivoIA" asp-controller="Book" method="post">
+                    <div class="modal-header bg-dark text-white">
+                        <h5 class="modal-title fw-bold">✨ Importar varios libros con IA</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label class="form-label fw-bold">Escribe o pega tus libros:</label>
+                        <textarea name="promptLibros" class="form-control" rows="4"
+                                  placeholder="Ej: Ya leí El Hobbit y Dune. Estoy leyendo Rayuela y quiero leer Cien años de soledad." required></textarea>
+                        <small class="text-muted mt-2 d-block">La IA identificará los títulos, autores y su estado automáticamente.</small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary fw-bold">Guardar en Mis Libros</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 

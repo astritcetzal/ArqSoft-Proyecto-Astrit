@@ -3,6 +3,7 @@ using MagicLibrary.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks; // 👈 Necesario para Task<IActionResult>
 
 namespace MagicLibrary.Web.Controllers
 {
@@ -11,11 +12,14 @@ namespace MagicLibrary.Web.Controllers
     {
         private readonly IBookService _service;
         private readonly IRecommendationService _recService;
+        private readonly IAiService _aiService;
 
-        public BookController(IBookService service, IRecommendationService recService)
+        // Constructor único unificado
+        public BookController(IBookService service, IRecommendationService recService, IAiService aiService)
         {
             _service = service;
             _recService = recService;
+            _aiService = aiService;
         }
 
         // Método auxiliar para obtener el ID del usuario en sesión fácilmente
@@ -63,7 +67,7 @@ namespace MagicLibrary.Web.Controllers
         public IActionResult Agregar(Book libro)
         {
             int userId = ObtenerUserIdEnSesion();
-            libro.UserId = userId; //Le asignamos el dueño
+            libro.UserId = userId; // Le asignamos el dueño
 
             _service.Agregar(libro);
             return RedirectToAction("Index");
@@ -97,6 +101,49 @@ namespace MagicLibrary.Web.Controllers
 
             var nuevoLibro = _service.PrepararLibroDesdeRecomendacion(recomendacion);
             return View("Agregar", nuevoLibro);
+        }
+
+        // 3. Método para importación masiva de libros mediante IA
+        [HttpPost]
+        public async Task<IActionResult> CargarMasivoIA(string promptLibros)
+        {
+            int userId = ObtenerUserIdEnSesion();
+            if (userId == 0) return RedirectToAction("Welcome", "Home");
+
+            if (!string.IsNullOrWhiteSpace(promptLibros))
+            {
+                var librosExtraidos = await _aiService.ExtraerLibrosDeTextoAsync(promptLibros);
+
+                foreach (var libro in librosExtraidos)
+                {
+                    libro.UserId = userId;
+                    _service.Agregar(libro); // Persiste cada libro extraído en la BD
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+        // 1. Muestra la pantalla con el formulario lleno de los datos actuales del libro
+        [HttpGet]
+        public IActionResult EditarDetalles(int id)
+        {
+            var libro = _service.ObtenerPorId(id);
+            if (libro == null) return NotFound();
+
+            // Opcional: Cargar la lista de estados para el selector
+            ViewBag.Estados = _service.ObtenerTipoEstado();
+            return View("EditarDetalles",libro);
+        }
+
+        // 2. Recibe los datos modificados del formulario y los guarda en la Base de Datos
+        [HttpPost]
+        public IActionResult EditarDetalles(Book libro)
+        {
+            int userId = ObtenerUserIdEnSesion();
+            libro.UserId = userId; // Nos aseguramos de mantener al dueño original
+
+            _service.Actualizar(libro);
+            return RedirectToAction("Index");
         }
     }
 }

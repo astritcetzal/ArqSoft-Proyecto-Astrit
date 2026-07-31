@@ -16,7 +16,7 @@ namespace MagicLibrary.Web.Controllers
         private readonly IAiService _aiService;
         private readonly IUserProfileService _uPserv;
 
-        // 🧠 MEMORIA DE PERSISTENCIA: Guarda los géneros y libros acumulados durante toda la sesión
+        // MEMORIA DE PERSISTENCIA: Guarda los géneros y libros acumulados durante toda la sesión
         private static readonly ConcurrentDictionary<int, HashSet<string>> _generosPersistentes = new();
         private static readonly ConcurrentDictionary<int, List<Recommendation>> _librosPersistentes = new();
 
@@ -177,6 +177,20 @@ namespace MagicLibrary.Web.Controllers
                 new Recommendation { Id = new Random().Next(100, 999), TituloLibro = $"Grandes Historias ({g})", Autor = "Escritor Relevante", Genero = g, Razon = $"Lectura recomendada en {g}." },
                 new Recommendation { Id = new Random().Next(100, 999), TituloLibro = $"Clásico de {g}", Autor = "Especialista del Tema", Genero = g, Razon = "Selección especial para tu perfil." }
             };
+        }
+
+        [HttpGet]
+        public IActionResult LimpiarMemoria()
+        {
+            int userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+
+            if (userId > 0)
+            {
+                _generosPersistentes.TryRemove(userId, out _);
+                _librosPersistentes.TryRemove(userId, out _);
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

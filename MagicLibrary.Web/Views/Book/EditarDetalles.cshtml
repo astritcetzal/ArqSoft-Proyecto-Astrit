@@ -1,0 +1,63 @@
+﻿@model MagicLibrary.Domain.Models.Book
+
+<div class="container py-4" style="max-width: 600px;">
+    <h2 class="fw-bold mb-3">Editar Libro</h2>
+    <hr />
+
+    <form asp-action="Editar" method="post">
+        <!-- Campos ocultos requeridos para conservar las llaves -->
+        <input type="hidden" asp-for="IdLibro" />
+        <input type="hidden" asp-for="UserId" />
+
+        <div class="mb-3">
+            <label asp-for="Titulo" class="form-label fw-bold">Título</label>
+            <input asp-for="Titulo" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Autor" class="form-label fw-bold">Nombre del Autor</label>
+            <input asp-for="Autor" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Paginas" class="form-label fw-bold">Páginas</label>
+            <input asp-for="Paginas" type="number" class="form-control" min="0" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Estado" class="form-label fw-bold">Estado de Lectura</label>
+            <select asp-for="Estado" class="form-select">
+                @if (ViewBag.Estados != null)
+                {
+                    foreach (var estado in ViewBag.Estados)
+                    {
+                        <option value="@estado">@estado</option>
+                    }
+                }
+                else
+                {
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Leyendo">Leyendo</option>
+                    <option value="Terminado">Terminado</option>
+                }
+            </select>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="FechaInicio" class="form-label fw-bold">Fecha de inicio</label>
+                <input asp-for="FechaInicio" type="date" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="FechaTerminado" class="form-label fw-bold">Fecha de finalización</label>
+                <input asp-for="FechaTerminado" type="date" class="form-control" />
+            </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-4">
+            <button type="submit" class="btn btn-primary fw-bold px-4">Guardar Cambios</button>
+            <a asp-action="Detalle" asp-route-id="@Model.IdLibro" class="btn btn-outline-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
