@@ -2,45 +2,50 @@
 
 <div class="contenedor-principal">
     <div class="header-libro">
-        <h1> Mis Libros</h1>
+        <h1>Mis Libros</h1>
         <a asp-action="Agregar" class="btn-agregar-libro">Agregar Libro</a>
     </div>
+
     <div class="contenedor-filtros">
-        <a asp-action="Index" class="filtro-btn">Todos</a>
-        @foreach(var tip in ViewBag.Estados as List<string>)
+        <a asp-action="Index" class="filtro-btn @(ViewBag.EstadoSeleccionado == null ? "activo" : "")">Todos</a>
+        @if (ViewBag.Estados != null)
         {
-            <a asp-action="Index" asp-route-Estado ="@tip" class="filtro-btn">@tip</a>
+            foreach (var tip in ViewBag.Estados as List<string>)
+            {
+                <a asp-action="Index" asp-route-Estado="@tip" class="filtro-btn">@tip</a>
+            }
         }
-    </div >
+    </div>
 
     <hr />
 
-    <div class= "grid">
+    <div class="grid">
         @foreach (var libro in Model)
         {
-            <a asp-action= "Detalle" asp-route-id ="@libro.IdLibro" class="tarjeta-libro">
+            <a asp-action="Detalle" asp-route-id="@libro.IdLibro" class="tarjeta-libro">
                 <div class="tarjeta-contenido">
                     <h3>@libro.Titulo</h3>
                     <div class="tarjeta-info">
-                    <span class="etiqueta-estado">@libro.Estado</span>
-                    <span class="etiqueta-año">@libro.Autor</span>
+                        <span class="etiqueta-estado">@libro.Estado</span>
+                        <span class="etiqueta-autor">@libro.Autor</span>
                     </div>
                 </div>
             </a>
         }
     </div>
-    <!-- Botón para abrir el Modal -->
-    <button type="button" class="btn btn-outline-primary fw-bold" data-bs-toggle="modal" data-bs-target="#modalCargaMasiva">
-        ✨ Importar lista con IA
+
+    <!-- Botón para Importar Lista -->
+    <button type="button" class="btn-agregar-libro" data-bs-toggle="modal" data-bs-target="#modalCargaMasiva">
+        Importar lista con IA
     </button>
 
     <!-- Modal Carga Masiva -->
     <div class="modal fade" id="modalCargaMasiva" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content" style="border: 2px solid var(--texto-tinta);">
                 <form asp-action="CargarMasivoIA" asp-controller="Book" method="post">
-                    <div class="modal-header bg-dark text-white">
-                        <h5 class="modal-title fw-bold">✨ Importar varios libros con IA</h5>
+                    <div class="modal-header" style="background-color: var(--texto-tinta); color: white;">
+                        <h5 class="modal-title text-uppercase fw-bold">Importar libros con IA</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
@@ -50,13 +55,11 @@
                         <small class="text-muted mt-2 d-block">La IA identificará los títulos, autores y su estado automáticamente.</small>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary fw-bold">Guardar en Mis Libros</button>
+                        <button type="button" class="btn-borrar" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn-agregar-libro">Guardar en Mis Libros</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-

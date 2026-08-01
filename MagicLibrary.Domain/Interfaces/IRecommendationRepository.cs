@@ -7,8 +7,8 @@ namespace MagicLibrary.Domain.Interfaces
         List<Recommendation> ObtenerTodos();
         Recommendation? ObtenerPorId(int id);
 
-        
+        void Agregar(Recommendation recomendacion);
         //void Eliminar(int id);
-     
+
     }
 }

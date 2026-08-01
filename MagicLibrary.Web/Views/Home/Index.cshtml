@@ -2,19 +2,42 @@
     ViewData["Title"] = "Bienvenido a Magic Library";
 }
 
-<div class="hero-section">
-    <h1 class="hero-title">Magic Library</h1>
-    <p class="hero-subtitle">Tu diario personal de lecturas.</p>
+<div class="contenedor-principal home-container">
     
-    <div class="hero-content">
-        <p>
-
-         </p>
+    <div class="home-emblema">
+        <h1 class="home-titulo">MAGIC LIBRARY</h1>
+        <p class="home-subtitulo">Lee &bull; Organiza &bull; Crece</p>
+        <p class="home-descripcion">
+            Un espacio personal dedicado a registrar tus lecturas, cultivar tu hábito diario, construir metas anuales sostenibles y descubrir nuevas obras mediante Inteligencia Artificial.
+        </p>
     </div>
 
-    <div class="hero-actions">
+    <div class="contenedor-filtros home-acciones">
         <a asp-controller="Book" asp-action="Index" class="btn-agregar-libro">Ir a Mis Libros</a>
-        <a asp-controller="Goal" asp-action="Index" class="btn-agregar-libro">Ir a metas</a>
-        <a asp-controller="Recommendation" asp-action="Index" class="btn-agregar-libro">Ir a recomendaciones Libros</a>
+        <a asp-controller="Goal" asp-action="Index" class="btn-agregar-libro btn-terracota">Ir a Metas</a>
+        <a asp-controller="Recommendation" asp-action="Index" class="btn-agregar-libro btn-azul">Ir a Recomendaciones</a>
+    </div>
+
+    <div class="grid home-features-grid">
+        <div class="tarjeta-contenido">
+            <h3 class="feature-title">Diario Personal</h3>
+            <p class="feature-text">
+                Cataloga tus libros por estado, registra tus fechas de inicio y finalización, y redacta reseñas íntimas con calificaciones.
+            </p>
+        </div>
+
+        <div class="tarjeta-contenido">
+            <h3 class="feature-title">Metas y Recordatorios</h3>
+            <p class="feature-text">
+                Fija objetivos anuales, calcula tu promedio de páginas diarias recomendado y recibe notificaciones automáticas por correo.
+            </p>
+        </div>
+
+        <div class="tarjeta-contenido">
+            <h3 class="feature-title">Oráculo IA</h3>
+            <p class="feature-text">
+                Conexión directa con modelos LLM para sugerir obras adaptadas estrictamente a tu nivel de experiencia y géneros favoritos.
+            </p>
+        </div>
     </div>
 </div>

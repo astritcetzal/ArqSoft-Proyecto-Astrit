@@ -1,4 +1,5 @@
 ﻿using MagicLibrary.Application.Interfaces;
+using MagicLibrary.Application.Services;
 using MagicLibrary.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -96,11 +97,26 @@ namespace MagicLibrary.Web.Controllers
         [HttpGet]
         public IActionResult AgregarDesdeRecomendacion(int id)
         {
-            var recomendacion = _recService.ObtenerPorId(id);
-            if (recomendacion == null) return NotFound();
+            int userId = ObtenerUserIdEnSesion();
+            if (userId == 0) return RedirectToAction("IniciarSesion", "User");
 
-            var nuevoLibro = _service.PrepararLibroDesdeRecomendacion(recomendacion);
-            return View("Agregar", nuevoLibro);
+            var rec = _recService.ObtenerPorId(id);
+            if (rec != null)
+            {
+                var nuevoLibro = new Book
+                {
+                    UserId = userId,
+                    Titulo = rec.TituloLibro,
+                    Autor = rec.Autor,
+                    Paginas = rec.Paginas,
+                    Estado = "Pendiente",
+                    FechaInicio = DateOnly.FromDateTime(DateTime.Now)
+                };
+
+                _service.Agregar(nuevoLibro);
+            }
+
+            return RedirectToAction("Index");
         }
 
         // 3. Método para importación masiva de libros mediante IA
@@ -123,27 +139,26 @@ namespace MagicLibrary.Web.Controllers
 
             return RedirectToAction("Index");
         }
-        // 1. Muestra la pantalla con el formulario lleno de los datos actuales del libro
+        // GET: Carga el formulario de edición
         [HttpGet]
         public IActionResult EditarDetalles(int id)
         {
             var libro = _service.ObtenerPorId(id);
             if (libro == null) return NotFound();
 
-            // Opcional: Cargar la lista de estados para el selector
             ViewBag.Estados = _service.ObtenerTipoEstado();
-            return View("EditarDetalles",libro);
+            return View("EditarDetalles", libro);
         }
 
-        // 2. Recibe los datos modificados del formulario y los guarda en la Base de Datos
+        // POST: Recibe los datos guardados y actualiza la BD (RESUELVE EL ERROR 405)
         [HttpPost]
         public IActionResult EditarDetalles(Book libro)
         {
             int userId = ObtenerUserIdEnSesion();
-            libro.UserId = userId; // Nos aseguramos de mantener al dueño original
+            libro.UserId = userId; // Conserva el dueño del libro
 
             _service.Actualizar(libro);
-            return RedirectToAction("Index");
+            return RedirectToAction("Detalle", new { id = libro.IdLibro });
         }
     }
 }

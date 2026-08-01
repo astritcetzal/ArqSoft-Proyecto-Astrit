@@ -8,7 +8,7 @@ namespace MagicLibrary.Application.Interfaces
     public interface IGoalService
     {
         Goal ObtenerMetaOCrearPorDefecto(int idUsuario, int anio);
-        int CalcularDiasRestantesAnio();
+        int CalcularDiasRestantesAnio(int diasPorSemana=7);
         List<Goal> ObtenerTodos();
         Goal? ObtenerPorId(int id);
         void Agregar(Goal goal);

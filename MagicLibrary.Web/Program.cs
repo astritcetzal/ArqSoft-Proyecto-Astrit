@@ -42,7 +42,9 @@ builder.Services.AddScoped<IGoalService, GoalService>();
 builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserProfileService, UserProfileService>();
-
+// Inyectar Servicio de Email
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddHostedService<NotificacionBackgroundService>();
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

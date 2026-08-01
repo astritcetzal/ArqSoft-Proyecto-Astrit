@@ -36,5 +36,6 @@ namespace MagicLibrary.Infrastructure.Repositories
             _context.Recommendations.Update(recommendation);
             _context.SaveChanges();
         }
+
     }
 }

@@ -4,28 +4,49 @@
     ViewData["Title"] = "Mi Perfil de Lector";
 }
 
-<div class="contenedor-principal">
+<div class="contenedor-principal profile-container">
     <div class="header-libro">
         <h1>Mi Perfil de Lector</h1>
-        <!-- Botón preparado para cuando quieras hacer la función de editar -->
-        <a href="#" class="btn-agregar-libro">Editar Perfil</a>
+        <a asp-action="Crear" class="btn-agregar-libro">Editar Perfil</a>
     </div>
 
-    <hr />
+    <div class="detalle-total profile-card">
+        
+        <div class="grid profile-grid-stats">
+            <div class="profile-stat-box">
+                <span class="profile-stat-label">Nivel de Experiencia</span>
+                <strong class="profile-stat-value">@Model.NivelLector</strong>
+            </div>
 
-    <div class="detalle-total">
-        <div class="detalle-texto">
-            <p><strong>Nivel de experiencia: </strong> @Model.NivelLector</p>
+            <div class="profile-stat-box">
+                <span class="profile-stat-label">Libros Leídos en la Vida</span>
+                <strong class="profile-stat-value terracota">@Model.CantidadLibrosHistorico</strong>
+            </div>
+
+            <div class="profile-stat-box">
+                <span class="profile-stat-label">Lector Desde</span>
+                <strong class="profile-stat-value azul">@Model.FechaInicio.ToString("dd/MM/yyyy")</strong>
+            </div>
+        </div>
+
+        <div class="profile-generos-section">
+            <h3 class="profile-generos-title">Géneros Favoritos Registrados:</h3>
             
-            <p><strong>Libros leídos en la vida: </strong> @Model.CantidadLibrosHistorico</p>
-            
-            <p><strong>Lector apasionado desde: </strong> @Model.FechaInicio</p>
-            
-            <p><strong>Géneros favoritos: </strong> @Model.GenerosFavoritos</p>
+            <div class="profile-generos-list">
+                @if (!string.IsNullOrEmpty(Model.GenerosFavoritos))
+                {
+                    foreach (var genero in Model.GenerosFavoritos.Split(','))
+                    {
+                        <span class="profile-badge-genero">
+                            @genero.Trim()
+                        </span>
+                    }
+                }
+            </div>
         </div>
     </div>
-    
-    <div class="meta-completa-msj" style="margin-top: 20px;">
-        Esta información nos ayuda a que el Oráculo IA y las sugerencias de metas sean mucho más precisas para ti.
+
+    <div class="profile-banner-info">
+        Esta información alimenta el motor de IA del Oráculo y personaliza tus cálculos de lectura en la sección de Metas.
     </div>
 </div>

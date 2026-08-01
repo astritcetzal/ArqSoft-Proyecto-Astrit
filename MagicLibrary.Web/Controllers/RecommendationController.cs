@@ -15,15 +15,20 @@ namespace MagicLibrary.Web.Controllers
     {
         private readonly IAiService _aiService;
         private readonly IUserProfileService _uPserv;
+        private readonly IRecommendationService _recServ; // 👈 1. INYECTADO PARA BD
 
-        // MEMORIA DE PERSISTENCIA: Guarda los géneros y libros acumulados durante toda la sesión
+        // MEMORIA DE SESIÓN (Para respuesta rápida en interfaz)
         private static readonly ConcurrentDictionary<int, HashSet<string>> _generosPersistentes = new();
         private static readonly ConcurrentDictionary<int, List<Recommendation>> _librosPersistentes = new();
 
-        public RecommendationController(IAiService aiService, IUserProfileService uPserv)
+        public RecommendationController(
+            IAiService aiService,
+            IUserProfileService uPserv,
+            IRecommendationService recServ) // 👈 2. RECIBIDO EN CONSTRUCTOR
         {
             _aiService = aiService;
             _uPserv = uPserv;
+            _recServ = recServ;
         }
 
         [HttpGet]
@@ -48,11 +53,10 @@ namespace MagicLibrary.Web.Controllers
                 return RedirectToAction("Crear", "UserProfile");
             }
 
-            // Inicializar memoria para el usuario si es su primera consulta
             _generosPersistentes.TryAdd(userId, new HashSet<string>(StringComparer.OrdinalIgnoreCase));
             _librosPersistentes.TryAdd(userId, new List<Recommendation>());
 
-            // Cargar los géneros iniciales del perfil
+            // Cargar los géneros del perfil
             if (!string.IsNullOrEmpty(perfil.GenerosFavoritos))
             {
                 foreach (var g in perfil.GenerosFavoritos.Split(','))
@@ -62,7 +66,7 @@ namespace MagicLibrary.Web.Controllers
                 }
             }
 
-            // 1. SI EL USUARIO PIDE UN NUEVO TEMA EN EL CHAT (ej: "Terror", "Ciencia Ficción", etc.)
+            // 1. SI EL USUARIO PIDE UN NUEVO TEMA EN EL CHAT (ej: "Terror")
             if (!string.IsNullOrWhiteSpace(promptExtra))
             {
                 string nuevoTema = promptExtra.Trim();
@@ -73,7 +77,6 @@ namespace MagicLibrary.Web.Controllers
                     GenerosFavoritos = nuevoTema
                 };
 
-                // Consultar IA (Gemini -> Groq -> Respaldo)
                 var nuevasRecomendaciones = await _aiService.GenerarRecomendacionesIAAsync(perfilConsulta)
                                             ?? new List<Recommendation>();
 
@@ -82,47 +85,59 @@ namespace MagicLibrary.Web.Controllers
                     nuevasRecomendaciones = GenerarRespaldo(nuevoTema, perfil.NivelLector);
                 }
 
-                // 💾 GUARDAR EN MEMORIA PERSISTENTE (Para que no se borren)
                 foreach (var rec in nuevasRecomendaciones)
                 {
                     if (string.IsNullOrWhiteSpace(rec.Genero)) rec.Genero = ExtraerEtiquetaLimpia(nuevoTema);
                     _generosPersistentes[userId].Add(rec.Genero);
 
-                    // Evitar duplicados por título
                     if (!_librosPersistentes[userId].Any(l => l.TituloLibro.Equals(rec.TituloLibro, StringComparison.OrdinalIgnoreCase)))
                     {
                         _librosPersistentes[userId].Add(rec);
+                        _recServ.Agregar(rec); // 💾 3. PERSISTIR EN SQL SERVER PARA METAS
                     }
                 }
             }
 
-            // 2. SI ES LA PRIMERA VEZ QUE ENTRA Y NO HAY LIBROS GUARDADOS
+            // 2. SI ES LA PRIMERA VEZ QUE ENTRA Y NO HAY LIBROS EN MEMORIA
             if (!_librosPersistentes[userId].Any())
             {
-                var recomendacionesBase = await _aiService.GenerarRecomendacionesIAAsync(perfil)
-                                          ?? GenerarRespaldo(perfil.GenerosFavoritos, perfil.NivelLector);
-
-                foreach (var rec in recomendacionesBase)
+                // Intentar cargar primero si ya existían en SQL Server
+                var guardadosEnBd = _recServ.ObtenerTodos();
+                if (guardadosEnBd != null && guardadosEnBd.Any())
                 {
-                    if (!string.IsNullOrWhiteSpace(rec.Genero)) _generosPersistentes[userId].Add(rec.Genero);
-                    _librosPersistentes[userId].Add(rec);
+                    foreach (var rec in guardadosEnBd)
+                    {
+                        if (!string.IsNullOrWhiteSpace(rec.Genero)) _generosPersistentes[userId].Add(rec.Genero);
+                        _librosPersistentes[userId].Add(rec);
+                    }
+                }
+                else
+                {
+                    // Si la BD está vacía, la IA genera recomendaciones basadas en los géneros del perfil
+                    var recomendacionesBase = await _aiService.GenerarRecomendacionesIAAsync(perfil)
+                                              ?? GenerarRespaldo(perfil.GenerosFavoritos, perfil.NivelLector);
+
+                    foreach (var rec in recomendacionesBase)
+                    {
+                        if (!string.IsNullOrWhiteSpace(rec.Genero)) _generosPersistentes[userId].Add(rec.Genero);
+                        _librosPersistentes[userId].Add(rec);
+                        _recServ.Agregar(rec); // 💾 PERSISTIR EN SQL SERVER
+                    }
                 }
             }
 
-            // 📌 ENVIAR TODOS LOS BOTONES ACUMULADOS (El botón TERROR ya NUNCA va a desaparecer)
             ViewBag.Generos = _generosPersistentes[userId].ToList();
             ViewBag.GeneroActual = generoFiltro;
 
-            // 3. FILTRAR LOS LIBROS ACUMULADOS SEGÚN EL BOTÓN PRESIONADO
             var librosAEnviar = _librosPersistentes[userId];
 
+            // 3. FILTRAR POR GÉNERO SELECCIONADO
             if (!string.IsNullOrEmpty(generoFiltro))
             {
                 var filtrados = librosAEnviar
                     .Where(r => r.Genero != null && r.Genero.Contains(generoFiltro, StringComparison.OrdinalIgnoreCase))
                     .ToList();
 
-                // Si aún no tenemos libros en memoria para ese género en específico, los generamos y los guardamos
                 if (!filtrados.Any())
                 {
                     var perfilFiltro = new UserProfile { UserId = userId, NivelLector = perfil.NivelLector, GenerosFavoritos = generoFiltro };
@@ -133,6 +148,7 @@ namespace MagicLibrary.Web.Controllers
                     {
                         if (string.IsNullOrWhiteSpace(rec.Genero)) rec.Genero = generoFiltro;
                         _librosPersistentes[userId].Add(rec);
+                        _recServ.Agregar(rec); // 💾 PERSISTIR EN SQL SERVER
                     }
 
                     filtrados = _librosPersistentes[userId]
@@ -165,17 +181,17 @@ namespace MagicLibrary.Web.Controllers
             {
                 return new List<Recommendation>
                 {
-                    new Recommendation { Id = new Random().Next(100, 999), TituloLibro = "El Exorcista", Autor = "William Peter Blatty", Genero = "Terror", Razon = "Clásico absoluto del terror." },
-                    new Recommendation { Id = new Random().Next(100, 999), TituloLibro = "La Llorona y otros relatos", Autor = "Varios", Genero = "Terror", Razon = "Leyendas de suspenso y terror." },
-                    new Recommendation { Id = new Random().Next(100, 999), TituloLibro = "Corazones de Piedra", Autor = "Joe Hill", Genero = "Terror", Razon = "Narrativa de terror moderno." }
+                    new Recommendation { TituloLibro = "El Exorcista", Autor = "William Peter Blatty", Genero = "Terror", Razon = "Clásico absoluto del terror.", Paginas = 380 },
+                    new Recommendation { TituloLibro = "La Llorona y otros relatos", Autor = "Varios", Genero = "Terror", Razon = "Leyendas de suspenso y terror.", Paginas = 210 },
+                    new Recommendation { TituloLibro = "Corazones de Piedra", Autor = "Joe Hill", Genero = "Terror", Razon = "Narrativa de terror moderno.", Paginas = 340 }
                 };
             }
 
             return new List<Recommendation>
             {
-                new Recommendation { Id = new Random().Next(100, 999), TituloLibro = $"Libro Destacado de {g}", Autor = "Autor Recomendado", Genero = g, Razon = $"Sugerencia para nivel {nivel}." },
-                new Recommendation { Id = new Random().Next(100, 999), TituloLibro = $"Grandes Historias ({g})", Autor = "Escritor Relevante", Genero = g, Razon = $"Lectura recomendada en {g}." },
-                new Recommendation { Id = new Random().Next(100, 999), TituloLibro = $"Clásico de {g}", Autor = "Especialista del Tema", Genero = g, Razon = "Selección especial para tu perfil." }
+                new Recommendation { TituloLibro = $"Libro Destacado de {g}", Autor = "Autor Recomendado", Genero = g, Razon = $"Sugerencia para nivel {nivel}.", Paginas = 280 },
+                new Recommendation { TituloLibro = $"Grandes Historias ({g})", Autor = "Escritor Relevante", Genero = g, Razon = $"Lectura recomendada en {g}.", Paginas = 310 },
+                new Recommendation { TituloLibro = $"Clásico de {g}", Autor = "Especialista del Tema", Genero = g, Razon = "Selección especial para tu perfil.", Paginas = 250 }
             };
         }
 

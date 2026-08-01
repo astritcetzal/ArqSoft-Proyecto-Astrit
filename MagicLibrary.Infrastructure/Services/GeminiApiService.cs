@@ -38,7 +38,8 @@ Devuelve ÚNICAMENTE un arreglo JSON plano con este formato exacto:
     ""TituloLibro"": ""Título del libro"",
     ""Autor"": ""Nombre del Autor"",
     ""Genero"": ""Género exacto"",
-    ""Razon"": ""Breve razón""
+    ""Razon"": ""Breve razón"",
+    ""Paginas"": 250
   }}
 ]";
 
@@ -99,7 +100,8 @@ Devuelve ÚNICAMENTE un arreglo JSON plano con este formato exacto:
           {{
             ""Titulo"": ""Nombre del Libro"",
             ""Autor"": ""Autor"",
-            ""Estado"": ""Terminado""
+            ""Estado"": ""Terminado"",
+            ""Paginas"":250
           }}
         ]";
 

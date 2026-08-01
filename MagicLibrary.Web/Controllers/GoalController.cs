@@ -1,85 +1,71 @@
-﻿using MagicLibrary.Domain.Interfaces;
+﻿using MagicLibrary.Application.Interfaces;
 using MagicLibrary.Domain.Models;
-using MagicLibrary.Application.Services;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography.X509Certificates;
-using AspNetCoreGeneratedDocument;
-
 using Microsoft.AspNetCore.Authorization;
-using MagicLibrary.Application.Interfaces; //para login 
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+
 namespace MagicLibrary.Web.Controllers
 {
-    [Authorize] //hára que sea obligatoria la autenticacion 
+    [Authorize]
     public class GoalController : Controller
     {
-        private readonly IRecommendationService _Rservice;
         private readonly IGoalService _Gservice;
+        private readonly IRecommendationService _Rservice;
         private readonly IBookService _Bservice;
+        private readonly IEmailService _emailService;
 
-        public GoalController(IGoalService Gservice,IRecommendationService Rservice, IBookService Bservice)
+        public GoalController(
+            IGoalService Gservice,
+            IRecommendationService Rservice,
+            IBookService Bservice,
+            IEmailService emailService)
         {
             _Gservice = Gservice;
             _Rservice = Rservice;
             _Bservice = Bservice;
+            _emailService = emailService;
         }
+
+        private int ObtenerUserIdEnSesion()
+        {
+            var userIdClaim = User.FindFirst("UserId")?.Value;
+            return string.IsNullOrEmpty(userIdClaim) ? 0 : int.Parse(userIdClaim);
+        }
+
         public IActionResult Index()
         {
-            ViewBag.Recommendation = _Rservice.ObtenerTodos();
-            //Pedir datos procesados a los servicios
-            var metaActual = _Gservice.ObtenerMetaOCrearPorDefecto(1, DateTime.Now.Year);
-            var diasRestantes = _Gservice.CalcularDiasRestantesAnio();
-            if (diasRestantes <= 0) diasRestantes = 1;
+            int userId = ObtenerUserIdEnSesion();
+            if (userId == 0) return RedirectToAction("Welcome", "Home");
 
-            int totalPaginas = _Gservice.CalcularTotalPaginasPendientes(metaActual) ;
-            
-            //pasar los datos a la vista
+            var metaActual = _Gservice.ObtenerMetaOCrearPorDefecto(userId, DateTime.Now.Year);
+
+            int diasRestantes = _Gservice.CalcularDiasRestantesAnio(metaActual.DiasPorSemana);
+            int totalPaginas = _Gservice.CalcularTotalPaginasPendientes(metaActual);
+
             ViewBag.DiasRestantes = diasRestantes;
-            ViewBag.TotalPaginas = totalPaginas; //mandar suma
-            ViewBag.Recommendation = _Rservice.ObtenerTodos();
-            // 2. Mandamos a la vista los libros que el usuario está leyendo o por leer
-            ViewBag.MisLibros = _Bservice.ObtenerTodos().Where(b => b.Estado != "Terminado").ToList();
+            ViewBag.TotalPaginas = totalPaginas;
+
+            // 🔑 EL .ToList() EVITA QUE EL CASTEO EN RAZOR DEVUELVA NULL
+            ViewBag.Recommendation = _Rservice.ObtenerTodos()?.ToList() ?? new List<Recommendation>();
+            ViewBag.MisLibros = _Bservice.ObtenerTodos()
+                                        .Where(b => b.UserId == userId)
+                                        .ToList();
+
             return View(metaActual);
         }
-        public IActionResult ObtenerPorId(int id)
-        {
-            var goals = _Gservice.ObtenerTodos().Where(g=> g.IdMeta ==id );
-            ViewBag.Recommendation = _Rservice.ObtenerTodos();
-            return View(goals);
-        }
-        // POST
-        [HttpPost]
-        public IActionResult Agregar(Goal goals)
-        {
-            ViewBag.Recommendation = _Rservice.ObtenerTodos();
-            _Gservice.Agregar(goals);
-            return RedirectToAction("Index");
-        }
-        public IActionResult Actualizar(Goal goals)
-        {
-            return View(goals);
-        }
+
         [HttpPost]
         public IActionResult AgregarItem(int? RecomendacionId, int? MiLibroId)
         {
-            var metaActual = _Gservice.ObtenerMetaOCrearPorDefecto(1, DateTime.Now.Year);
+            int userId = ObtenerUserIdEnSesion();
+            var metaActual = _Gservice.ObtenerMetaOCrearPorDefecto(userId, DateTime.Now.Year);
             if (metaActual.LibrosAsignados == null) metaActual.LibrosAsignados = new List<GoalItem>();
 
-            // 3A. Si el usuario eligió de Recomendaciones
-            if (RecomendacionId.HasValue)
-            {
-                var recomendacion = _Rservice.ObtenerPorId(RecomendacionId.Value);
-                if (recomendacion != null)
-                {
-                    metaActual.LibrosAsignados.Add(new GoalItem
-                    {
-                        Titulo = recomendacion.TituloLibro,
-                        RecomendacionId = recomendacion.Id,
-                        EstaCompletado = false
-                    });
-                }
-            }
-            // 3B. Si el usuario eligió de Mis Libros
-            else if (MiLibroId.HasValue)
+            if (MiLibroId.HasValue && MiLibroId.Value > 0)
             {
                 var miLibro = _Bservice.ObtenerPorId(MiLibroId.Value);
                 if (miLibro != null)
@@ -92,29 +78,78 @@ namespace MagicLibrary.Web.Controllers
                     });
                 }
             }
+            else if (RecomendacionId.HasValue && RecomendacionId.Value > 0)
+            {
+                var recomendacion = _Rservice.ObtenerPorId(RecomendacionId.Value);
+                if (recomendacion != null)
+                {
+                    metaActual.LibrosAsignados.Add(new GoalItem
+                    {
+                        Titulo = recomendacion.TituloLibro,
+                        RecomendacionId = recomendacion.Id,
+                        EstaCompletado = false
+                    });
+                }
+            }
+
             _Gservice.Actualizar(metaActual);
             return RedirectToAction("Index");
         }
+
         [HttpPost]
-        public IActionResult ActualizarMeta(int nuevaCantidad)
+        public IActionResult ConfigurarMeta(int nuevaCantidad, int diasPorSemana, string horaNotificacion)
         {
-            // buscamos la meta actual
-            var metaActual = _Gservice.ObtenerMetaOCrearPorDefecto(1, DateTime.Now.Year);
+            int userId = ObtenerUserIdEnSesion();
+            var metaActual = _Gservice.ObtenerMetaOCrearPorDefecto(userId, DateTime.Now.Year);
 
-            //Actualizar la cantidad y guarda
             metaActual.CantidadObjetivo = nuevaCantidad;
-            _Gservice.Actualizar(metaActual);
-            //recargar pagina
+            metaActual.DiasPorSemana = diasPorSemana;
+            metaActual.HoraNotificacion = horaNotificacion;
 
+            _Gservice.Actualizar(metaActual);
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         public IActionResult MarcarCompletado(string tituloLibro)
         {
-            _Gservice.CompletarLibroEnMeta(1, DateTime.Now.Year, tituloLibro);
-            
+            int userId = ObtenerUserIdEnSesion();
+            _Gservice.CompletarLibroEnMeta(userId, DateTime.Now.Year, tituloLibro);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EnviarRecordatorioPrueba()
+        {
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value ?? User.Identity?.Name;
+
+            if (!string.IsNullOrEmpty(userEmail))
+            {
+                string asunto = "📚 Recordatorio de Lectura - MagicLibrary";
+                string mensaje = "<h2 style='color:#311b58;'>¡Es hora de leer!</h2><p>Este es un correo de prueba para confirmar tus notificaciones de metas de lectura.</p>";
+                await _emailService.SendEmailAsync(userEmail, asunto, mensaje);
+            }
+
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult EliminarItem(string tituloLibro)
+        {
+            int userId = ObtenerUserIdEnSesion();
+            var metaActual = _Gservice.ObtenerMetaOCrearPorDefecto(userId, DateTime.Now.Year);
+
+            if (metaActual.LibrosAsignados != null)
+            {
+                // Busca la primera coincidencia del título y la remueve de la lista
+                var itemAEliminar = metaActual.LibrosAsignados.FirstOrDefault(i => i.Titulo == tituloLibro);
+                if (itemAEliminar != null)
+                {
+                    metaActual.LibrosAsignados.Remove(itemAEliminar);
+                    _Gservice.Actualizar(metaActual);
+                }
+            }
+
             return RedirectToAction("Index");
         }
     }
 }
-

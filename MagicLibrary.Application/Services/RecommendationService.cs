@@ -28,5 +28,9 @@ namespace MagicLibrary.Application.Services
         {
             return _repo.ObtenerTodos().Select(r => r.Genero).Distinct().ToList();
         }
+        public void Agregar(Recommendation recomendacion)
+        {
+            _repo.Agregar(recomendacion); // 👈 PERSISTE EN EL REPOSITORIO
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
 using MagicLibrary.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore; // 👈 OBLIGATORIO PARA EL .Include()
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,24 +18,29 @@ namespace MagicLibrary.Infrastructure.Repositories
 
         public List<Goal> ObtenerTodos()
         {
-            return _context.Goals.ToList();
+            // 🔑 EL .Include TRAE LOS LIBROS ASIGNADOS DE LA BASE DE DATOS
+            return _context.Goals
+                           .Include(g => g.LibrosAsignados)
+                           .ToList();
         }
 
         public Goal? ObtenerPorId(int id)
         {
-            return _context.Goals.FirstOrDefault(b => b.IdMeta == id);
+            return _context.Goals
+                           .Include(g => g.LibrosAsignados)
+                           .FirstOrDefault(b => b.IdMeta == id);
         }
 
         public void Agregar(Goal meta)
         {
             _context.Goals.Add(meta);
-            _context.SaveChanges(); // ¡Así de fácil se guarda en la base de datos!
+            _context.SaveChanges();
         }
 
         public void Actualizar(Goal meta)
         {
             _context.Goals.Update(meta);
-            _context.SaveChanges();
+            _context.SaveChanges(); // Persiste los GoalItem agregados
         }
     }
 }

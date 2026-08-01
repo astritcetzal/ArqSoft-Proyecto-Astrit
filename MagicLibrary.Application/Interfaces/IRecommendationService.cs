@@ -12,5 +12,6 @@ namespace MagicLibrary.Application.Interfaces
         /// obtener por genero
         List<Recommendation> ObtenerPorGenero(string porGenero);
         List<string> ObtenerGenero();
+        void Agregar(Recommendation recomendacion);
     }
 }

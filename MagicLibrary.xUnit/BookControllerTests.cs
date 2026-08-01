@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using MagicLibrary.Application.Interfaces;
 using MagicLibrary.Application.Services;
 using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
@@ -12,7 +14,7 @@ using Xunit;
 namespace MagicLibrary.xUnit
 {
     // ====================================================================
-    // REPOSITORIOS FAKE (Adaptadores en memoria)
+    // REPOSITORIOS Y SERVICIOS FAKE
     // ====================================================================
     public class BookRepositoryFake : IBookRepository
     {
@@ -48,17 +50,31 @@ namespace MagicLibrary.xUnit
 
         public Recommendation? ObtenerPorId(int id)
             => _recommendations.FirstOrDefault(r => r.Id == id);
+
+        // 🔑 MÉTODO IMPLEMENTADO PARA RESOLVER EL ERROR CS0535
+        public void Agregar(Recommendation recomendacion)
+        {
+            recomendacion.Id = _recommendations.Count > 0 ? _recommendations.Max(r => r.Id) + 1 : 1;
+            _recommendations.Add(recomendacion);
+        }
+    }
+
+    public class AiServiceFake : IAiService
+    {
+        public Task<List<Recommendation>> GenerarRecomendacionesIAAsync(UserProfile perfil)
+            => Task.FromResult(new List<Recommendation>());
+
+        public Task<List<Book>> ExtraerLibrosDeTextoAsync(string textoUsuario)
+            => Task.FromResult(new List<Book>());
     }
 
     // ====================================================================
-    // PRUEBAS DE CONTROLADOR (BookController)
+    // PRUEBAS DE CONTROLADOR (BookControllerTests)
     // ====================================================================
-
     public class BookControllerTests
     {
         private BookController CrearControllerConDatosDePrueba(out List<Book> librosEsperados)
         {
-            // Arrange — Datos de prueba asociados al UserId = 1
             librosEsperados = new List<Book>
             {
                 new Book { IdLibro = 1, UserId = 1, Titulo = "El Imperio Final", Autor = "Brandon Sanderson", Estado = "Leyendo" },
@@ -71,21 +87,20 @@ namespace MagicLibrary.xUnit
                 new Recommendation { Id = 1, TituloLibro = "Cien Años de Soledad", Autor = "Gabriel García Márquez" }
             };
 
-            // Inyección de dependencias usando los Repositorios Fake
             var bookRepoFake = new BookRepositoryFake(librosEsperados);
             var recRepoFake = new RecommendationRepositoryFake(recomendaciones);
 
             var bookService = new BookService(bookRepoFake);
             var recService = new RecommendationService(recRepoFake);
+            var aiServiceFake = new AiServiceFake();
 
-            var controller = new BookController(bookService, recService);
+            var controller = new BookController(bookService, recService, aiServiceFake);
 
-            // 🔑 AQUÍ ESTABA EL DETALLE: Agregar el Claim "UserId" con valor "1"
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, "Astrit Cetzal"),
                 new Claim(ClaimTypes.Email, "astrit@correo.com"),
-                new Claim("UserId", "1") // 👈 Permite que ObtenerUserIdEnSesion() devuelva 1
+                new Claim("UserId", "1")
             };
             var identity = new ClaimsIdentity(claims, "TestAuth");
             var principal = new ClaimsPrincipal(identity);
@@ -101,13 +116,9 @@ namespace MagicLibrary.xUnit
         [Fact]
         public void Index_SinFiltro_RegresaTodosLosLibros()
         {
-            // 1. Arrange
             var controller = CrearControllerConDatosDePrueba(out var librosEsperados);
-
-            // 2. Act
             var result = controller.Index(null) as ViewResult;
 
-            // 3. Assert
             Assert.NotNull(result);
             Assert.NotNull(result.Model);
 
@@ -118,22 +129,36 @@ namespace MagicLibrary.xUnit
         [Fact]
         public void Detalle_ConIdValido_RegresaLibroCorrecto()
         {
-            // Arrange
             var controller = CrearControllerConDatosDePrueba(out _);
-
-            // Act
             var resultado = controller.Detalle(1) as ViewResult;
             var modelo = resultado?.Model as Book;
 
-            // Assert
             Assert.NotNull(modelo);
             Assert.Equal("El Imperio Final", modelo.Titulo);
         }
 
         [Fact]
+        public void Detalle_ConIdInexistente_RegresaNotFound()
+        {
+            var controller = CrearControllerConDatosDePrueba(out _);
+            var resultado = controller.Detalle(999);
+
+            Assert.IsType<NotFoundResult>(resultado);
+        }
+
+        [Fact]
+        public void Agregar_Get_RegresaVistaCorrectaConEstados()
+        {
+            var controller = CrearControllerConDatosDePrueba(out _);
+            var resultado = controller.Agregar() as ViewResult;
+
+            Assert.NotNull(resultado);
+            Assert.NotNull(controller.ViewBag.Estados);
+        }
+
+        [Fact]
         public void Agregar_Post_GuardaLibroYRedirigeAIndex()
         {
-            // Arrange
             var controller = CrearControllerConDatosDePrueba(out var librosIniciales);
             int cantidadInicial = librosIniciales.Count;
 
@@ -145,13 +170,37 @@ namespace MagicLibrary.xUnit
                 Estado = "Pendiente"
             };
 
-            // Act
             var resultado = controller.Agregar(nuevoLibro) as RedirectToActionResult;
 
-            // Assert
             Assert.NotNull(resultado);
             Assert.Equal("Index", resultado.ActionName);
             Assert.Equal(cantidadInicial + 1, librosIniciales.Count);
+        }
+
+        [Fact]
+        public void EditarDetalles_Post_ActualizaLibroYRedirigeADetalle()
+        {
+            var controller = CrearControllerConDatosDePrueba(out var librosIniciales);
+            var libroAEditar = new Book
+            {
+                IdLibro = 1,
+                UserId = 1,
+                Titulo = "El Imperio Final (Edición Revisada)",
+                Autor = "Brandon Sanderson",
+                Paginas = 670,
+                Estado = "Terminado"
+            };
+
+            var resultado = controller.EditarDetalles(libroAEditar) as RedirectToActionResult;
+
+            Assert.NotNull(resultado);
+            Assert.Equal("Detalle", resultado.ActionName);
+
+            var libroModificado = librosIniciales.FirstOrDefault(b => b.IdLibro == 1);
+            Assert.NotNull(libroModificado);
+            Assert.Equal("El Imperio Final (Edición Revisada)", libroModificado.Titulo);
+            Assert.Equal(670, libroModificado.Paginas);
+            Assert.Equal("Terminado", libroModificado.Estado);
         }
     }
 }

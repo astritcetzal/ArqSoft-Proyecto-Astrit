@@ -7,19 +7,28 @@
 
 <div class="formulario-login">
     <h1>Iniciar Sesión</h1>
+    
     <form asp-controller="User" asp-action="IniciarSesion" method="post">
-        <div asp-validation-summary="All" class="text-danger"></div>
+        <div asp-validation-summary="All" class="text-danger" style="color: #B33939; font-size: 0.85rem; margin-bottom: 15px;"></div>
+        
         <div class="grupo-input">
-            <label>Correo</label>
-            <input asp-for="Correo" />
+            <label asp-for="Correo">Correo</label>
+            <input asp-for="Correo" required placeholder="correo@ejemplo.com" />
         </div>
+
         <div class="grupo-input">
-            <label>Contraseña</label>
-            <input asp-for="Contrasena" type="password" />
+            <label asp-for="Contrasena">Contraseña</label>
+            <input asp-for="Contrasena" type="password" required />
         </div>
-        <hr />
-        <button type="submit" class="btn-guardar">Iniciar sesión</button>
+
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #E6E2D8;" />
+
+        <button type="submit" class="btn-guardar">Iniciar Sesión</button>
     </form>
-    <hr />
-    <a asp-controller="Home" asp-action="PrincipalInicio" class="link-cancelar">&larr; Cancelar</a>
+
+    <hr style="margin: 20px 0; border: none; border-top: 1px solid #E6E2D8;" />
+    
+    <div style="text-align: center;">
+        <a asp-controller="Home" asp-action="PrincipalInicio" class="link-cancelar" style="margin-left: 0;">&larr; Cancelar</a>
+    </div>
 </div>

@@ -1,108 +1,90 @@
 ﻿@model IEnumerable<MagicLibrary.Domain.Models.Recommendation>
 
-<div class="container py-4">
-    <!-- TÍTULO -->
-    <h1 class="fw-bold mb-4" style="font-size: 2.5rem; letter-spacing: 2px;">RECOMENDACIONES</h1>
+<div class="contenedor-principal">
+    <div class="header-libro">
+        <h1>Recomendaciones</h1>
+        <button type="button" class="btn-agregar-libro" data-bs-toggle="modal" data-bs-target="#modalGemini">
+            Consultar Oráculo
+        </button>
+    </div>
 
-    <!-- BARRA SUPERIOR DE BOTONES DE GÉNERO + BOTÓN LIMPIAR -->
-    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-        <div class="btn-group flex-wrap">
-            <a href="@Url.Action("Index", "Recommendation")"
-                   class="btn @(string.IsNullOrEmpty(ViewBag.GeneroActual) ? "btn-dark" : "btn-outline-dark") fw-bold text-uppercase">
-                TODOS
-            </a>
-            @if (ViewBag.Generos != null)
+    <div class="contenedor-filtros">
+        <a href="@Url.Action("Index", "Recommendation")"
+               class="filtro-btn @(string.IsNullOrEmpty(ViewBag.GeneroActual) ? "activo" : "")">
+            TODOS
+        </a>
+        @if (ViewBag.Generos != null)
+        {
+            foreach (var gen in ViewBag.Generos)
             {
-                foreach (var gen in ViewBag.Generos)
-                {
-                    <a href="@Url.Action("Index", "Recommendation", new { genero = gen })"
-                           class="btn @(ViewBag.GeneroActual == gen ? "btn-dark" : "btn-outline-dark") fw-bold text-uppercase">
-                        @gen
-                    </a>
-                }
+                <a href="@Url.Action("Index", "Recommendation", new { genero = gen })"
+                       class="filtro-btn @(ViewBag.GeneroActual == gen ? "activo" : "")">
+                    @gen
+                </a>
             }
-        </div>
-
-        <!-- Botón para limpiar búsquedas guardadas -->
-        <a href="@Url.Action("LimpiarMemoria", "Recommendation")" class="btn btn-outline-danger btn-sm fw-bold">
-            🗑️ Limpiar búsquedas
+        }
+        <a href="@Url.Action("LimpiarMemoria", "Recommendation")" class="btn-borrar" style="margin-left: auto;">
+            Limpiar búsquedas
         </a>
     </div>
 
-    <hr class="mb-5" />
+    <hr />
 
-    <!-- CONTENIDO DE TARJETAS DE LIBROS -->
-    <div class="row">
+    <div class="grid">
         @if (!Model.Any())
         {
-            <div class="col-12 text-center py-5">
-                <p class="text-muted fs-5">✨ No hay recomendaciones en este género aún.</p>
-                <p class="text-muted">Haz clic en <strong>"CONSULTAR A GEMINI"</strong> abajo para pedirle sugerencias a la IA.</p>
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                <p style="color: var(--texto-suave);">No hay recomendaciones en este género aún.</p>
+                <p style="color: var(--texto-suave);">Haz clic en "CONSULTAR ORÁCULO" para pedir sugerencias a la IA.</p>
             </div>
         }
         else
         {
             @foreach (var item in Model)
             {
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm border-0" style="background-color: #6b8e85; color: white; border-radius: 8px;">
-                        <div class="card-body d-flex flex-column justify-content-between p-4">
-                            <div>
-                                <h2 class="fw-bold mb-2 text-uppercase" style="font-size: 1.5rem;">@item.TituloLibro</h2>
-                                <span class="badge bg-light text-dark mb-3 text-uppercase fw-bold">@item.Genero</span>
-                                <p class="mb-2 fs-6"><em>@item.Autor</em></p>
+                <div class="tarjeta-contenido" style="border-top-color: var(--azul-profundo);">
+                    <h3>@item.TituloLibro</h3>
+                    <span class="etiqueta-estado" style="color: var(--azul-profundo);">@item.Genero</span>
+                    <p class="etiqueta-autor">@item.Autor</p>
 
-                                <!-- 💡 MOSTRAR RAZÓN DE LA IA -->
-                                @if (!string.IsNullOrWhiteSpace(item.Razon))
-                                {
-                                    <div class="mt-3 p-2 rounded" style="background-color: rgba(255, 255, 255, 0.18); font-size: 0.88rem;">
-                                        <small>💡 <strong>¿Por qué leerlo?</strong> @item.Razon</small>
-                                    </div>
-                                }
-                            </div>
-
-                            <div class="mt-4">
-                                <a href="@Url.Action("AgregarDesdeRecomendacion", "Book", new { id = item.Id })" class="btn btn-light w-100 fw-bold text-dark">
-                                    ➕ Agregar a mis libros
-                                </a>
-                            </div>
+                    @if (!string.IsNullOrWhiteSpace(item.Razon))
+                    {
+                        <div style="margin-top: 15px; padding: 10px; background-color: #F2EFE9; font-size: 0.85rem; border-left: 3px solid var(--terracota);">
+                            <strong>Razón:</strong> @item.Razon
                         </div>
+                    }
+
+                    <div style="margin-top: 20px;">
+                        <a href="@Url.Action("AgregarDesdeRecomendacion", "Book", new { id = item.Id })" class="btn-agregar-libro" style="width: 100%; text-align: center;">
+                            Agregar a mis libros
+                        </a>
                     </div>
                 </div>
             }
         }
     </div>
-</div>
 
-<!-- 🟣 BOTÓN FLOTANTE "CONSULTAR A GEMINI" -->
-<div style="position: fixed; bottom: 30px; right: 30px; z-index: 1000;">
-    <button type="button" class="btn text-white fw-bold px-4 py-3 shadow-lg"
-            style="background-color: #311b58; border-radius: 4px; letter-spacing: 1px;"
-            data-bs-toggle="modal" data-bs-target="#modalGemini">
-        CONSULTAR Oráculo
-    </button>
-</div>
-
-<!-- 🟣 MODAL PARA CONSULTAR A LA IA -->
-<div class="modal fade" id="modalGemini" tabindex="-1" aria-labelledby="modalGeminiLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form asp-action="GenerarConIA" asp-controller="Recommendation" method="get">
-                <div class="modal-header text-white" style="background-color: #311b58;">
-                    <h5 class="modal-title mb-0 fw-bold" id="modalGeminiLabel">✨ Consultar Asistente IA</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <label for="prompt" class="form-label fw-bold">¿Qué te gustaría leer o qué género buscas?</label>
-                    <input type="text" class="form-control p-3" id="prompt" name="prompt"
-                           placeholder="Ej. 5 libros de terror, poesía, mitología..." required />
-                    <small class="text-muted mt-2 d-block">La IA generará recomendaciones personalizadas adaptadas a tu perfil.</small>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn text-white fw-bold px-4" style="background-color: #311b58;">ENVIAR</button>
-                </div>
-            </form>
+    <!-- Modal Oráculo IA -->
+    <div class="modal fade" id="modalGemini" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border: 2px solid var(--texto-tinta);">
+                <form asp-action="GenerarConIA" asp-controller="Recommendation" method="get">
+                    <div class="modal-header" style="background-color: var(--texto-tinta); color: white;">
+                        <h5 class="modal-title text-uppercase fw-bold">Consultar Asistente IA</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="prompt" class="form-label fw-bold">¿Qué género o tema buscas?</label>
+                        <input type="text" class="form-control" id="prompt" name="prompt"
+                               placeholder="Ej. Terror, novela histórica, poesía..." required />
+                        <small class="text-muted mt-2 d-block">La IA generará recomendaciones personalizadas para tu perfil.</small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-borrar" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn-agregar-libro">Enviar</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
