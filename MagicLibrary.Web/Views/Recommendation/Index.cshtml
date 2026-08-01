@@ -42,25 +42,32 @@
         {
             @foreach (var item in Model)
             {
-                <div class="tarjeta-contenido" style="border-top-color: var(--azul-profundo);">
+                <div class="tarjeta-contenido">
                     <h3>@item.TituloLibro</h3>
-                    <span class="etiqueta-estado" style="color: var(--azul-profundo);">@item.Genero</span>
+                    <span class="etiqueta-estado">@item.Genero</span>
                     <p class="etiqueta-autor">@item.Autor</p>
 
                     @if (!string.IsNullOrWhiteSpace(item.Razon))
                     {
-                        <div style="margin-top: 15px; padding: 10px; background-color: #F2EFE9; font-size: 0.85rem; border-left: 3px solid var(--terracota);">
+                        <div class="razon-contenedor">
                             <strong>Razón:</strong> @item.Razon
                         </div>
                     }
 
-                    <div style="margin-top: 20px;">
-                        <a href="@Url.Action("AgregarDesdeRecomendacion", "Book", new { id = item.Id })" class="btn-agregar-libro" style="width: 100%; text-align: center;">
+                    <div class="contenedor-acciones-tarjeta">
+                        <a href="@Url.Action("AgregarDesdeRecomendacion", "Book", new { id = item.Id })" class="btn-agregar-libro">
                             Agregar a mis libros
+                        </a>
+
+                        <a href="@Url.Action("Eliminar", "Recommendation", new { id = item.Id, titulo = item.TituloLibro })"
+                               class="btn-eliminar-debajo"
+                               onclick="return confirm('¿Deseas quitar esta recomendación?');">
+                            Eliminar
                         </a>
                     </div>
                 </div>
             }
+            
         }
     </div>
 

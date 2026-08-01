@@ -43,9 +43,20 @@ namespace MagicLibrary.Web.Controllers
         [HttpGet]
         public IActionResult Crear()
         {
-            return View();
-        }
+            int userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
 
+            // Buscar si el usuario ya tiene un perfil guardado
+            var perfilExistente = _userProfileService.ObtenerTodos().FirstOrDefault(p => p.UserId == userId);
+
+            if (perfilExistente != null)
+            {
+                // Al pasarle el perfil existente a la vista, los inputs se llenarán automáticamente
+                return View(perfilExistente);
+            }
+
+            // Si es un usuario nuevo sin perfil, se pasa un objeto vacío con fecha actual por defecto
+            return View(new UserProfile { UserId = userId, FechaInicio = DateOnly.FromDateTime(DateTime.Now) });
+        }
         [HttpPost]
         public IActionResult GuardarPerfil(UserProfile perfil)
         {

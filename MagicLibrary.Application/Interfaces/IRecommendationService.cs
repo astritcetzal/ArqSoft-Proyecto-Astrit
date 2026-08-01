@@ -1,7 +1,6 @@
 ﻿using MagicLibrary.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace MagicLibrary.Application.Interfaces
 {
@@ -9,9 +8,11 @@ namespace MagicLibrary.Application.Interfaces
     {
         List<Recommendation> ObtenerTodos();
         Recommendation? ObtenerPorId(int id);
-        /// obtener por genero
         List<Recommendation> ObtenerPorGenero(string porGenero);
-        List<string> ObtenerGenero();
+        List<string> ObtenerGenerosUsuario(int userId);
         void Agregar(Recommendation recomendacion);
+        void Eliminar(int id);
+        Task<List<Recommendation>> ObtenerRecomendacionesUsuarioAsync(int userId, string? generoFiltro, string? promptExtra, UserProfile perfil);
+        void LimpiarMemoriaUsuario(int userId);
     }
 }

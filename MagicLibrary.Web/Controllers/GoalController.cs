@@ -2,12 +2,7 @@
 using MagicLibrary.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
-
 namespace MagicLibrary.Web.Controllers
 {
     [Authorize]
@@ -125,7 +120,7 @@ namespace MagicLibrary.Web.Controllers
 
             if (!string.IsNullOrEmpty(userEmail))
             {
-                string asunto = "📚 Recordatorio de Lectura - MagicLibrary";
+                string asunto = "Recordatorio de Lectura - MagicLibrary";
                 string mensaje = "<h2 style='color:#311b58;'>¡Es hora de leer!</h2><p>Este es un correo de prueba para confirmar tus notificaciones de metas de lectura.</p>";
                 await _emailService.SendEmailAsync(userEmail, asunto, mensaje);
             }

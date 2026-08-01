@@ -36,6 +36,15 @@ namespace MagicLibrary.Infrastructure.Repositories
             _context.Recommendations.Update(recommendation);
             _context.SaveChanges();
         }
+        public void Eliminar(int id)
+        {
+            var recomendacion = _context.Recommendations.Find(id);
+            if (recomendacion != null)
+            {
+                _context.Recommendations.Remove(recomendacion);
+                _context.SaveChanges();
+            }
+        }
 
     }
 }

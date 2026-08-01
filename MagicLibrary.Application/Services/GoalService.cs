@@ -1,10 +1,6 @@
 ﻿using MagicLibrary.Application.Interfaces;
 using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace MagicLibrary.Application.Services
 {
     public class GoalService : IGoalService
@@ -13,7 +9,6 @@ namespace MagicLibrary.Application.Services
         private readonly IEnumerable<IGoalObserver> _observers;
         private readonly IBookService _bservice;
         private readonly IRecommendationService _rService;
-
         public GoalService(
             IGoalRepository repo,
             IEnumerable<IGoalObserver> observers,
@@ -25,7 +20,6 @@ namespace MagicLibrary.Application.Services
             _bservice = bservice;
             _rService = rService;
         }
-
         public Goal ObtenerMetaOCrearPorDefecto(int idUsuario, int anio)
         {
             var meta = _repo.ObtenerTodos().FirstOrDefault(g => g.IdUsuario == idUsuario && g.Anio == anio);
@@ -44,7 +38,6 @@ namespace MagicLibrary.Application.Services
             }
             return meta;
         }
-
         public int CalcularDiasRestantesAnio(int diasPorSemana = 7)
         {
             DateTime hoy = DateTime.Now;
@@ -79,7 +72,6 @@ namespace MagicLibrary.Application.Services
             }
             return totalPaginas;
         }
-
         public void CompletarLibroEnMeta(int idUsuario, int anio, string tituloLibro)
         {
             var metaActual = ObtenerMetaOCrearPorDefecto(idUsuario, anio);
@@ -111,13 +103,11 @@ namespace MagicLibrary.Application.Services
                 }
             }
         }
-
         public List<Goal> ObtenerTodos() => _repo.ObtenerTodos();
         public Goal? ObtenerPorId(int id) => _repo.ObtenerPorId(id);
         public void Agregar(Goal goal) => _repo.Agregar(goal);
         public void Actualizar(Goal goal) => _repo.Actualizar(goal);
         public Goal? ObtenerMetaActual(int idUsuario, int anio) => _repo.ObtenerTodos().FirstOrDefault(g => g.IdUsuario == idUsuario && g.Anio == anio);
-
         public void ConfirmarLibroAgregado(Goal goal)
         {
             foreach (var observer in _observers)

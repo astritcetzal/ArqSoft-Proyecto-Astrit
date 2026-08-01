@@ -39,9 +39,11 @@
             <label>Géneros Favoritos (Separados por coma)</label>
             <input asp-for="GenerosFavoritos" placeholder="Ej. Fantasía, Ciencia Ficción, Terror..." required />
         </div>
-
         <hr />
-        <button type="submit" class="btn-guardar">Guardar Perfil</button>
+        <div class="acciones-formulario">
+            <button type="submit" class="btn-guardar">Guardar Perfil</button>
+            <a asp-action="Index" class="btn-borrar">Cancelar</a>
+        </div>
     </form>
 </div>
 

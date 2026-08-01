@@ -806,3 +806,224 @@ textarea {
         .rating label:hover ~ label {
             color: #D17C64 !important; /* Tono terracota sutil */
         }
+
+/* Disposición de botones dentro de la tarjeta de recomendación */
+.acciones-tarjeta {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+    .acciones-tarjeta .btn-agregar-libro {
+        flex: 1;
+        text-align: center;
+    }
+
+.form-eliminar-tarjeta {
+    display: inline;
+    margin: 0;
+}
+
+/* Botón de eliminación individual dentro de la tarjeta */
+.btn-eliminar-tarjeta {
+    background-color: transparent;
+    color: var(--terracota, #c0392b);
+    border: 1px solid var(--terracota, #c0392b);
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+    .btn-eliminar-tarjeta:hover {
+        background-color: var(--terracota, #c0392b);
+        color: #ffffff;
+    }
+
+/* Tarjeta y posicionamiento */
+.tarjeta-contenido {
+    position: relative;
+    border-top-color: var(--azul-profundo);
+}
+
+    .tarjeta-contenido .etiqueta-estado {
+        color: var(--azul-profundo);
+    }
+
+/* Botón de eliminar superior derecho */
+.btn-eliminar-esquina {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: transparent;
+    color: var(--terracota, #c0392b);
+    border: 1px solid var(--terracota, #c0392b);
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+    .btn-eliminar-esquina:hover {
+        background-color: var(--terracota, #c0392b);
+        color: #ffffff;
+    }
+
+/* Bloque de razón de recomendación */
+.razon-contenedor {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #F2EFE9;
+    font-size: 0.85rem;
+    border-left: 3px solid var(--terracota);
+}
+
+/* Contenedor del botón principal */
+.contenedor-btn-agregar {
+    margin-top: 20px;
+}
+
+    .contenedor-btn-agregar .btn-agregar-libro {
+        width: 100%;
+        text-align: center;
+        display: block;
+    }
+
+
+/* Estilos para la barra superior y menú desplegable lateral estilo acordeón */
+.barra-superior {
+    background-color: var(--azul-profundo, #0b3c5d);
+    padding: 10px 18px;
+}
+
+.btn-menu-toggle {
+    background-color: var(--terracota, #c0392b);
+    color: #ffffff;
+    font-weight: 600;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+    .btn-menu-toggle:hover,
+    .btn-menu-toggle:focus {
+        background-color: #a93226;
+        color: #ffffff;
+        box-shadow: none;
+    }
+
+.icono-hamburguesa {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+/* Panel lateral (Offcanvas) estilo tarjeta azul/roja */
+.menu-desplegable-container {
+    width: 280px !important;
+    background-color: #002b49;
+    color: #ffffff;
+    border-right: none;
+}
+
+.menu-desplegable-header {
+    background-color: var(--terracota, #c0392b);
+    color: #ffffff;
+    padding: 16px 20px;
+}
+
+    .menu-desplegable-header .offcanvas-title {
+        font-size: 1.2rem;
+        letter-spacing: 0.5px;
+    }
+
+/* Enlaces principales del menú */
+.nav-link-menu {
+    display: block;
+    padding: 14px 20px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #002b49;
+    transition: background-color 0.2s ease;
+}
+
+    .nav-link-menu:hover {
+        background-color: #003d66;
+        color: #ffffff;
+    }
+
+/* Encabezados de subsección (Usuario / Cuenta) */
+.menu-subseccion-header {
+    background-color: var(--terracota, #c0392b);
+    color: #ffffff;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Submenú de opciones secundarias */
+.sub-menu {
+    margin: 0;
+    padding: 0;
+    background-color: #001f35;
+}
+
+.nav-link-submenu {
+    display: block;
+    padding: 12px 20px 12px 35px;
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+    .nav-link-submenu:hover {
+        background-color: #003357;
+        color: #ffffff;
+    }
+/* Contenedor de botones en la parte inferior de la tarjeta */
+.contenedor-acciones-tarjeta {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+    .contenedor-acciones-tarjeta .btn-agregar-libro {
+        width: 100%;
+        text-align: center;
+        display: block;
+    }
+
+/* Botón de eliminar ubicado debajo del botón principal */
+.btn-eliminar-debajo {
+    background-color: transparent;
+    color: var(--terracota, #c0392b);
+    border: 1px solid var(--terracota, #c0392b);
+    padding: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+    display: block;
+    width: 100%;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+    .btn-eliminar-debajo:hover {
+        background-color: var(--terracota, #c0392b);
+        color: #ffffff;
+    }

@@ -1,6 +1,4 @@
 ﻿using MagicLibrary.Application.Interfaces;
-using MagicLibrary.Application.Services;
-using MagicLibrary.Domain.Interfaces;
 using MagicLibrary.Domain.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -13,13 +11,10 @@ namespace MagicLibrary.Web.Controllers
     {
         private readonly IUserService _service;
 
-        // El servicio llega por inyección de dependencias
         public UserController(IUserService service)
         {
             _service = service;
         }
-
-        // --- PANTALLA DE REGISTRO ---
         public IActionResult Registrar()
         {
             return View();
@@ -28,9 +23,7 @@ namespace MagicLibrary.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Registrar(User user)
         {
-            // Ahora sí usamos Agregar
             _service.Agregar(user);
-            // 2. Iniciamos su sesión automáticamente (Auto-Login)
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Nombre),
@@ -40,28 +33,22 @@ namespace MagicLibrary.Web.Controllers
 
                     var identidad = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identidad));
-
-                    // 3. Lo mandamos directo a crear su Perfil de Lector
                     return RedirectToAction("Crear", "UserProfile");
 
         }
-
-
-        // --- PANTALLA DE INICIO DE SESIÓN ---
         public IActionResult IniciarSesion()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> IniciarSesion(string correo, string contrasena) // <-- Nota el async Task<>
+        public async Task<IActionResult> IniciarSesion(string correo, string contrasena)
         {
             var usuarios = _service.ObtenerTodos();
             var usuarioValido = usuarios.FirstOrDefault(u => u.Correo == correo && u.Contrasena == contrasena);
 
             if (usuarioValido != null)
             {
-                // 1. Creamos la información del gafete (Claims)
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, usuarioValido.Nombre),
@@ -69,7 +56,6 @@ namespace MagicLibrary.Web.Controllers
                     // guardar el id como texto
                     new Claim("UserId", usuarioValido.Id.ToString())
                 };
-
                 // 2. Creamos la identidad y le ponemos el sello oficial
                 var identidad = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -84,14 +70,11 @@ namespace MagicLibrary.Web.Controllers
         }
 
         // --- CERRAR SESIÓN ---
-        // Este es el método nuevo al que llamará tu botón del menú
         public async Task<IActionResult> CerrarSesion()
         {
-            // Le quitamos el gafete (borramos la cookie)
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            // Lo regresamos a la pantalla de inicio principal
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("PrincipalInicio", "Home");
         }
     }
 }

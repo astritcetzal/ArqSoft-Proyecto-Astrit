@@ -1,11 +1,7 @@
 ﻿using MagicLibrary.Application.Interfaces;
-using MagicLibrary.Application.Services;
 using MagicLibrary.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks; // 👈 Necesario para Task<IActionResult>
-
 namespace MagicLibrary.Web.Controllers
 {
     [Authorize]
@@ -14,8 +10,6 @@ namespace MagicLibrary.Web.Controllers
         private readonly IBookService _service;
         private readonly IRecommendationService _recService;
         private readonly IAiService _aiService;
-
-        // Constructor único unificado
         public BookController(IBookService service, IRecommendationService recService, IAiService aiService)
         {
             _service = service;
@@ -57,12 +51,10 @@ namespace MagicLibrary.Web.Controllers
             var libro = _service.ObtenerPorId(id);
             return View(libro);
         }
-
         public IActionResult Agregar()
         {
             return View();
         }
-
         // 2. Al crear un libro, le estampamos el ID del usuario
         [HttpPost]
         public IActionResult Agregar(Book libro)
@@ -73,7 +65,6 @@ namespace MagicLibrary.Web.Controllers
             _service.Agregar(libro);
             return RedirectToAction("Index");
         }
-
         [HttpPost]
         public IActionResult GuardarMiOpinion(int idLibro, int calificacion, string comentario)
         {
@@ -93,7 +84,6 @@ namespace MagicLibrary.Web.Controllers
             if (libro == null) return NotFound();
             return View(libro);
         }
-
         [HttpGet]
         public IActionResult AgregarDesdeRecomendacion(int id)
         {
