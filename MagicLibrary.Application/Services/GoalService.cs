@@ -9,11 +9,7 @@ namespace MagicLibrary.Application.Services
         private readonly IEnumerable<IGoalObserver> _observers;
         private readonly IBookService _bservice;
         private readonly IRecommendationService _rService;
-        public GoalService(
-            IGoalRepository repo,
-            IEnumerable<IGoalObserver> observers,
-            IBookService bservice,
-            IRecommendationService rService)
+        public GoalService(IGoalRepository repo, IEnumerable<IGoalObserver> observers,IBookService bservice, IRecommendationService rService)
         {
             _repo = repo;
             _observers = observers;
@@ -79,9 +75,11 @@ namespace MagicLibrary.Application.Services
 
             if (libroEnMeta != null)
             {
+                // 1. Marcamos el item de la meta como completado
                 libroEnMeta.EstaCompletado = true;
                 Actualizar(metaActual);
 
+                // 2. Si el libro ya existía en "Mis Libros", solo actualizamos su estado
                 if (libroEnMeta.MiLibroId.HasValue)
                 {
                     var libroReal = _bservice.ObtenerPorId(libroEnMeta.MiLibroId.Value);
@@ -91,6 +89,7 @@ namespace MagicLibrary.Application.Services
                         _bservice.Actualizar(libroReal);
                     }
                 }
+                // 3. Si el libro viene de una recomendación de la IA, lo creamos y lo guardamos
                 else if (libroEnMeta.RecomendacionId.HasValue)
                 {
                     var recomendacion = _rService.ObtenerPorId(libroEnMeta.RecomendacionId.Value);
@@ -98,7 +97,13 @@ namespace MagicLibrary.Application.Services
                     {
                         var nuevoLibro = _bservice.PrepararLibroDesdeRecomendacion(recomendacion);
                         nuevoLibro.Estado = "Terminado";
+
+                        nuevoLibro.UserId = idUsuario;
+
                         _bservice.Agregar(nuevoLibro);
+
+                        libroEnMeta.MiLibroId = nuevoLibro.IdLibro;
+                        Actualizar(metaActual);
                     }
                 }
             }

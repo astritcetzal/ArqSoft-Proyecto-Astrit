@@ -9,16 +9,18 @@ using Microsoft.EntityFrameworkCore;
 using MagicLibrary.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
 // Si no han iniciado sesión no se puede acceder
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(opciones =>
     {
         opciones.LoginPath = "/Home/Welcome";
+        opciones.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
     });
 
-// Conexión a la Base de Datos SQL Server (LocalDB)
+// Conexión a la Base de Datos (Toma DefaultConnection de appsettings o AWS Environment Variables)
 builder.Services.AddDbContext<MagicLibraryContext>(options =>
-    options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=MagicLibraryDB;Trusted_Connection=True;"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var dataFolder = Path.Combine(builder.Environment.ContentRootPath, "data");
 Directory.CreateDirectory(dataFolder);
@@ -61,10 +63,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapStaticAssets();
 
 app.MapControllerRoute(
