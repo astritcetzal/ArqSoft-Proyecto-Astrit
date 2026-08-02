@@ -18,5 +18,6 @@ namespace MagicLibrary.Application.Interfaces
         //para codesmell
         int CalcularTotalPaginasPendientes(Goal metaActual);
         void CompletarLibroEnMeta(int idUsuario, int anio, string tituloLibro);
+        void ConfirmarLecturaDiaria(int idUsuario, int anio);
     }
 }

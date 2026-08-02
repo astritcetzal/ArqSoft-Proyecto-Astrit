@@ -1,33 +1,34 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: var(--fondo-papel);
+    color: var(--texto-tinta);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.6;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholders {
-  color: var(--bs-secondary-color);
-  text-align: end;
+    color: var(--bs-secondary-color);
+    text-align: end;
 }
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+    text-align: start;
 }
 
 /* =========================================
@@ -51,13 +52,6 @@ body {
 .tarjeta-contenido, .filtro-btn, .btn, button, input, select, textarea,
 .caja-stat, .mensaje-burbuja, .modal-content, .goal-item, .meta-item {
     border-radius: 0 !important;
-}
-
-body {
-    background-color: var(--fondo-papel);
-    color: var(--texto-tinta);
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    line-height: 1.6;
 }
 
 /* =========================================
@@ -123,12 +117,14 @@ body {
     display: block;
 }
 
+/* Fusionado: se consolida estilos estructurales y posicionamiento relativo */
 .tarjeta-contenido {
+    position: relative;
     background-color: var(--crema-tarjeta);
     padding: 30px;
     height: 100%;
     border: var(--borde-delgado);
-    border-top: 5px solid var(--verde-salvia);
+    border-top: 5px solid var(--azul-profundo);
     transition: var(--transicion-elegante);
 }
 
@@ -142,6 +138,10 @@ body {
         font-size: 1.4rem;
         margin: 0 0 10px 0;
         font-weight: 700;
+    }
+
+    .tarjeta-contenido .etiqueta-estado {
+        color: var(--azul-profundo);
     }
 
 .etiqueta-estado {
@@ -562,6 +562,7 @@ textarea {
     color: var(--texto-tinta);
     margin-top: 20px;
 }
+
 /* =========================================
    FORMULARIOS CENTRADOS (LOGIN Y REGISTRO)
 ========================================= */
@@ -573,12 +574,12 @@ textarea {
     padding: 40px !important;
     background-color: #FFFFFF !important;
     border: 2px solid #2C2A28 !important;
-    box-shadow: 8px 8px 0px #A2B29F !important; /* Cuadrilátero estilo vintage */
+    box-shadow: 8px 8px 0px #A2B29F !important;
     box-sizing: border-box !important;
 }
 
 .formulario-registro {
-    box-shadow: 8px 8px 0px #D17C64 !important; /* Acento terracota */
+    box-shadow: 8px 8px 0px #D17C64 !important;
 }
 
     .formulario-login h1,
@@ -617,7 +618,6 @@ textarea {
         .formulario-registro .btn-guardar:hover {
             background-color: #D17C64;
         }
-
 
 /* =========================================
    ESTILOS PÁGINA DE PRIVACIDAD EDITORIAL
@@ -665,7 +665,6 @@ textarea {
     border-top: var(--borde-delgado);
     padding-top: 15px;
 }
-
 
 /* =========================================
    ESTILOS EDITORIALES: DETALLE DEL LIBRO
@@ -770,6 +769,7 @@ textarea {
     text-transform: uppercase;
     letter-spacing: 1px;
 }
+
 /* =========================================
    SISTEMA DE ESTRELLAS HORIZONTAL (SIN BOLITAS)
 ========================================= */
@@ -781,7 +781,6 @@ textarea {
     margin: 10px 0 25px 0 !important;
 }
 
-    /* Ocultar 100% las bolitas de radio */
     .rating input[type="radio"] {
         display: none !important;
         visibility: hidden !important;
@@ -790,24 +789,21 @@ textarea {
         margin: 0 !important;
     }
 
-    /* Estilo horizontal para cada estrella */
     .rating label {
         cursor: pointer !important;
         font-size: 1.8rem !important;
-        color: #D9D4C9 !important; /* Gris neutro apagado */
+        color: #D9D4C9 !important;
         transition: color 0.2s ease !important;
         line-height: 1 !important;
         display: inline-block !important;
     }
 
-        /* Efecto de llenado al seleccionar o pasar el mouse */
         .rating input[type="radio"]:checked ~ label,
         .rating label:hover,
         .rating label:hover ~ label {
-            color: #D17C64 !important; /* Tono terracota sutil */
+            color: #D17C64 !important;
         }
 
-/* Disposición de botones dentro de la tarjeta de recomendación */
 .acciones-tarjeta {
     margin-top: 20px;
     display: flex;
@@ -825,7 +821,6 @@ textarea {
     margin: 0;
 }
 
-/* Botón de eliminación individual dentro de la tarjeta */
 .btn-eliminar-tarjeta {
     background-color: transparent;
     color: var(--terracota, #c0392b);
@@ -843,17 +838,6 @@ textarea {
         color: #ffffff;
     }
 
-/* Tarjeta y posicionamiento */
-.tarjeta-contenido {
-    position: relative;
-    border-top-color: var(--azul-profundo);
-}
-
-    .tarjeta-contenido .etiqueta-estado {
-        color: var(--azul-profundo);
-    }
-
-/* Botón de eliminar superior derecho */
 .btn-eliminar-esquina {
     position: absolute;
     top: 15px;
@@ -874,7 +858,6 @@ textarea {
         color: #ffffff;
     }
 
-/* Bloque de razón de recomendación */
 .razon-contenedor {
     margin-top: 15px;
     padding: 10px;
@@ -883,7 +866,6 @@ textarea {
     border-left: 3px solid var(--terracota);
 }
 
-/* Contenedor del botón principal */
 .contenedor-btn-agregar {
     margin-top: 20px;
 }
@@ -894,8 +876,6 @@ textarea {
         display: block;
     }
 
-
-/* Estilos para la barra superior y menú desplegable lateral estilo acordeón */
 .barra-superior {
     background-color: var(--azul-profundo, #0b3c5d);
     padding: 10px 18px;
@@ -926,7 +906,6 @@ textarea {
     line-height: 1;
 }
 
-/* Panel lateral (Offcanvas) estilo tarjeta azul/roja */
 .menu-desplegable-container {
     width: 280px !important;
     background-color: #002b49;
@@ -945,7 +924,6 @@ textarea {
         letter-spacing: 0.5px;
     }
 
-/* Enlaces principales del menú */
 .nav-link-menu {
     display: block;
     padding: 14px 20px;
@@ -962,7 +940,6 @@ textarea {
         color: #ffffff;
     }
 
-/* Encabezados de subsección (Usuario / Cuenta) */
 .menu-subseccion-header {
     background-color: var(--terracota, #c0392b);
     color: #ffffff;
@@ -972,7 +949,6 @@ textarea {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Submenú de opciones secundarias */
 .sub-menu {
     margin: 0;
     padding: 0;
@@ -993,7 +969,7 @@ textarea {
         background-color: #003357;
         color: #ffffff;
     }
-/* Contenedor de botones en la parte inferior de la tarjeta */
+
 .contenedor-acciones-tarjeta {
     margin-top: 20px;
     display: flex;
@@ -1007,7 +983,6 @@ textarea {
         display: block;
     }
 
-/* Botón de eliminar ubicado debajo del botón principal */
 .btn-eliminar-debajo {
     background-color: transparent;
     color: var(--terracota, #c0392b);
@@ -1027,3 +1002,89 @@ textarea {
         background-color: var(--terracota, #c0392b);
         color: #ffffff;
     }
+
+/* --- Banner de Alerta Minimalista --- */
+.goal-alert-banner {
+    background-color: #E8EFE9;
+    border-left: 4px solid var(--verde-salvia);
+    color: var(--texto-tinta);
+    padding: 8px 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+}
+
+/* --- Check-in Diario Horizontal y Compacto --- */
+.goal-checkin-compact {
+    background-color: var(--crema-tarjeta);
+    border: var(--borde-delgado);
+    border-left: 4px solid var(--terracota);
+    padding: 10px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 1.5rem;
+}
+
+.checkin-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.checkin-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--texto-tinta);
+}
+
+.checkin-subtitle {
+    font-size: 0.8rem;
+    color: var(--texto-suave);
+    font-style: italic;
+}
+
+.form-checkin {
+    margin: 0;
+}
+
+.btn-checkin-editorial {
+    background-color: var(--texto-tinta);
+    color: var(--fondo-papel);
+    border: 1px solid var(--texto-tinta);
+    padding: 8px 16px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transicion-elegante);
+}
+
+    .btn-checkin-editorial:hover {
+        background-color: var(--terracota);
+        border-color: var(--terracota);
+        color: #ffffff;
+    }
+
+@media (max-width: 650px) {
+    .goal-checkin-compact {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .checkin-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .btn-checkin-editorial {
+        width: 100%;
+    }
+}

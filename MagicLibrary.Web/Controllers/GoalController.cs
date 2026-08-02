@@ -88,6 +88,8 @@ namespace MagicLibrary.Web.Controllers
             }
 
             _Gservice.Actualizar(metaActual);
+            _Gservice.ConfirmarLibroAgregado(metaActual);
+
             return RedirectToAction("Index");
         }
 
@@ -143,6 +145,20 @@ namespace MagicLibrary.Web.Controllers
                     _Gservice.Actualizar(metaActual);
                 }
             }
+
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult ConfirmarLecturaHoy()
+        {
+            int userId = ObtenerUserIdEnSesion();
+            if (userId == 0) return RedirectToAction("PrincipalInicio", "Home");
+
+            // Ejecutamos la regla de negocio
+            _Gservice.ConfirmarLecturaDiaria(userId, DateTime.Now.Year);
+
+            // Guardamos un mensaje temporal para la vista
+            TempData["MensajeConfirmacion"] = "¡Excelente trabajo! Has registrado tu lectura de hoy.";
 
             return RedirectToAction("Index");
         }

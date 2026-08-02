@@ -8,6 +8,26 @@
 
 <div class="goal-container">
     <header class="goal-header">
+        @if (TempData["MensajeConfirmacion"] != null)
+        {
+            <div class="goal-alert-banner" role="alert">
+                <span>@TempData["MensajeConfirmacion"]</span>
+            </div>
+        }
+
+        <!-- SECCIÓN DE CHECK-IN DIARIO COMPACTA -->
+        <section class="goal-checkin-compact">
+            <div class="checkin-info">
+                <span class="checkin-title">HÁBITO DIARIO</span>
+                <span class="checkin-subtitle">Confirma tu avance de hoy para mantener la racha.</span>
+            </div>
+            <form asp-controller="Goal" asp-action="ConfirmarLecturaHoy" method="post" class="form-checkin">
+                <button type="submit" class="btn-checkin-editorial">
+                    REGISTRAR LECTURA
+                </button>
+            </form>
+        </section>
+
         <h1 class="goal-title">Mis Metas de Lectura</h1>
         <div class="auto-notification-badge" style="font-size: 0.85rem; color: var(--terracota); font-weight: bold; text-transform: uppercase;">
             Notificaciones automáticas: @Model.HoraNotificacion hrs

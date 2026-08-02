@@ -120,5 +120,14 @@ namespace MagicLibrary.Application.Services
                 observer.OnSavedBook(goal);
             }
         }
+        public void ConfirmarLecturaDiaria(int idUsuario, int anio)
+        {
+            var metaActual = ObtenerMetaOCrearPorDefecto(idUsuario, anio);
+            foreach (var observer in _observers)
+            {
+                observer.OnSavedBook(metaActual);
+            }
+            Actualizar(metaActual);
+        }
     }
 }
