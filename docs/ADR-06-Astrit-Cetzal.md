@@ -1,4 +1,4 @@
-# ADR-06: Deuda técnicas
+# ADR-06: Deudas técnicas
 
 | Campo  | Valor |
 |--------|-------|

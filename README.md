@@ -73,6 +73,17 @@ El sistema está construido bajo los principios de **Clean Architecture (Arquite
     *   ➡️ [Haz clic aquí para ver los Diagramas C4 y ADRs](docs/diagramas-c4.md)
 *   **Pruebas Unitarias:** Integración de pruebas automatizadas con **xUnit** utilizando el marco **Arrange-Act-Assert**, enfocadas en validar la integridad de las reglas de negocio en los controladores principales (`BookController`, `GoalController`).
 
+
+| Consulta los ADR |
+|------|
+| [ADR-01-Patrón MVC](docs/ADR-01-Astrit-Cetzal.md) |
+| [ADR-02-Definición de Vistas Arquitectónicas bajo el Patrón MVC](docs/ADR-02-Astrit-Cetzal.md) |
+| [ADR-03-Definición de Estilo arquitectónico](docs/ADR-03-Astrit-Cetzal.md) |
+| [ADR-04-API REST](docs/ADR-04-Astrit-Cetzal.md)|
+| [ADR-05-Patrones GOF implementados](docs/ADR-05-Astrit-Cetzal.md)|
+| [ADR-06-Deuda técnicas](docs/ADR-06-Astrit-Cetzal.md) |
+| [ADR-07-Documentación final del proyecto](docs/ADR-07-Astrit-Cetzal.md) |
+
 ---
 
 ## Declaración de Uso de IA
