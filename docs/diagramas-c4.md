@@ -35,28 +35,21 @@ C4Context
 
 ```mermaid
 C4Container
-    title Diagrama de Contenedores (Nivel 2) - Magic Library
+    title Diagrama de Contenedores (Nivel 2) - Magic Library en AWS
 
     Person(lector, "Lector (Usuario)", "Interactúa a través del navegador web.")
-    Person(movil, "Usuario Móvil (Futuro)", "Interactúa a través de una futura app.")
 
     System_Boundary(c1, "Magic Library (Hexagonal)") {
-        Container(webApp, "Aplicación Web (Frontend)", "ASP.NET Core MVC", "Entrega las vistas HTML y maneja las sesiones del usuario.")
-        Container(apiApp, "API REST", "ASP.NET Core Web API", "Expone los endpoints en formato JSON (Swagger) para libros y metas.")
+        Container(webApp, "Aplicación Web (Frontend)", "ASP.NET Core MVC", "Entrega las vistas HTML, maneja sesiones y peticiones HTTP.")
         Container(appCore, "Capa de Aplicación y Dominio", "C# Class Library", "Lógica de negocio, servicios (BookService, GoalService) y puertos.")
-        Container(infra, "Capa de Infraestructura", "C# Class Library", "Adaptadores: Repositorios locales (JSON), Patrones GoF y Notificadores.")
-        ContainerDb(jsonStore, "Persistencia", "JSON Files", "Almacenamiento de libros, usuarios y metas.")
+        Container(infra, "Capa de Infraestructura", "C# Class Library / EF Core", "Adaptadores: Repositorios de Entity Framework (BookRepositoryEf) y Notificadores.")
+        ContainerDb(sqlStore, "Base de Datos en la Nube", "AWS RDS (SQL Server)", "Almacenamiento persistente y relacional de libros, usuarios y metas.")
     }
 
-    Rel(lector, webApp, "Accede a las vistas", "HTTPS")
-    Rel(movil, apiApp, "Consume datos", "HTTPS/JSON")
-    Rel(webApp, apiApp, "Consume datos (Opcional)", "HTTPS")
-    
-    Rel(webApp, appCore, "Invoca lógica", "Inyección de Dependencias")
-    Rel(apiApp, appCore, "Invoca lógica", "Inyección de Dependencias")
-    
-    Rel(appCore, infra, "Implementa puertos", "Interfaces")
-    Rel(infra, jsonStore, "Lee/Escribe", "File I/O")
+    Rel(lector, webApp, "Accede a las vistas", "HTTPS / HTTP")
+    Rel(webApp, appCore, "Invoca lógica de negocio", "Inyección de Dependencias")
+    Rel(appCore, infra, "Implementa puertos de persistencia", "Interfaces")
+    Rel(infra, sqlStore, "Lee/Escribe datos relacionales", "Entity Framework Core / TCP")
 
 ````
 ## C4 Nivel 3 - Componentes
@@ -68,45 +61,53 @@ C4Container
 
 
 ```mermaid
-C4Component
-    title Diagrama de Componentes (Nivel 3) - Detalle Técnico
+ C4Component
+    title Diagrama de Componentes (Nivel 3) - Detalle Técnico (Entity Framework)
 
-    Container_Boundary(web, "Capa Web / API") {
-        Component(bookCtrl, "BookController", "MVC", "Gestiona flujos y vistas de lectura.")
-        Component(goalCtrl, "GoalController", "MVC", "Gestiona vistas de las metas del lector.")
+    Container_Boundary(web, "Capa Web (MVC)") {
+        Component(bookCtrl, "BookController", "MVC Controller", "Gestiona flujos visuales del inventario.")
+        Component(goalCtrl, "GoalController", "MVC Controller", "Gestiona vistas e interacciones de las metas.")
     }
 
     Container_Boundary(core, "Capa de Aplicación y Dominio") {
-        Component(goalSvc, "GoalService", "Service", "Lógica: Cálculo de progreso y notificación.")
-        Component(bookSvc, "BookService", "Service", "Lógica: Gestión de estado del libro.")
+        Component(goalSvc, "GoalService", "Service", "Lógica de metas y notificaciones.")
+        Component(bookSvc, "BookService", "Service", "Lógica de libros y recomendaciones.")
         
-        Component(igoalRepo, "IGoalRepository", "Interface", "Puerto de persistencia de metas.")
-        Component(ibookRepo, "IBookRepository", "Interface", "Puerto de persistencia de libros.")
-        Component(igoalObs, "IGoalObserver", "Interface", "Puerto para Observadores.")
+        Component(igoalRepo, "IGoalRepository", "Interface", "Puerto para metas.")
+        Component(ibookRepo, "IBookRepository", "Interface", "Puerto para libros.")
+        Component(igoalObs, "IGoalObserver", "Interface", "Puerto para el patrón Observer.")
     }
 
-    Container_Boundary(infra, "Capa de Infraestructura") {
-        Component(jsonGoal, "JsonGoalRepository", "Adaptador", "Persistencia JSON.")
-        Component(jsonBook, "JsonBookRepository", "Adaptador", "Persistencia JSON para libros.")
-        Component(factory, "RepositoryFactory", "Factory", "Instanciación según entorno.")
-        Component(decorator, "LoggingBookRepository", "Decorator", "Logging dinámico sin alterar lógica.")
-        Component(emailObs, "EmailObserver", "Observer", "Implementación de notificación por email.")
+    Container_Boundary(infra, "Capa de Infraestructura (EF Core)") {
+        Component(efGoal, "GoalRepositoryEf", "Adaptador", "Persistencia de metas.")
+        Component(efBook, "BookRepositoryEf", "Adaptador", "Persistencia de libros.")
+        Component(efUser, "UserRepositoryEf", "Adaptador", "Persistencia de usuarios.")
+        Component(efProfile, "UserProfileRepositoryEf", "Adaptador", "Persistencia de perfiles.")
+        Component(efRec, "RecommendationRepositoryEf", "Adaptador", "Persistencia de recomendaciones.")
+        Component(decorator, "LoggingBookRepository", "Decorator", "Logging dinámico (Patrón Decorator).")
+        Component(emailObs, "EmailObserver", "Observer", "Notificación de metas.")
+        Component(dbContext, "MagicLibraryContext", "DbContext", "Mapeo ORM.")
+    }
+    
+    Container_Boundary(db, "Infraestructura Cloud") {
+        Component(rds, "AWS RDS", "SQL Server", "Base de datos relacional.")
     }
 
     Rel(goalCtrl, goalSvc, "Llama a")
     Rel(bookCtrl, bookSvc, "Llama a")
     
     Rel(goalSvc, igoalRepo, "Usa")
-    Rel(goalSvc, igoalObs, "Notifica a", "Patrón Observer")
+    Rel(goalSvc, igoalObs, "Notifica a")
     Rel(bookSvc, ibookRepo, "Usa")
     
-    Rel(jsonGoal, igoalRepo, "Implementa")
-    Rel(jsonBook, ibookRepo, "Implementa")
+    Rel(efGoal, igoalRepo, "Implementa")
+    Rel(efBook, ibookRepo, "Implementa")
     Rel(emailObs, igoalObs, "Implementa")
-    
-    Rel(factory, jsonGoal, "Instancia")
-    Rel(factory, jsonBook, "Instancia")
     Rel(decorator, ibookRepo, "Envuelve y extiende")
+    
+    Rel(efGoal, dbContext, "Consulta mediante")
+    Rel(efBook, dbContext, "Consulta mediante")
+    Rel(dbContext, rds, "Ejecuta SQL")  
 
   ``` 
 
