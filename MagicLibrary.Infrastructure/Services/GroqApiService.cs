@@ -40,14 +40,15 @@ namespace MagicLibrary.Infrastructure.Services
                     new
                     {
                         role = "user",
-                        content = $@"Genera 3 recomendaciones de libros para un lector nivel '{perfil.NivelLector}' con géneros '{perfil.GenerosFavoritos}'.
+                        content = $@"Actúa como un experto literario. Genera EXACTAMENTE 3 recomendaciones de libros reales para un lector nivel '{perfil.NivelLector}'. 
+REGLA ESTRICTA: Los libros DEBEN pertenecer OBLIGATORIAMENTE a estos géneros: '{perfil.GenerosFavoritos}'. NO inventes géneros ni des respuestas generales.
 Formato estricto:
 [
   {{
     ""TituloLibro"": ""Título"",
     ""Autor"": ""Autor"",
-    ""Genero"": ""Género"",
-    ""Razon"": ""Razón corta"",
+    ""Genero"": ""Género exacto del libro"",
+    ""Razon"": ""Por qué le gustará basado en sus géneros favoritos"",
     ""Paginas"": 250
   }}
 ]"

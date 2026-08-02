@@ -23,18 +23,29 @@ namespace MagicLibrary.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Registrar(User user)
         {
-            _service.Agregar(user);
-            var claims = new List<Claim>
+            // 1. Verificamos si el correo ya existe en la base de datos
+            var usuariosExistentes = _service.ObtenerTodos();
+            if (usuariosExistentes.Any(u => u.Correo.Equals(user.Correo, StringComparison.OrdinalIgnoreCase)))
             {
-                new Claim(ClaimTypes.Name, user.Nombre),
-                new Claim(ClaimTypes.Email, user.Correo),
-                new Claim("UserId", user.Id.ToString())
-            };
+                // Si existe, le mostramos un error en la vista y detenemos el registro
+                ModelState.AddModelError("Correo", "Este correo ya está registrado. Intenta con otro o inicia sesión.");
+                return View(user);
+            }
 
-                    var identidad = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identidad));
-                    return RedirectToAction("Crear", "UserProfile");
+            // 2. Si el correo es nuevo, lo guardamos normalmente
+            _service.Agregar(user);
 
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.Name, user.Nombre),
+        new Claim(ClaimTypes.Email, user.Correo),
+        new Claim("UserId", user.Id.ToString())
+    };
+
+            var identidad = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identidad));
+
+            return RedirectToAction("Crear", "UserProfile");
         }
         public IActionResult IniciarSesion()
         {
