@@ -86,7 +86,7 @@ namespace MagicLibrary.xUnit
         private BookController CrearControllerConDatosDePrueba(out List<Book> librosEsperados)
         {
             librosEsperados = new List<Book>
-            {
+            { 
                 new Book { IdLibro = 1, UserId = 1, Titulo = "El Imperio Final", Autor = "Brandon Sanderson", Estado = "Leyendo" },
                 new Book { IdLibro = 2, UserId = 1, Titulo = "Hábitos Atómicos", Autor = "James Clear", Estado = "Terminado" },
                 new Book { IdLibro = 3, UserId = 1, Titulo = "Dune", Autor = "Frank Herbert", Estado = "Pendiente" }
