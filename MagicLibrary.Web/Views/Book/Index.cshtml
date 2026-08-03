@@ -22,15 +22,29 @@
     <div class="grid">
         @foreach (var libro in Model)
         {
-            <a asp-action="Detalle" asp-route-id="@libro.IdLibro" class="tarjeta-libro">
+            <!-- 1. Cambiamos el <a> principal por un <div> para no romper el HTML -->
+            <div class="tarjeta-libro" style="display: block;">
                 <div class="tarjeta-contenido">
-                    <h3>@libro.Titulo</h3>
-                    <div class="tarjeta-info">
-                        <span class="etiqueta-estado">@libro.Estado</span>
-                        <span class="etiqueta-autor">@libro.Autor</span>
-                    </div>
+                    
+                    <!-- 2. Envolvemos la información del libro en su propio enlace -->
+                    <a asp-action="Detalle" asp-route-id="@libro.IdLibro" style="text-decoration: none; color: inherit; display: block; margin-bottom: 12px;">
+                        <h3>@libro.Titulo</h3>
+                        <div class="tarjeta-info">
+                            <span class="etiqueta-estado">@libro.Estado</span>
+                            <span class="etiqueta-autor">@libro.Autor</span>
+                        </div>
+                    </a>
+                    
+                    <!-- 3. El botón de eliminar queda totalmente independiente -->
+                    <a href="@Url.Action("Eliminar", "Book", new { id = libro.IdLibro, titulo = libro.Titulo })"
+                           class="btn-eliminar-boton-libro"
+                           style="color: var(--terracota, #c0392b); font-weight: bold; text-decoration: none; font-size: 0.85rem;"
+                           onclick="return confirm('¿Deseas quitar este libro?');">
+                        Eliminar
+                    </a>
+
                 </div>
-            </a>
+            </div>
         }
     </div>
 

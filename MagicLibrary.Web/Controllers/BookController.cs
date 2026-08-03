@@ -150,5 +150,10 @@ namespace MagicLibrary.Web.Controllers
             _service.Actualizar(libro);
             return RedirectToAction("Detalle", new { id = libro.IdLibro });
         }
+        public IActionResult Eliminar(int id)
+        {
+            _service.Eliminar(id);
+            return RedirectToAction("Index");
+        }
     }
 }

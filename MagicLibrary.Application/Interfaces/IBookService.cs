@@ -15,5 +15,6 @@ namespace MagicLibrary.Application.Interfaces
         List<Book> ObtenerPorTipoEstado(string tipoEstado);
         List<string> ObtenerTipoEstado();
         void Actualizar(Book libro);
+        void Eliminar(int id);
     }
 }

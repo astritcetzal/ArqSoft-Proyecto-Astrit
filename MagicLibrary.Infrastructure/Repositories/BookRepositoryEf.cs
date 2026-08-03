@@ -36,5 +36,14 @@ namespace MagicLibrary.Infrastructure.Repositories
             _context.Books.Update(libro);
             _context.SaveChanges();
         }
+        public void Eliminar(int id)
+        {
+            var libro = _context.Books.Find(id);
+            if (libro != null)
+            {
+                _context.Books.Remove(libro);
+                _context.SaveChanges();
+            }
+        }   
     }
 }

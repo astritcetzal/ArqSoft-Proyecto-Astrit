@@ -49,8 +49,14 @@ namespace MagicLibrary.Infrastructure.Repositories
             Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Agregar - éxito: libro guardado en la base de datos");
         }
 
-        
+        public void Eliminar(int id)
+        {
+            Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Eliminar({id}) — inicio");
+            _inner.Eliminar(id);
+            Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Eliminar({id}) — éxito");
+        }
 
-        
+
+
     }
 }

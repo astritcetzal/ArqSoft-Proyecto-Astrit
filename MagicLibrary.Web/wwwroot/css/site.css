@@ -1088,3 +1088,104 @@ textarea {
         width: 100%;
     }
 }
+/* =========================================
+   ADAPTACIONES RESPONSIVAS GLOBALES (MÓVILES)
+========================================= */
+@media (max-width: 768px) {
+
+    /* 1. Ajustes del Contenedor General */
+    body {
+        padding: 10px !important;
+    }
+
+    .meta-contenedor,
+    .goal-container,
+    .home-container,
+    .profile-container,
+    .detalle-container,
+    .privacy-container {
+        padding: 15px !important;
+        margin: 10px auto !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 2. Todos los Grids a 1 sola columna vertical */
+    .grid,
+    .home-features-grid,
+    .profile-grid-stats,
+    .detalle-grid-metadata,
+    .goal-assign-section .grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+
+    /* 3. Encabezados de páginas flexibles */
+    .header-libro,
+    .meta-cabecera,
+    .chat-header,
+    .detalle-card-header,
+    .goal-checkin-compact {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+    }
+
+        .header-libro h1, .hero-title, .meta-cabecera h1, .home-titulo {
+            font-size: 1.8rem !important;
+        }
+
+    /* 4. Lista de Libros en Metas (Sección de tu captura) */
+    .goal-item, .meta-item {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+        padding: 15px !important;
+    }
+
+    .item-main-info {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+        width: 100% !important;
+    }
+
+    .item-actions {
+        width: 100% !important;
+    }
+
+    .goal-item button,
+    .goal-item .btn-borrar,
+    .goal-item .filtro-btn {
+        width: 100% !important;
+        display: block !important;
+        text-align: center !important;
+    }
+
+    /* 5. Asegurar que tarjetas, selects e inputs no desborden */
+    .tarjeta-contenido,
+    .caja-stat,
+    .stat-card,
+    .profile-stat-box {
+        padding: 18px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    select, input, textarea, button, .btn-agregar-libro {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 6. Filtros de Géneros scrolleables horizontalmente sin romperse */
+    .contenedor-filtros {
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        padding-bottom: 10px !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .filtro-btn {
+        white-space: nowrap !important;
+    }
+}

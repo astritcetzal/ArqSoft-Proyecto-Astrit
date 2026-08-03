@@ -48,6 +48,9 @@ namespace MagicLibrary.Application.Services
             _repo.Actualizar(libro);
         }
 
-
+        public void Eliminar(int id)
+        {
+            _repo.Eliminar(id);
+        }
     }
 }

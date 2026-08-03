@@ -8,7 +8,7 @@ namespace MagicLibrary.Domain.Interfaces
         Book? ObtenerPorId(int id);
 
         void Agregar(Book libro);
-        //void Eliminar(int id);
+        void Eliminar(int id);
         void Actualizar(Book libro);
 
     }
