@@ -1,0 +1,43 @@
+name: Deploy a AWS
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy to Elastic Beanstalk
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build Web Project
+        run: dotnet build --configuration Release
+
+      - name: Create Publish Bundle
+        run: dotnet publish -c Release -o ./publish
+
+      - name: Package Application
+        run: |
+          cd publish
+          zip -r ../deploy_package.zip .
+
+      - name: Deploy to AWS Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v22
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: "MagicLibrary"
+          environment_name: "MagicLibrary-env"
+          version_label: "v-${{ github.run_id }}"
+          region: "us-east-1"
+          deployment_package: "deploy_package.zip"
