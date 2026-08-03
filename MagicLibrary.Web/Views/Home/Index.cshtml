@@ -11,6 +11,25 @@
             Un espacio personal dedicado a registrar tus lecturas, cultivar tu hábito diario, construir metas anuales sostenibles y descubrir nuevas obras mediante Inteligencia Artificial.
         </p>
     </div>
+    <!-- Pega esto en PrincipalInicio.cshtml -->
+    @if (TempData["MensajeConfirmacion"] != null)
+    {
+        <div class="goal-alert-banner" role="alert">
+            <span>@TempData["MensajeConfirmacion"]</span>
+        </div>
+    }
+
+    <section class="goal-checkin-compact" style="max-width: 800px; margin: 0 auto 30px auto;">
+        <div class="checkin-info">
+            <span class="checkin-title">HÁBITO</span>
+            <span class="checkin-subtitle">Confirma tu avance de hoy.</span>
+        </div>
+        <form asp-controller="Goal" asp-action="ConfirmarLecturaHoy" method="post" class="form-checkin">
+            <button type="submit" class="btn-checkin-editorial">
+                REGISTRAR LECTURA
+            </button>
+        </form>
+    </section>
 
     <div class="contenedor-filtros home-acciones">
         <a asp-controller="Book" asp-action="Index" class="btn-agregar-libro">Ir a Mis Libros</a>

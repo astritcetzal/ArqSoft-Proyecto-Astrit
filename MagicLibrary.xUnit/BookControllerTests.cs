@@ -38,6 +38,11 @@ namespace MagicLibrary.xUnit
             var index = _books.FindIndex(b => b.IdLibro == libro.IdLibro);
             if (index != -1) _books[index] = libro;
         }
+
+        public void Eliminar(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class RecommendationRepositoryFake : IRecommendationRepository
