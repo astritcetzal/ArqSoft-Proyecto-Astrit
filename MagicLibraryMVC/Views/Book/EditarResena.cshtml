@@ -1,0 +1,25 @@
+﻿@model MagicLibraryMVC.Models.Book
+
+<div class="contenedor-principal">
+    <h2>Editar mi opinión de: @Model.Titulo</h2>
+    
+    <form asp-action="GuardarMiOpinion" method="post">
+        
+        <input type="hidden" name="idLibro" value="@Model.IdLibro" />
+
+        <div class="grupo-input">
+            <label>Tu reseña</label>
+            <textarea name="comentario" required>@Model.ResenaPersonal</textarea>
+        </div>
+        
+        <div class="grupo-input">
+            <label>Calificación (1 al 10)</label>
+            <input name="calificacion" type="number" min="1" max="10" value="@Model.CalificacionPersonal" required />
+        </div>
+
+        <div class="cont" style="margin-top: 20px;">
+            <button type="submit" class="btn-editar">Guardar Cambios</button>
+            <a asp-action="Detalle" asp-route-id="@Model.IdLibro" class="link-cancelar">Cancelar</a>
+        </div>
+    </form>
+</div>

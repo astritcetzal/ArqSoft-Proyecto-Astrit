@@ -1,0 +1,35 @@
+﻿@model List<MagicLibraryMVC.Models.Book>
+
+<div class="contenedor-principal">
+    <div class="header-libro">
+        <h1> Mis Libros</h1>
+        <a asp-action="Agregar" class="btn-agregar-libro">Agregar Libro</a>
+    </div>
+    <div class="contenedor-filtros">
+        <a asp-action="Index" class="filtro-btn">Todos</a>
+        @foreach(var tip in ViewBag.Estados as List<string>)
+        {
+            <a asp-action="Index" asp-route-Estado ="@tip" class="filtro-btn">@tip</a>
+        }
+    </div >
+
+    <hr />
+
+    <div class= "grid">
+        @foreach (var libro in Model)
+        {
+            <a asp-action= "Detalle" asp-route-id ="@libro.IdLibro" class="tarjeta-libro">
+                <div class="tarjeta-contenido">
+                    <h3>@libro.Titulo</h3>
+                    <div class="tarjeta-info">
+                    <span class="etiqueta-estado">@libro.Estado</span>
+                    <span class="etiqueta-año">@libro.Autor</span>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+
+</div>
+
+

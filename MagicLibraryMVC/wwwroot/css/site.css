@@ -1,0 +1,324 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+
+/* =========================================
+   1. PALETA EDITORIAL (CALIDEZ Y TRANQUILIDAD)
+========================================= */
+:root {
+    --fondo-papel: #F7F5F0; /* Blanco roto, como página de libro antiguo */
+    --texto-tinta: #2C2A28; /* Un gris casi negro para no cansar la vista */
+    --texto-suave: #736E67; /* Gris cálido para detalles */
+    /* Colores de acento extraídos de tu referencia */
+    --verde-salvia: #A2B29F; /* Tranquilidad y enfoque */
+    --terracota: #D17C64; /* Calidez, para llamados a la acción sutiles */
+    --azul-profundo: #3A5A6E; /* Para contrastar sin gritar */
+    --crema-tarjeta: #FFFFFF;
+    --borde-delgado: 1px solid #E6E2D8;
+    --transicion-elegante: all 0.4s ease;
+}
+
+body {
+    background-color: var(--fondo-papel);
+    color: var(--texto-tinta);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Tipografía más limpia */
+    line-height: 1.6;
+}
+
+/* =========================================
+   2. ENCABEZADO Y FILTROS TIPO REVISTA
+========================================= */
+.header-libro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--texto-tinta); /* Línea editorial fuerte */
+}
+
+    .header-libro h1 {
+        font-size: 2.8rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        text-transform: uppercase;
+        margin: 0;
+    }
+
+.contenedor-filtros {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+/* Botones de filtro minimalistas */
+.filtro-btn {
+    background-color: transparent;
+    color: var(--texto-suave);
+    padding: 8px 16px;
+    border: var(--borde-delgado);
+    border-radius: 2px; /* Casi cuadrados, muy sutil */
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: var(--transicion-elegante);
+}
+
+    .filtro-btn:hover {
+        background-color: var(--texto-tinta);
+        color: var(--fondo-papel);
+        border-color: var(--texto-tinta);
+    }
+
+/* =========================================
+   3. GRID EDITORIAL Y TARJETAS
+========================================= */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.tarjeta-libro {
+    text-decoration: none !important;
+}
+
+.tarjeta-contenido {
+    background-color: var(--crema-tarjeta);
+    padding: 30px;
+    height: 100%;
+    border: var(--borde-delgado);
+    border-top: 6px solid var(--verde-salvia); /* Toque de color sólido y plano */
+    transition: var(--transicion-elegante);
+}
+
+    /* Eliminamos el salto rebotante, solo oscurecemos el borde y el fondo levemente */
+    .tarjeta-contenido:hover {
+        border-color: var(--texto-tinta);
+        background-color: #FAFAF8;
+    }
+
+    .tarjeta-contenido h3 {
+        color: var(--texto-tinta);
+        font-size: 1.5rem;
+        margin: 0 0 10px 0;
+        font-weight: 700;
+    }
+
+.etiqueta-estado {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--terracota);
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.etiqueta-año {
+    font-size: 0.95rem;
+    color: var(--texto-suave);
+    display: block;
+}
+
+/* =========================================
+   4. DETALLES DEL LIBRO Y FORMULARIOS
+========================================= */
+.detalle-total {
+    background-color: var(--crema-tarjeta);
+    padding: 40px;
+    border: var(--borde-delgado);
+    margin-bottom: 50px;
+}
+
+.detalle-texto p {
+    font-size: 1rem;
+    border-bottom: 1px solid #F0ECE4;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+}
+
+.detalle-texto strong {
+    color: var(--azul-profundo);
+    display: inline-block;
+    width: 200px;
+    font-weight: 600;
+}
+
+/* Formularios súper limpios */
+.grupo-input label {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--texto-suave);
+    margin-bottom: 8px;
+}
+
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #D9D4C9;
+    background-color: #FCFBF9;
+    border-radius: 0; /* Bordes rectos */
+    font-family: inherit;
+    transition: var(--transicion-elegante);
+}
+
+    input[type="number"]:focus,
+    textarea:focus {
+        outline: none;
+        border-color: var(--terracota);
+        background-color: var(--crema-tarjeta);
+    }
+
+/* =========================================
+   5. ESTRELLAS MINIMALISTAS
+========================================= */
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 4px;
+    margin: 10px 0 30px 0;
+}
+
+    .rating input {
+        display: none;
+    }
+
+    .rating label {
+        cursor: pointer;
+        font-size: 2rem;
+        color: #E0DDD5;
+        transition: color 0.3s ease;
+    }
+
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: var(--terracota); /* Las estrellas se pintan de un tono arcilla */
+        }
+
+/* =========================================
+   6. BOTONES SÓLIDOS Y ELEGANTES
+========================================= */
+.btn-agregar-libro, button[type="submit"], .btn-editar {
+    background-color: var(--texto-tinta);
+    color: var(--fondo-papel);
+    padding: 14px 30px;
+    border: none;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transicion-elegante);
+    text-decoration: none;
+    display: inline-block;
+}
+
+    .btn-agregar-libro:hover, button[type="submit"]:hover, .btn-editar:hover {
+        background-color: var(--terracota);
+    }
+
+.btn-borrar {
+    background-color: transparent;
+    color: var(--texto-suave);
+    border: 1px solid var(--texto-suave);
+    padding: 12px 25px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transicion-elegante);
+}
+
+    .btn-borrar:hover {
+        border-color: #B33939;
+        color: #B33939;
+    }
+
+.link-cancelar, .link-volver {
+    display: inline-block;
+    color: var(--texto-suave);
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 20px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: var(--transicion-elegante);
+}
+
+    .link-cancelar:hover, .link-volver:hover {
+        color: var(--texto-tinta);
+        border-bottom-color: var(--texto-tinta); /* Subrayado elegante al pasar el ratón */
+    }
+
+/* =========================================
+   7. BLOQUE DE RESEÑA PERSONAL c
+========================================= */
+.comentario {
+    background-color: transparent;
+    padding: 30px 0;
+    margin-bottom: 20px;
+    border-top: 1px solid var(--borde-delgado);
+    border-bottom: 1px solid var(--borde-delgado);
+}
+
+    .comentario p {
+        font-size: 1.1rem;
+        font-style: italic; /* Le da un toque de lectura íntima */
+        color: var(--texto-tinta);
+        line-height: 1.8;
+    }
+
+    .comentario strong {
+        font-style: normal;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        color: var(--verde-salvia);
+        display: block;
+        margin-bottom: 10px;
+    }
+
+.acciones-resena {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
