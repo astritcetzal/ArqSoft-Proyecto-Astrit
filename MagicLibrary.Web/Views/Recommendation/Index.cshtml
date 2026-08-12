@@ -1,0 +1,97 @@
+﻿@model IEnumerable<MagicLibrary.Domain.Models.Recommendation>
+
+<div class="contenedor-principal">
+    <div class="header-libro">
+        <h1>Recomendaciones</h1>
+        <button type="button" class="btn-agregar-libro" data-bs-toggle="modal" data-bs-target="#modalGemini">
+            Consultar Oráculo
+        </button>
+    </div>
+
+    <div class="contenedor-filtros">
+        <a href="@Url.Action("Index", "Recommendation")"
+               class="filtro-btn @(string.IsNullOrEmpty(ViewBag.GeneroActual) ? "activo" : "")">
+            TODOS
+        </a>
+        @if (ViewBag.Generos != null)
+        {
+            foreach (var gen in ViewBag.Generos)
+            {
+                <a href="@Url.Action("Index", "Recommendation", new { genero = gen })"
+                       class="filtro-btn @(ViewBag.GeneroActual == gen ? "activo" : "")">
+                    @gen
+                </a>
+            }
+        }
+        <a href="@Url.Action("LimpiarMemoria", "Recommendation")" class="btn-borrar" style="margin-left: auto;">
+            Limpiar búsquedas
+        </a>
+    </div>
+
+    <hr />
+
+    <div class="grid">
+        @if (!Model.Any())
+        {
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                <p style="color: var(--texto-suave);">No hay recomendaciones en este género aún.</p>
+                <p style="color: var(--texto-suave);">Haz clic en "CONSULTAR ORÁCULO" para pedir sugerencias a la IA.</p>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <div class="tarjeta-contenido">
+                    <h3>@item.TituloLibro</h3>
+                    <span class="etiqueta-estado">@item.Genero</span>
+                    <p class="etiqueta-autor">@item.Autor</p>
+
+                    @if (!string.IsNullOrWhiteSpace(item.Razon))
+                    {
+                        <div class="razon-contenedor">
+                            <strong>Razón:</strong> @item.Razon
+                        </div>
+                    }
+
+                    <div class="contenedor-acciones-tarjeta">
+                        <a href="@Url.Action("AgregarDesdeRecomendacion", "Book", new { id = item.Id })" class="btn-agregar-libro">
+                            Agregar a mis libros
+                        </a>
+
+                        <a href="@Url.Action("Eliminar", "Recommendation", new { id = item.Id, titulo = item.TituloLibro })"
+                               class="btn-eliminar-debajo"
+                               onclick="return confirm('¿Deseas quitar esta recomendación?');">
+                            Eliminar
+                        </a>
+                    </div>
+                </div>
+            }
+            
+        }
+    </div>
+
+    <!-- Modal Oráculo IA -->
+    <div class="modal fade" id="modalGemini" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border: 2px solid var(--texto-tinta);">
+                <form asp-action="GenerarConIA" asp-controller="Recommendation" method="get">
+                    <div class="modal-header" style="background-color: var(--texto-tinta); color: white;">
+                        <h5 class="modal-title text-uppercase fw-bold">Consultar Asistente IA</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="prompt" class="form-label fw-bold">¿Qué género o tema buscas?</label>
+                        <input type="text" class="form-control" id="prompt" name="prompt"
+                               placeholder="Ej. Terror, novela histórica, poesía..." required />
+                        <small class="text-muted mt-2 d-block">La IA generará recomendaciones personalizadas para tu perfil.</small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-borrar" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn-agregar-libro">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

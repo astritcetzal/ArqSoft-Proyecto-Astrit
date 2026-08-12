@@ -1,0 +1,92 @@
+[
+  {
+    "Id": 1,
+    "LibroId": 101,
+    "TituloLibro": "La ladrona de libros",
+    "Autor": "Markus Zusak",
+    "Razon": "Si te gustó 'El niño con el pijama de rayas', este te conmoverá profundamente.",
+    "Paginas": 544,
+    "Genero": "Ficción Histórica"
+  },
+  {
+    "Id": 2,
+    "LibroId": 102,
+    "TituloLibro": "Percy Jackson y el ladrón del rayo",
+    "Autor": "Rick Riordan",
+    "Razon": "Ideal si estás disfrutando la saga de Las Crónicas de los Kane.",
+    "Paginas": 288,
+    "Genero": "Fantasía Juvenil"
+  },
+  {
+    "Id": 3,
+    "LibroId": 103,
+    "TituloLibro": "Circe",
+    "Autor": "Madeline Miller",
+    "Razon": "Comparte la misma esencia de reinterpretación mitológica que 'Electra'.",
+    "Paginas": 384,
+    "Genero": "Mitología"
+  },
+  {
+    "Id": 4,
+    "LibroId": 104,
+    "TituloLibro": "El color púrpura",
+    "Autor": "Alice Walker",
+    "Razon": "Al igual que 'Kim Jiyoung, nacida en 1982', aborda temas sociales y de género poderosos.",
+    "Paginas": 304,
+    "Genero": "Ficción Contemporánea"
+  },
+  {
+    "Id": 5,
+    "LibroId": 105,
+    "TituloLibro": "El mundo de Sofía",
+    "Autor": "Jostein Gaarder",
+    "Razon": "Para alguien que aprecia libros de reflexión como 'Corazonadas'.",
+    "Paginas": 600,
+    "Genero": "Filosofía"
+  },
+  {
+    "Id": 6,
+    "LibroId": 106,
+    "TituloLibro": "Los juegos del hambre",
+    "Autor": "Suzanne Collins",
+    "Razon": "Una lectura trepidante que encaja con tu gusto por la fantasía/aventura.",
+    "Paginas": 374,
+    "Genero": "Distopía"
+  },
+  {
+    "Id": 7,
+    "LibroId": 107,
+    "TituloLibro": "La invención de Hugo Cabret",
+    "Autor": "Brian Selznick",
+    "Razon": "Lectura envolvente y visual, perfecta para fans de Rowling.",
+    "Paginas": 533,
+    "Genero": "Juvenil"
+  },
+  {
+    "Id": 8,
+    "LibroId": 108,
+    "TituloLibro": "Jane Eyre",
+    "Autor": "Charlotte Brontë",
+    "Razon": "Un clásico que, como Marianela, explora la introspección y la lucha personal.",
+    "Paginas": 544,
+    "Genero": "Clásico"
+  },
+  {
+    "Id": 9,
+    "LibroId": 109,
+    "TituloLibro": "La hija del relojero",
+    "Autor": "Kate Morton",
+    "Razon": "Si te gusta la narrativa histórica y compleja como la de Katún.",
+    "Paginas": 496,
+    "Genero": "Ficción Histórica"
+  },
+  {
+    "Id": 10,
+    "LibroId": 110,
+    "TituloLibro": "El retrato de Dorian Gray",
+    "Autor": "Oscar Wilde",
+    "Razon": "Un clásico obligatorio para cualquier lector voraz.",
+    "Paginas": 254,
+    "Genero": "Clásico"
+  }
+]

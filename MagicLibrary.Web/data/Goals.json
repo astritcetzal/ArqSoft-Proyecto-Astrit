@@ -1,0 +1,70 @@
+[
+  {
+    "IdMeta": 1,
+    "IdUsuario": 1,
+    "Anio": 2026,
+    "CantidadObjetivo": 11,
+    "LibrosAsignados": [
+      {
+        "Titulo": "La ladrona de libros",
+        "EstaCompletado": true,
+        "RecomendacionId": 1,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "Percy Jackson y el ladr\u00F3n del rayo",
+        "EstaCompletado": true,
+        "RecomendacionId": 2,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "La invenci\u00F3n de Hugo Cabret",
+        "EstaCompletado": true,
+        "RecomendacionId": 7,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "El retrato de Dorian Gray",
+        "EstaCompletado": true,
+        "RecomendacionId": 10,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "La hija del relojero",
+        "EstaCompletado": false,
+        "RecomendacionId": 9,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "El mundo de Sof\u00EDa",
+        "EstaCompletado": false,
+        "RecomendacionId": 5,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "Jane Eyre",
+        "EstaCompletado": false,
+        "RecomendacionId": 8,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "Circe",
+        "EstaCompletado": false,
+        "RecomendacionId": 3,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "Los juegos del hambre",
+        "EstaCompletado": false,
+        "RecomendacionId": 6,
+        "MiLibroId": null
+      },
+      {
+        "Titulo": "Jane Eyre",
+        "EstaCompletado": false,
+        "RecomendacionId": 8,
+        "MiLibroId": null
+      }
+    ]
+  }
+]

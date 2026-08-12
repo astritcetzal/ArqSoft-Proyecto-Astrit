@@ -1,0 +1,1191 @@
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: var(--fondo-papel);
+    color: var(--texto-tinta);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholders {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+/* =========================================
+   1. PALETA VINTAGE NEUTRA Y EDITORIAL
+========================================= */
+:root {
+    --fondo-papel: #F7F5F0; /* Blanco roto / Hoja antigua */
+    --texto-tinta: #2C2A28; /* Tinta oscura mate */
+    --texto-suave: #736E67; /* Gris cálido vintage */
+    --verde-salvia: #A2B29F; /* Verde neutro */
+    --terracota: #D17C64; /* Terracota / Arcilla */
+    --azul-profundo: #3A5A6E; /* Azul vintage mate */
+    --crema-tarjeta: #FFFFFF;
+    --borde-delgado: 1px solid #E6E2D8;
+    --borde-fuerte: 2px solid #2C2A28;
+    --transicion-elegante: all 0.3s ease;
+}
+
+/* Regla de Oro: Cuadriláteros perfectos en toda la aplicación */
+*, *::before, *::after,
+.tarjeta-contenido, .filtro-btn, .btn, button, input, select, textarea,
+.caja-stat, .mensaje-burbuja, .modal-content, .goal-item, .meta-item {
+    border-radius: 0 !important;
+}
+
+/* =========================================
+   2. ENCABEZADOS Y NAVEGACIÓN
+========================================= */
+.header-libro, .meta-cabecera, .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: var(--borde-fuerte);
+}
+
+    .header-libro h1, .hero-title, .meta-cabecera h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--texto-tinta);
+        margin: 0;
+    }
+
+.contenedor-filtros {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.filtro-btn {
+    background-color: transparent;
+    color: var(--texto-suave);
+    padding: 8px 18px;
+    border: var(--borde-delgado);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: var(--transicion-elegante);
+}
+
+    .filtro-btn:hover, .filtro-btn.activo {
+        background-color: var(--texto-tinta);
+        color: var(--fondo-papel);
+        border-color: var(--texto-tinta);
+    }
+
+/* =========================================
+   3. GRID EDITORIAL Y TARJETAS RECTANGULARES
+========================================= */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+.tarjeta-libro, .tarjeta-recomendaciones {
+    text-decoration: none !important;
+    color: inherit;
+    display: block;
+}
+
+/* Fusionado: se consolida estilos estructurales y posicionamiento relativo */
+.tarjeta-contenido {
+    position: relative;
+    background-color: var(--crema-tarjeta);
+    padding: 30px;
+    height: 100%;
+    border: var(--borde-delgado);
+    border-top: 5px solid var(--azul-profundo);
+    transition: var(--transicion-elegante);
+}
+
+    .tarjeta-contenido:hover {
+        border-color: var(--texto-tinta);
+        background-color: #FAFAF8;
+    }
+
+    .tarjeta-contenido h3 {
+        color: var(--texto-tinta);
+        font-size: 1.4rem;
+        margin: 0 0 10px 0;
+        font-weight: 700;
+    }
+
+    .tarjeta-contenido .etiqueta-estado {
+        color: var(--azul-profundo);
+    }
+
+.etiqueta-estado {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--terracota);
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.etiqueta-autor {
+    font-size: 0.95rem;
+    color: var(--texto-suave);
+    font-style: italic;
+}
+
+/* =========================================
+   4. FORMULARIOS E INPUTS RECTOS
+========================================= */
+.grupo-input, .form-group {
+    margin-bottom: 20px;
+}
+
+    .grupo-input label, .form-label {
+        display: block;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--texto-suave);
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #D9D4C9;
+    background-color: #FCFBF9;
+    font-family: inherit;
+    color: var(--texto-tinta);
+    transition: var(--transicion-elegante);
+}
+
+    input:focus, select:focus, textarea:focus {
+        outline: none;
+        border-color: var(--terracota);
+        background-color: var(--crema-tarjeta);
+    }
+
+/* =========================================
+   5. BOTONES ESTRUCTURALES
+========================================= */
+.btn-agregar-libro, button[type="submit"], .btn-editar, .btn-estilo-editorial, .btn-assign {
+    background-color: var(--texto-tinta);
+    color: var(--fondo-papel);
+    padding: 12px 26px;
+    border: 1px solid var(--texto-tinta);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transicion-elegante);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+    .btn-agregar-libro:hover, button[type="submit"]:hover, .btn-editar:hover, .btn-estilo-editorial:hover {
+        background-color: var(--terracota);
+        border-color: var(--terracota);
+        color: white;
+    }
+
+.btn-borrar, .btn-cancel, .btn-delete {
+    background-color: transparent;
+    color: var(--texto-suave);
+    border: 1px solid var(--texto-suave);
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transicion-elegante);
+}
+
+    .btn-borrar:hover, .btn-delete:hover {
+        border-color: #B33939;
+        color: #B33939;
+    }
+
+.link-cancelar, .link-volver {
+    color: var(--texto-suave);
+    text-decoration: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 15px;
+}
+
+    .link-cancelar:hover, .link-volver:hover {
+        color: var(--texto-tinta);
+        border-bottom: 1px solid var(--texto-tinta);
+    }
+
+/* =========================================
+   6. METAS Y ESTADÍSTICAS (SECCIÓN METAS)
+========================================= */
+.meta-contenedor, .goal-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: var(--crema-tarjeta);
+    border: var(--borde-fuerte);
+}
+
+.meta-estadisticas, .goal-stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.caja-stat, .stat-card {
+    background-color: #F2EFE9;
+    border: 1px solid #D9D4C9;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-numero, .stat-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--texto-tinta);
+}
+
+.stat-texto, .stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--texto-suave);
+}
+
+.goal-item, .meta-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #E6E2D8;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+    .goal-item.item-completed {
+        background-color: #F4F7F4;
+        border-color: var(--verde-salvia);
+    }
+
+/* =========================================
+   7. SECCIÓN LANDING / PRINCIPAL
+========================================= */
+.hero-principal-limpio {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.hero-titulo {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--texto-tinta);
+    margin-bottom: 30px;
+    border-bottom: 5px solid var(--verde-salvia);
+    padding-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.hero-texto-editorial {
+    max-width: 650px;
+    margin: 0 auto 40px auto;
+    font-size: 1.1rem;
+    color: var(--texto-suave);
+    line-height: 1.8;
+    border-left: 3px solid var(--terracota);
+    padding-left: 20px;
+    text-align: left;
+}
+
+/* =========================================
+   ESTILOS DE AUTENTICACIÓN (LOGIN Y REGISTRO)
+========================================= */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--fondo-papel);
+    padding: 20px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--crema-tarjeta);
+    border: var(--borde-fuerte);
+    padding: 40px;
+    box-shadow: 8px 8px 0px var(--verde-salvia);
+}
+
+    .auth-card.registro {
+        box-shadow: 8px 8px 0px var(--terracota);
+    }
+
+.auth-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    color: var(--texto-tinta);
+}
+
+.auth-subtitle {
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.auth-divider {
+    margin: 25px 0;
+    border: none;
+    border-top: var(--borde-delgado);
+}
+
+.auth-footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* =========================================
+   ESTILOS EDITORIALES HOME INDEX
+========================================= */
+.home-container {
+    max-width: 950px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.home-emblema {
+    border: var(--borde-fuerte);
+    padding: 40px 20px;
+    background-color: var(--crema-tarjeta);
+    margin-bottom: 40px;
+}
+
+.home-titulo {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--texto-tinta);
+}
+
+.home-subtitulo {
+    font-size: 1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--terracota);
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.home-descripcion {
+    max-width: 650px;
+    margin: 20px auto 0 auto;
+    color: var(--texto-suave);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.home-acciones {
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+.btn-terracota {
+    background-color: var(--terracota);
+    border-color: var(--terracota);
+}
+
+.btn-azul {
+    background-color: var(--azul-profundo);
+    border-color: var(--azul-profundo);
+}
+
+.home-features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    text-align: left;
+    gap: 20px;
+}
+
+.feature-title {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.feature-text {
+    font-size: 0.9rem;
+    color: var(--texto-suave);
+}
+
+/* =========================================
+   ESTILOS PERFIL DE LECTOR
+========================================= */
+.profile-container {
+    max-width: 850px;
+    margin: 40px auto;
+}
+
+.profile-card {
+    border-top: 6px solid var(--verde-salvia);
+    background-color: var(--crema-tarjeta);
+    padding: 40px;
+}
+
+.profile-grid-stats {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.profile-stat-box {
+    background-color: #F2EFE9;
+    padding: 20px;
+    border: var(--borde-delgado);
+}
+
+.profile-stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--texto-suave);
+    display: block;
+}
+
+.profile-stat-value {
+    font-size: 1.5rem;
+    color: var(--texto-tinta);
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+    .profile-stat-value.terracota {
+        color: var(--terracota);
+    }
+
+    .profile-stat-value.azul {
+        color: var(--azul-profundo);
+        font-size: 1.3rem;
+    }
+
+.profile-generos-section {
+    border-top: var(--borde-delgado);
+    padding-top: 25px;
+}
+
+.profile-generos-title {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--texto-suave);
+    margin-bottom: 15px;
+}
+
+.profile-generos-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.profile-badge-genero {
+    background-color: var(--texto-tinta);
+    color: var(--fondo-papel);
+    padding: 8px 16px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.profile-banner-info {
+    background-color: #F2EFE9;
+    border-left: 4px solid var(--azul-profundo);
+    padding: 20px;
+    font-size: 0.9rem;
+    color: var(--texto-tinta);
+    margin-top: 20px;
+}
+
+/* =========================================
+   FORMULARIOS CENTRADOS (LOGIN Y REGISTRO)
+========================================= */
+.formulario-login,
+.formulario-registro {
+    max-width: 420px !important;
+    width: 100% !important;
+    margin: 80px auto !important;
+    padding: 40px !important;
+    background-color: #FFFFFF !important;
+    border: 2px solid #2C2A28 !important;
+    box-shadow: 8px 8px 0px #A2B29F !important;
+    box-sizing: border-box !important;
+}
+
+.formulario-registro {
+    box-shadow: 8px 8px 0px #D17C64 !important;
+}
+
+    .formulario-login h1,
+    .formulario-registro h1 {
+        font-size: 1.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-top: 0;
+        margin-bottom: 25px;
+        color: #2C2A28;
+        text-align: center;
+        border-bottom: 2px solid #2C2A28;
+        padding-bottom: 10px;
+    }
+
+    .formulario-login .grupo-input input,
+    .formulario-registro .grupo-input input {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .formulario-login .btn-guardar,
+    .formulario-registro .btn-guardar {
+        width: 100% !important;
+        background-color: #2C2A28;
+        color: #F7F5F0;
+        padding: 12px;
+        border: none;
+        font-weight: bold;
+        text-transform: uppercase;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+        .formulario-login .btn-guardar:hover,
+        .formulario-registro .btn-guardar:hover {
+            background-color: #D17C64;
+        }
+
+/* =========================================
+   ESTILOS PÁGINA DE PRIVACIDAD EDITORIAL
+========================================= */
+.privacy-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: var(--crema-tarjeta);
+    border: var(--borde-fuerte);
+}
+
+.privacy-title {
+    font-size: 2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--texto-tinta);
+    border-bottom: var(--borde-fuerte);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.privacy-section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--azul-profundo);
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.privacy-text {
+    font-size: 0.95rem;
+    color: var(--texto-suave);
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.privacy-footer {
+    margin-top: 40px;
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+    font-style: italic;
+    border-top: var(--borde-delgado);
+    padding-top: 15px;
+}
+
+/* =========================================
+   ESTILOS EDITORIALES: DETALLE DEL LIBRO
+========================================= */
+.detalle-container {
+    max-width: 850px;
+    margin: 40px auto;
+}
+
+.detalle-card-header {
+    border-bottom: var(--borde-fuerte);
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.detalle-titulo-libro {
+    font-size: 2.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--texto-tinta);
+    margin: 0;
+    line-height: 1.1;
+}
+
+.detalle-autor-libro {
+    font-size: 1.1rem;
+    color: var(--texto-suave);
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.detalle-grid-metadata {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.detalle-box-meta {
+    background-color: #F2EFE9;
+    border: var(--borde-delgado);
+    padding: 18px;
+    text-align: center;
+}
+
+.detalle-meta-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--texto-suave);
+    font-weight: bold;
+    display: block;
+}
+
+.detalle-meta-value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--texto-tinta);
+    margin-top: 5px;
+    display: block;
+}
+
+.resena-seccion-box {
+    background-color: var(--crema-tarjeta);
+    border: var(--borde-delgado);
+    border-left: 5px solid var(--terracota);
+    padding: 30px;
+    margin-top: 35px;
+}
+
+.resena-header-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--texto-tinta);
+    margin-bottom: 15px;
+    border-bottom: var(--borde-delgado);
+    padding-bottom: 10px;
+}
+
+.resena-texto-contenido {
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--texto-tinta);
+    margin-bottom: 15px;
+}
+
+.resena-calificacion-badge {
+    display: inline-block;
+    background-color: var(--texto-tinta);
+    color: var(--fondo-papel);
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* =========================================
+   SISTEMA DE ESTRELLAS HORIZONTAL (SIN BOLITAS)
+========================================= */
+.rating {
+    display: flex !important;
+    flex-direction: row-reverse !important;
+    justify-content: flex-end !important;
+    gap: 6px !important;
+    margin: 10px 0 25px 0 !important;
+}
+
+    .rating input[type="radio"] {
+        display: none !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        height: 0 !important;
+        margin: 0 !important;
+    }
+
+    .rating label {
+        cursor: pointer !important;
+        font-size: 1.8rem !important;
+        color: #D9D4C9 !important;
+        transition: color 0.2s ease !important;
+        line-height: 1 !important;
+        display: inline-block !important;
+    }
+
+        .rating input[type="radio"]:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: #D17C64 !important;
+        }
+
+.acciones-tarjeta {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+    .acciones-tarjeta .btn-agregar-libro {
+        flex: 1;
+        text-align: center;
+    }
+
+.form-eliminar-tarjeta {
+    display: inline;
+    margin: 0;
+}
+
+.btn-eliminar-tarjeta {
+    background-color: transparent;
+    color: var(--terracota, #c0392b);
+    border: 1px solid var(--terracota, #c0392b);
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+    .btn-eliminar-tarjeta:hover {
+        background-color: var(--terracota, #c0392b);
+        color: #ffffff;
+    }
+
+.btn-eliminar-esquina {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: transparent;
+    color: var(--terracota, #c0392b);
+    border: 1px solid var(--terracota, #c0392b);
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+    .btn-eliminar-esquina:hover {
+        background-color: var(--terracota, #c0392b);
+        color: #ffffff;
+    }
+
+.razon-contenedor {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #F2EFE9;
+    font-size: 0.85rem;
+    border-left: 3px solid var(--terracota);
+}
+
+.contenedor-btn-agregar {
+    margin-top: 20px;
+}
+
+    .contenedor-btn-agregar .btn-agregar-libro {
+        width: 100%;
+        text-align: center;
+        display: block;
+    }
+
+.barra-superior {
+    background-color: var(--azul-profundo, #0b3c5d);
+    padding: 10px 18px;
+}
+
+.btn-menu-toggle {
+    background-color: var(--terracota, #c0392b);
+    color: #ffffff;
+    font-weight: 600;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+    .btn-menu-toggle:hover,
+    .btn-menu-toggle:focus {
+        background-color: #a93226;
+        color: #ffffff;
+        box-shadow: none;
+    }
+
+.icono-hamburguesa {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.menu-desplegable-container {
+    width: 280px !important;
+    background-color: #002b49;
+    color: #ffffff;
+    border-right: none;
+}
+
+.menu-desplegable-header {
+    background-color: var(--terracota, #c0392b);
+    color: #ffffff;
+    padding: 16px 20px;
+}
+
+    .menu-desplegable-header .offcanvas-title {
+        font-size: 1.2rem;
+        letter-spacing: 0.5px;
+    }
+
+.nav-link-menu {
+    display: block;
+    padding: 14px 20px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #002b49;
+    transition: background-color 0.2s ease;
+}
+
+    .nav-link-menu:hover {
+        background-color: #003d66;
+        color: #ffffff;
+    }
+
+.menu-subseccion-header {
+    background-color: var(--terracota, #c0392b);
+    color: #ffffff;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sub-menu {
+    margin: 0;
+    padding: 0;
+    background-color: #001f35;
+}
+
+.nav-link-submenu {
+    display: block;
+    padding: 12px 20px 12px 35px;
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+    .nav-link-submenu:hover {
+        background-color: #003357;
+        color: #ffffff;
+    }
+
+.contenedor-acciones-tarjeta {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+    .contenedor-acciones-tarjeta .btn-agregar-libro {
+        width: 100%;
+        text-align: center;
+        display: block;
+    }
+
+.btn-eliminar-debajo {
+    background-color: transparent;
+    color: var(--terracota, #c0392b);
+    border: 1px solid var(--terracota, #c0392b);
+    padding: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+    display: block;
+    width: 100%;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+    .btn-eliminar-debajo:hover {
+        background-color: var(--terracota, #c0392b);
+        color: #ffffff;
+    }
+
+/* --- Banner de Alerta Minimalista --- */
+.goal-alert-banner {
+    background-color: #E8EFE9;
+    border-left: 4px solid var(--verde-salvia);
+    color: var(--texto-tinta);
+    padding: 8px 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+}
+
+/* --- Check-in Diario Horizontal y Compacto --- */
+.goal-checkin-compact {
+    background-color: var(--crema-tarjeta);
+    border: var(--borde-delgado);
+    border-left: 4px solid var(--terracota);
+    padding: 10px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 1.5rem;
+}
+
+.checkin-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.checkin-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--texto-tinta);
+}
+
+.checkin-subtitle {
+    font-size: 0.8rem;
+    color: var(--texto-suave);
+    font-style: italic;
+}
+
+.form-checkin {
+    margin: 0;
+}
+
+.btn-checkin-editorial {
+    background-color: var(--texto-tinta);
+    color: var(--fondo-papel);
+    border: 1px solid var(--texto-tinta);
+    padding: 8px 16px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transicion-elegante);
+}
+
+    .btn-checkin-editorial:hover {
+        background-color: var(--terracota);
+        border-color: var(--terracota);
+        color: #ffffff;
+    }
+
+@media (max-width: 650px) {
+    .goal-checkin-compact {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .checkin-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .btn-checkin-editorial {
+        width: 100%;
+    }
+}
+/* =========================================
+   ADAPTACIONES RESPONSIVAS GLOBALES (MÓVILES)
+========================================= */
+@media (max-width: 768px) {
+
+    /* 1. Ajustes del Contenedor General */
+    body {
+        padding: 10px !important;
+    }
+
+    .meta-contenedor,
+    .goal-container,
+    .home-container,
+    .profile-container,
+    .detalle-container,
+    .privacy-container {
+        padding: 15px !important;
+        margin: 10px auto !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 2. Todos los Grids a 1 sola columna vertical */
+    .grid,
+    .home-features-grid,
+    .profile-grid-stats,
+    .detalle-grid-metadata,
+    .goal-assign-section .grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+
+    /* 3. Encabezados de páginas flexibles */
+    .header-libro,
+    .meta-cabecera,
+    .chat-header,
+    .detalle-card-header,
+    .goal-checkin-compact {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+    }
+
+        .header-libro h1, .hero-title, .meta-cabecera h1, .home-titulo {
+            font-size: 1.8rem !important;
+        }
+
+    /* 4. Lista de Libros en Metas (Sección de tu captura) */
+    .goal-item, .meta-item {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+        padding: 15px !important;
+    }
+
+    .item-main-info {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+        width: 100% !important;
+    }
+
+    .item-actions {
+        width: 100% !important;
+    }
+
+    .goal-item button,
+    .goal-item .btn-borrar,
+    .goal-item .filtro-btn {
+        width: 100% !important;
+        display: block !important;
+        text-align: center !important;
+    }
+
+    /* 5. Asegurar que tarjetas, selects e inputs no desborden */
+    .tarjeta-contenido,
+    .caja-stat,
+    .stat-card,
+    .profile-stat-box {
+        padding: 18px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    select, input, textarea, button, .btn-agregar-libro {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 6. Filtros de Géneros scrolleables horizontalmente sin romperse */
+    .contenedor-filtros {
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        padding-bottom: 10px !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .filtro-btn {
+        white-space: nowrap !important;
+    }
+}

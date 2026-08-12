@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MagicLibrary</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MagicLibraryMVC.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar barra-superior">
+            <div class="container-fluid justify-content-start gap-3">
+                <!-- Botón de apertura del menú desplegable -->
+                <button class="btn btn-menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral">
+                    <span class="icono-hamburguesa">&#9776;</span> Menú
+                </button>
+                <a class="navbar-brand text-white fw-bold my-0 ms-2" asp-controller="Home" asp-action="Index">MagicLibrary</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Menú Desplegable Lateral -->
+    <div class="offcanvas offcanvas-start menu-desplegable-container" tabindex="-1" id="menuLateral" aria-labelledby="menuLateralLabel">
+        <div class="offcanvas-header menu-desplegable-header">
+            <h5 class="offcanvas-title fw-bold" id="menuLateralLabel">Menú</h5>
+            <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+        </div>
+        <div class="offcanvas-body menu-desplegable-body p-0">
+            <ul class="nav flex-column list-unstyled m-0">
+                <li class="nav-item">
+                    <a class="nav-link-menu" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link-menu" asp-area="" asp-controller="Book" asp-action="Index">Mis libros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link-menu" asp-area="" asp-controller="Goal" asp-action="Index">Metas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link-menu" asp-area="" asp-controller="Recommendation" asp-action="Index">Recomendaciones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link-menu" asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
+                </li>
+
+                <!-- Sección de Usuario / Autenticación -->
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item item-desplegable">
+                        <div class="menu-subseccion-header">
+                            Hola, @User.Identity.Name
+                        </div>
+                        <ul class="list-unstyled sub-menu">
+                            <li>
+                                <a class="nav-link-submenu" asp-area="" asp-controller="UserProfile" asp-action="Index">Mi Perfil</a>
+                            </li>
+                            <li>
+                                <a class="nav-link-submenu log" asp-area="" asp-controller="User" asp-action="CerrarSesion">Cerrar sesión</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item item-desplegable">
+                        <div class="menu-subseccion-header">
+                            Cuenta
+                        </div>
+                        <ul class="list-unstyled sub-menu">
+                            <li>
+                                <a class="nav-link-submenu" asp-area="" asp-controller="User" asp-action="IniciarSesion">Iniciar sesión</a>
+                            </li>
+                            <li>
+                                <a class="nav-link-submenu log" asp-area="" asp-controller="User" asp-action="Registrar">Registrarse</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <main role="main" class="pb-3 mt-4">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - MagicLibrary - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

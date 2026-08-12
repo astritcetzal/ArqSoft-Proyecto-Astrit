@@ -1,0 +1,106 @@
+﻿@model MagicLibrary.Domain.Models.Book
+
+@{
+    ViewData["Title"] = Model.Titulo;
+}
+
+<div class="contenedor-principal detalle-container">
+    
+    <!-- TARJETA PRINCIPAL DE FICHA TÉCNICA -->
+    <div class="tarjeta-contenido">
+        
+        <div class="detalle-card-header">
+            <div>
+                <h1 class="detalle-titulo-libro">@Model.Titulo</h1>
+                <p class="detalle-autor-libro">Por @Model.Autor</p>
+            </div>
+            <div>
+                <span class="etiqueta-estado">@Model.Estado</span>
+            </div>
+        </div>
+
+        <!-- MÉTICAS EN GRILLA CUADRILÁTERA -->
+        <div class="detalle-grid-metadata">
+            <div class="detalle-box-meta">
+                <span class="detalle-meta-label">Páginas Totales</span>
+                <span class="detalle-meta-value">@Model.Paginas págs</span>
+            </div>
+
+            <div class="detalle-box-meta">
+                <span class="detalle-meta-label">Fecha de Inicio</span>
+                <span class="detalle-meta-value">
+                    @(Model.FechaInicio.HasValue ? Model.FechaInicio.Value.ToString("dd/MM/yyyy") : "Sin registrar")
+                </span>
+            </div>
+
+            <div class="detalle-box-meta">
+                <span class="detalle-meta-label">Fecha Finalización</span>
+                <span class="detalle-meta-value">
+                    @(Model.FechaTerminado.HasValue ? Model.FechaTerminado.Value.ToString("dd/MM/yyyy") : "En proceso")
+                </span>
+            </div>
+        </div>
+
+        <!-- ACCIONES SOBRE EL LIBRO -->
+        <div class="acciones-hero" style="margin-top: 20px;">
+            <a asp-action="EditarDetalles" asp-route-id="@Model.IdLibro" class="btn-agregar-libro">Editar Detalles</a>
+            <a asp-action="Index" class="link-cancelar">Volver a mis libros</a>
+        </div>
+    </div>
+
+    <!-- SECCIÓN DE RESEÑA EDITORIAL -->
+    <div class="resena-seccion-box">
+        <h3 class="resena-header-title">Reseña Personal</h3>
+
+        @if (string.IsNullOrEmpty(Model.ResenaPersonal))
+        {
+            <form asp-action="GuardarMiOpinion" method="post">
+                <input type="hidden" name="idLibro" value="@Model.IdLibro" />
+                
+                <div class="grupo-input">
+                    <label>Escribe tus notas y pensamientos sobre esta obra</label>
+                    <textarea name="comentario" rows="4" placeholder="¿Qué te pareció este libro?..." required></textarea>
+                </div>
+
+                <div class="grupo-input">
+                    <label>Calificación (1 al 10)</label>
+                    <div class="rating">
+                        <input type="radio" id="star10" name="calificacion" value="10" /><label for="star10">★</label>
+                        <input type="radio" id="star9" name="calificacion" value="9" /><label for="star9">★</label>
+                        <input type="radio" id="star8" name="calificacion" value="8" /><label for="star8">★</label>
+                        <input type="radio" id="star7" name="calificacion" value="7" /><label for="star7">★</label>
+                        <input type="radio" id="star6" name="calificacion" value="6" /><label for="star6">★</label>
+                        <input type="radio" id="star5" name="calificacion" value="5" /><label for="star5">★</label>
+                        <input type="radio" id="star4" name="calificacion" value="4" /><label for="star4">★</label>
+                        <input type="radio" id="star3" name="calificacion" value="3" /><label for="star3">★</label>
+                        <input type="radio" id="star2" name="calificacion" value="2" /><label for="star2">★</label>
+                        <input type="radio" id="star1" name="calificacion" value="1" /><label for="star1">★</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-agregar-libro btn-terracota">Guardar Reseña</button>
+            </form>
+        }
+        else
+        {
+            <div class="comentario">
+                <p class="resena-texto-contenido">"@Model.ResenaPersonal"</p>
+                
+                <div style="margin-bottom: 20px;">
+                    <span class="resena-calificacion-badge">Calificación: @Model.CalificacionPersonal / 10 ★</span>
+                </div>
+                
+                <div class="acciones-resena">
+                    <a asp-action="EditarResena" asp-route-idLibro="@Model.IdLibro" class="btn-editar">Editar Reseña</a>
+                    
+                    <form asp-action="GuardarMiOpinion" method="post" style="display:inline;">
+                        <input type="hidden" name="idLibro" value="@Model.IdLibro" />
+                        <input type="hidden" name="comentario" value="" />
+                        <input type="hidden" name="calificacion" value="0" />
+                        <button type="submit" class="btn-borrar" onclick="return confirm('¿Seguro que deseas eliminar tu reseña?')">Eliminar Reseña</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>

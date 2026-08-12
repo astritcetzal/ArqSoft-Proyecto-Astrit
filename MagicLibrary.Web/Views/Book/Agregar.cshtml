@@ -1,0 +1,48 @@
+﻿@model MagicLibrary.Domain.Models.Book
+
+<div class="contenedor-principal" style="max-width: 600px; margin: 40px auto;">
+    <h1 class="hero-titulo" style="font-size: 2.2rem; margin-bottom: 25px;">Agregar Libro</h1>
+
+    <form asp-action="Agregar" method="post">
+        <div class="grupo-input">
+            <label asp-for="Titulo">Título del Libro</label>
+            <input asp-for="Titulo" required placeholder="Ej. Cien Años de Soledad" />
+        </div>
+
+        <div class="grupo-input">
+            <label asp-for="Autor">Nombre del Autor</label>
+            <input asp-for="Autor" required placeholder="Ej. Gabriel García Márquez" />
+        </div>
+
+        <div class="grupo-input">
+            <label asp-for="Paginas">Número de Páginas</label>
+            <input asp-for="Paginas" type="number" min="1" placeholder="Ej. 417" />
+        </div>
+
+        <div class="grupo-input">
+            <label asp-for="FechaInicio">Fecha de Inicio</label>
+            <input asp-for="FechaInicio" type="date" />
+        </div>
+
+        <div class="grupo-input">
+            <label asp-for="Estado">Estado de Lectura</label>
+            <select asp-for="Estado">
+                <option value="Pendiente">Pendiente</option>
+                <option value="Leyendo">Leyendo</option>
+                <option value="Terminado">Terminado</option>
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label asp-for="FechaTerminado">Fecha de Finalización</label>
+            <input asp-for="FechaTerminado" type="date" />
+        </div>
+
+        <hr />
+        
+        <div style="margin-top: 25px;">
+            <button type="submit" class="btn-agregar-libro">Guardar Libro</button>
+            <a asp-action="Index" class="link-cancelar">Cancelar</a>
+        </div>
+    </form>
+</div>

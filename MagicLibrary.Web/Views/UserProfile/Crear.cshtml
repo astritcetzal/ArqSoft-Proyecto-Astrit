@@ -1,0 +1,58 @@
+﻿@model MagicLibrary.Domain.Models.UserProfile
+
+@{
+    ViewData["Title"] = "Configurar Perfil";
+}
+
+<div class="contenedos-formulario">
+    <h1>Cuéntanos sobre ti</h1>
+    <p>Para darte las mejores recomendaciones y metas, necesitamos conocerte como lector.</p>
+
+    <form asp-controller="UserProfile" asp-action="GuardarPerfil" method="post">
+        
+        <!-- Muestra los errores de validación generales -->
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="grupo-input">
+            <label>Nivel de Lector</label>
+            <select asp-for="NivelLector" class="input-cuadrado">
+                <option value="">-- Selecciona tu nivel --</option>
+                <option value="Principiante">Principiante (Apenas inicio)</option>
+                <option value="Casual">Casual (Leo de vez en cuando)</option>
+                <option value="Frecuente">Frecuente (Devoro libros)</option>
+            </select>
+            <span asp-validation-for="NivelLector" class="text-danger" style="color: red; font-size: 0.8rem;"></span>
+        </div>
+
+        <div class="grupo-input">
+            <label>¿Aproximadamente cuántos libros has leído en tu vida?</label>
+            <input asp-for="CantidadLibrosHistorico" type="number" min="0" placeholder="Ej. 5, 20, 100..." />
+            <span asp-validation-for="CantidadLibrosHistorico" class="text-danger" style="color: red; font-size: 0.8rem;"></span>
+        </div>
+
+        <div class="grupo-input">
+            <label>¿Desde cuándo empezaste a leer por gusto?</label>
+            <input asp-for="FechaInicio" type="date" required />
+        </div>
+
+        <div class="grupo-input">
+            <label>Géneros Favoritos (Separados por coma)</label>
+            <small style="color: var(--terracota); font-weight: bold; display: block; margin-top: 5px;">
+                Por favor, ingresa un máximo de 3 géneros separados por coma para mejores recomendaciones.
+            </small>
+            <input asp-for="GenerosFavoritos" placeholder="Ej. Fantasía, Ciencia Ficción, Terror..." required />
+        </div>
+        <hr />
+        <div class="acciones-formulario">
+            <button type="submit" class="btn-guardar">Guardar Perfil</button>
+            <a asp-action="Index" class="btn-borrar">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<!-- Scripts necesarios para que las validaciones de C# (Data Annotations) funcionen en vivo en el navegador -->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

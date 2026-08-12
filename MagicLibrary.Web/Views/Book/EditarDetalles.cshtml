@@ -1,0 +1,49 @@
+﻿@model MagicLibrary.Domain.Models.Book
+
+<div class="contenedor-principal" style="max-width: 600px; margin: 0 auto;">
+    <h2 class="hero-titulo" style="font-size: 2rem;">Editar Detalles del Libro</h2>
+
+    <form asp-controller="Book" asp-action="EditarDetalles" method="post">
+        <input type="hidden" asp-for="IdLibro" />
+        <input type="hidden" asp-for="UserId" />
+
+        <div class="grupo-input">
+            <label asp-for="Titulo">Título</label>
+            <input asp-for="Titulo" required />
+        </div>
+
+        <div class="grupo-input">
+            <label asp-for="Autor">Nombre del Autor</label>
+            <input asp-for="Autor" required />
+        </div>
+
+        <div class="grupo-input">
+            <label asp-for="Paginas">Páginas</label>
+            <input asp-for="Paginas" type="number" min="0" />
+        </div>
+
+        <div class="grupo-input">
+            <label asp-for="Estado">Estado de Lectura</label>
+            <select asp-for="Estado">
+                <option value="Pendiente">Pendiente</option>
+                <option value="Leyendo">Leyendo</option>
+                <option value="Terminado">Terminado</option>
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label asp-for="FechaInicio">Fecha de Inicio</label>
+            <input asp-for="FechaInicio" type="date" />
+        </div>
+
+        <div class="grupo-input">
+            <label asp-for="FechaTerminado">Fecha de Finalización</label>
+            <input asp-for="FechaTerminado" type="date" />
+        </div>
+
+        <div style="margin-top: 25px;">
+            <button type="submit" class="btn-agregar-libro">Guardar Cambios</button>
+            <a asp-action="Detalle" asp-route-id="@Model.IdLibro" class="link-cancelar">Cancelar</a>
+        </div>
+    </form>
+</div>
